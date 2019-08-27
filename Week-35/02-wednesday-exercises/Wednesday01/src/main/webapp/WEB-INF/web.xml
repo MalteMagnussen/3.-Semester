@@ -12,6 +12,10 @@
         <servlet-name>table</servlet-name>
         <servlet-class>presentation.table</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SessionDemo</servlet-name>
+        <servlet-class>servlets.SessionDemo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>redirect</servlet-name>
         <url-pattern>/redirect</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>table</servlet-name>
         <url-pattern>/table</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SessionDemo</servlet-name>
+        <url-pattern>/SessionDemo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
