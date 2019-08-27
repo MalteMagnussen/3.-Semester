@@ -6,6 +6,11 @@
 package presentation;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +33,24 @@ public class table extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+      
+        Enumeration names = request.getHeaderNames();
+        List<Map<String, String>> headers = new ArrayList<>();
         
+        while (names.hasMoreElements()) {
+            String key = (String) names.nextElement();
+            Enumeration values = request.getHeaders(key);
+            if (values != null) {
+                while (values.hasMoreElements()) {
+                    Map<String, String> map = new HashMap<>();
+                    String value = (String) values.nextElement();
+                    map.put(key, value);
+                    headers.add(map);
+                }
+            }
+        }
+        
+        request.setAttribute("headers", headers);
         request.getRequestDispatcher("table.jsp").forward(request, response);
     }
 

@@ -23,45 +23,29 @@
 
     </head>
     <body>
-        <table class="table table-hover table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">HEADER</th>
-                    <th scope="col">VALUE</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Host</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>    
-                    <td>connection</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <td>cache-control</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <td>accept</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <td>user-agent</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <td>accept-encoding</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <td>accept-language</td>
-                    <td>@fat</td>
-                </tr>
-            </tbody>
-        </table>
 
+        <div class="d-flex justify-content-center">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">HEADER</th>
+                        <th scope="col">VALUE</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <c:forEach items="${headers}" var="map">
+                        <c:forEach items="${map}" var="entry">
+                            <tr>
+                                <td>${entry.key}</td>
+                                <td>${entry.value}</td>
+                            </tr>
+                        </c:forEach>
+                    </c:forEach>
+
+                </tbody>
+            </table>
+        </div>
         <!-- JQUERY JS -->
         <script src="https://code.jquery.com/jquery-3.4.0.min.js" crossorigin="anonymous"></script>
         <!-- BOOTSTRAP JS -->
