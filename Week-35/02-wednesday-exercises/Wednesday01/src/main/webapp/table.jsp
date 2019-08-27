@@ -8,12 +8,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <base href="${pageContext.request.contextPath}/" />
         <!-- meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Fog Carport</title>
+        <title>5) Get HTTP Request Headers on the Server</title>
 
         <!--The following tag is the JSTL Expression Language tag-->
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

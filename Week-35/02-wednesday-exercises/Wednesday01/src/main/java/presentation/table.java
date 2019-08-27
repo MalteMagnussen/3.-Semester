@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * 5) Get HTTP Request Headers on the Server
  * @author Malte
  */
 public class table extends HttpServlet {
