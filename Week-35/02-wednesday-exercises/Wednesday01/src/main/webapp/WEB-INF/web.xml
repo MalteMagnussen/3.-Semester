@@ -16,6 +16,10 @@
         <servlet-name>SessionDemo</servlet-name>
         <servlet-class>servlets.SessionDemo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CookieDemo</servlet-name>
+        <servlet-class>servlets.CookieDemo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>redirect</servlet-name>
         <url-pattern>/redirect</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>SessionDemo</servlet-name>
         <url-pattern>/SessionDemo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CookieDemo</servlet-name>
+        <url-pattern>/CookieDemo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
