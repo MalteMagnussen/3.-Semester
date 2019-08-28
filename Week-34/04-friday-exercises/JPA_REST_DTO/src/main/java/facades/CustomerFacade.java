@@ -2,16 +2,14 @@ package facades;
 
 import dto.CustomerDTO;
 import entities.BankCustomer;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
 
 /**
  * 8) Change the existing facade to provide the following methods. customerDTO
- * getCustomerByID(int id) List<customerDTO> getCustomerDTOByLastName(String name)
- BankCustomer addCustomer(BankCustomer cust) List<BankCustomer>
+ * getCustomerByID(int id) List<customerDTO> getCustomerDTOByLastName(String
+ * name) BankCustomer addCustomer(BankCustomer cust) List<BankCustomer>
  * getAllBankCustomers()
  *
  * Assume that the last two methods only will be used by the bank and eventually
@@ -55,8 +53,7 @@ public class CustomerFacade {
         EntityManager em = getEntityManager();
         Long longID = new Long(id);
         try {
-            BankCustomer customer = em.find(BankCustomer.class, longID);
-            return new CustomerDTO(customer);
+            return new CustomerDTO(em.find(BankCustomer.class, longID));
         } finally {
             em.close();
         }
@@ -71,15 +68,8 @@ public class CustomerFacade {
     public List<CustomerDTO> getCustomerDTOByLastName(String name) {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<BankCustomer> query
-                    = em.createQuery("Select e FROM BankCustomer e WHERE e.lastName = :lastName", BankCustomer.class)
-                            .setParameter("lastName", name);
-            List<BankCustomer> bankCustomers = query.getResultList();
-            List<CustomerDTO> customers = new ArrayList<>();
-            bankCustomers.forEach((b) -> {
-                customers.add(new CustomerDTO(b));
-            });
-            return customers;
+            return em.createQuery("Select new dto.CustomerDTO(e) FROM BankCustomer e WHERE e.lastName = :lastName", CustomerDTO.class)
+                    .setParameter("lastName", name).getResultList();
         } finally {
             em.close();
         }
@@ -103,7 +93,7 @@ public class CustomerFacade {
         } finally {
             em.close();
         }
-        return null; 
+        return null;
     }
 
     /**
@@ -114,8 +104,7 @@ public class CustomerFacade {
     public List<BankCustomer> getAllBankCustomers() {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<BankCustomer> query = em.createQuery("select c from BankCustomer c", BankCustomer.class);
-            return query.getResultList();
+            return em.createQuery("select c from BankCustomer c", BankCustomer.class).getResultList();
         } finally {
             em.close();
 
