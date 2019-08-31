@@ -1,5 +1,5 @@
 # 3.-Semester
-Malte Hviid Magnussen - Repository for 3rd Semester Computer Science
+[Malte Hviid Magnussen](https://maltemagnussen.com) - Repository for 3rd Semester Computer Science
 
 __Travis CI:__ ![TRAVIS CI](https://travis-ci.org/MalteMagnussen/3.-Semester.svg?branch=master)
 
