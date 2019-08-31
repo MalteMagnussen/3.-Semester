@@ -37,6 +37,7 @@
                     <div class="float-left">
                         <h2 class="font-weight-light">Review Links</h2>
                         <div class="btn-group-vertical">
+                            <a class="btn btn-dark" href="https://github.com/MalteMagnussen/3.-Semester/wiki/Week-36" role="button">Week 36</a>
                             <a class="btn btn-dark" href="https://github.com/MalteMagnussen/3.-Semester/wiki/Week-35" role="button">Week 35</a>
                             <a class="btn btn-dark" href="https://github.com/MalteMagnussen/3.-Semester/wiki/Week-34" role="button">Week 34</a>
                         </div>
