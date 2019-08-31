@@ -1,6 +1,8 @@
 # 3.-Semester
 Malte Hviid Magnussen - Repository for 3rd Semester Computer Science
 
+__Travis CI:__ ![TRAVIS CI](https://travis-ci.org/MalteMagnussen/3.-Semester.svg?branch=master)
+
 ### Q: I'm here to review, what do I do? 
 
 [Go to the Wiki and select the appropriate week in the sidebar.](https://github.com/MalteMagnussen/3.-Semester/wiki)
