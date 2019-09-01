@@ -24,20 +24,16 @@ import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
 
 //Uncomment the line below, to temporarily disable this test
-//@Disabled
+@Disabled
 public class MovieResourceTest {
 
-//    private static final int SERVER_PORT = 7777;
-//    private static final String SERVER_URL = "http://localhost/api";
-//    //Read this line from a settings-file  since used several places
-//    private static final String TEST_DB = "jdbc:mysql://localhost:3307/startcodev2-test";
     private static final Map<String, String> PROPS = entityUtils.EMF_Creator.getProps();
     static final URI BASE_URI = UriBuilder.fromUri(PROPS.get("test_server")).port(Integer.parseInt(PROPS.get("test_port"))).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
 
     static HttpServer startServer() {
-        System.out.println("BASE_URI: "+BASE_URI);
+        System.out.println("BASE_URI: " + BASE_URI);
         ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
         return GrizzlyHttpServerFactory.createHttpServer(BASE_URI, rc);
     }
@@ -50,22 +46,22 @@ public class MovieResourceTest {
         //Set System property so the project executed by the Grizly-server wil use this same database
         System.setProperty("IS_TEST", PROPS.get("connection"));
         //We are using the database on the virtual Vagrant image, so username password are the same for all dev-databases
-        
+
         httpServer = startServer();
-        
+
         //Setup RestAssured
         RestAssured.baseURI = PROPS.get("test_server");
         RestAssured.port = Integer.parseInt(PROPS.get("test_port"));
-        
+
         RestAssured.defaultParser = Parser.JSON;
     }
-    
+
     @AfterAll
-    public static void closeTestServer(){
+    public static void closeTestServer() {
         //System.in.read();
-         httpServer.shutdownNow();
+        httpServer.shutdownNow();
     }
-    
+
     // Setup the DataBase (used by the test-server and this test) in a known state BEFORE EACH TEST
     //TODO -- Make sure to change the script below to use YOUR OWN entity class
     @BeforeEach
@@ -73,41 +69,15 @@ public class MovieResourceTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
+            em.createNamedQuery("cinema.deleteAllRows").executeUpdate();
 
-            em.persist(new RenameMe("Some txt","More text"));
-            em.persist(new RenameMe("aaa","bbb"));
-           
+            em.persist(new Movie());
+            em.persist(new Movie());
+
             em.getTransaction().commit();
         } finally {
             em.close();
         }
     }
-    
-    @Test
-    public void testServerIsUp() {
-        System.out.println("Testing is server UP");
-        given().when().get("/xxx").then().statusCode(200);
-    }
-   
-    //This test assumes the database contains two rows
-    @Test
-    public void testDummyMsg() throws Exception {
-        given()
-        .contentType("application/json")
-        .get("/xxx/").then()
-        .assertThat()
-        .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("msg", equalTo("Hello World"));   
-    }
-    
-    @Test
-    public void testCount() throws Exception {
-        given()
-        .contentType("application/json")
-        .get("/xxx/count").then()
-        .assertThat()
-        .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("count", equalTo(2));   
-    }
+
 }
