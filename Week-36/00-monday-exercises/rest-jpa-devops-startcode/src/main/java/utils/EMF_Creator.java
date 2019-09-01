@@ -6,6 +6,10 @@ import javax.persistence.Persistence;
 
 public class EMF_Creator {
 
+    public static EntityManagerFactory getEMF(Strategy strategy) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public enum Strategy {
         NONE {
             @Override

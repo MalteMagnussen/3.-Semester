@@ -34,6 +34,14 @@ public class Movie implements Serializable {
     private boolean showing; // Is the movie currently showing in cinemas. 
     private long ticketsSold; // INTERNAL INFO - How many tickets sold to this movie. 
 
+    public Movie(String name, Date releaseDate, int rating, boolean showing, long ticketsSold) {
+        this.name = name;
+        this.releaseDate = releaseDate;
+        this.rating = rating;
+        this.showing = showing;
+        this.ticketsSold = ticketsSold;
+    }
+
     /**
      * Get the value of ticketsSold
      *

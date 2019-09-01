@@ -1,29 +1,27 @@
 package facades;
 
+import entities.Movie;
+import java.sql.Date;
 import utils.EMF_Creator;
-import entities.RenameMe;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import utils.Settings;
 import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
 
 //Uncomment the line below, to temporarily disable this test
-@Disabled
+//@Disabled
 public class MovieFacadeTest {
-
+    
     private static EntityManagerFactory emf;
-    private static FacadeExample facade;
-
+    private static MovieFacade facade;
+    
     public MovieFacadeTest() {
     }
-    
+
     /*   **** HINT **** 
         A better way to handle configuration values, compared to the UNUSED example above, is to store those values
         ONE COMMON place accessible from anywhere.
@@ -32,10 +30,10 @@ public class MovieFacadeTest {
      */
     @BeforeAll
     public static void setUpClass() {
-       emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST,Strategy.DROP_AND_CREATE);
-       facade = FacadeExample.getFacadeExample(emf);
+        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST, Strategy.DROP_AND_CREATE);
+        facade = MovieFacade.getMovieFacade(emf);
     }
-
+    
     @AfterAll
     public static void tearDownClass() {
 //        Clean up database after test is done or use a persistence unit with drop-and-create to start up clean on every test
@@ -48,21 +46,21 @@ public class MovieFacadeTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
+//            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
             // em.createQuery("DELETE from RenameMe").executeUpdate();
-            em.persist(new RenameMe("Some txt","More text"));
-            em.persist(new RenameMe("aaa","bbb"));
-           
+            em.persist(new Movie("Terminator", Date.valueOf("1984-2-15"), 8, false, 100000));
+            
             em.getTransaction().commit();
         } finally {
             em.close();
         }
     }
-
+    
     @AfterEach
     public void tearDown() {
 //        Remove any data after each test was run
     }
-
-
+    
+    
+    
 }
