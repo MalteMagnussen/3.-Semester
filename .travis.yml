@@ -10,7 +10,7 @@ matrix:
 # Input the path to your pom.xml in the projects you wanna Travis:
 script:
   - mvn -q -B -f Week-36/00-monday-exercises/travisGettingStarted-master/pom.xml clean verify
-#  - mvn -q -B -f second/pom.xml clean verify
+  - mvn -q -B -f Week-36/00-monday-exercises/rest-jpa-devops-startcode/pom.xml clean verify
 #  - mvn -q -B -f third/pom.xml clean verify
 
 
