@@ -3,15 +3,21 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dk</groupId>
-    <artifactId>FridayDeployment</artifactId>
+    <artifactId>ROOT</artifactId>
     <version>0.1</version>
     <packaging>war</packaging>
 
-    <name>FridayDeployment</name>
+    <name>ROOT</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        
+        <!-- TODO: Add the URL to your own tomcat server. Used to deploy your WAR-file -->
+
+        <remote.server>https://maltemagnussen.com/manager/text</remote.server>
+        
     </properties>
     
     <dependencies>
@@ -30,6 +36,22 @@
 
     <build>
         <plugins>
+            
+            <!-- Plugin used to deploy to remote server -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    
+                    <server>TomcatServer</server>
+                    <url>${remote.server}</url>
+                    <username>${remote.user}</username>
+                    <password>${remote.password}</password>
+                    <update>true</update>    
+                </configuration>  
+            </plugin> 
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
