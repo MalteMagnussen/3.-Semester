@@ -148,16 +148,13 @@ function oneForAll(type, filter) {
 //INSERT INTO cars (id,year,make,model,price) VALUES ( 1, 1997 'Ford','E350', 3000 );
 
 var SQLString = cars.map(car => "INSERT INTO cars (id,year,make,model,price) VALUES ("+car.id+","+car.year+","+car.make+","+car.model+","+car.price+");");
-console.log(SQLString)
-
-
+// console.log(SQLString)
 // 1) Given the code below answer, don’t execute the code, in what order you would expect to see the outputs:
 // aaaaaaaa
 // dddddddd
 // ffffffff
 // eeeeeeee
 // bbbbbbbb
-
 // var msgPrinter = function(msg,delay){
 //     setTimeout(function(){
 //       console.log(msg);
@@ -168,11 +165,33 @@ console.log(SQLString)
 //   console.log("dddddddddd");
 //   msgPrinter ("eeeeeeeeee",1000);
 //   console.log("ffffffffff");
-
 // Result:
 //aaaaaaaaaa
 //dddddddddd
 //ffffffffff
 //eeeeeeeeee
 //bbbbbbbbbb
+// 1) Add this code, 
+
+function Person(name){
+    this.name = name;
+    console.log("Name: "+ this.name);
+    setTimeout(function(){
+      console.log("Hi  "+this.name);  //Explain this - this looks at one scope out. So that means the function Person. But that used this. too. So that named the global this. so Person doesnt have a name. So it is undefined when called from the internal function. 
+    },2000);
+  }
+
+class Person {
+    constructor(name) {
+        this.name = name;
+        console.log("Name: " + this.name);
+        setTimeout(function () {
+            console.log("Hi  " + this.name); 
+        }, 2000);
+    }
+}
+
+//call it like this (do it, even if you know it’s silly ;-)
+Person("Kurt Wonnegut");  //This calls the function - This constructor function may be converted to a class declaration.ts(80002)
+console.log("I'm global: "+ name);  //Explain this - It looks at the global name, which was set in the function with this.name
 
