@@ -173,42 +173,43 @@ var SQLString = cars.map(car => "INSERT INTO cars (id,year,make,model,price) VAL
 //bbbbbbbbbb
 // 1) Add this code, 
 
-function Person(name) {
-    this.name = name;
-    var self = this;
-    console.log("Name: " + this.name);
-    setTimeout(function () {
-        console.log("Hi  " + self.name);  //Explain this - this looks at one scope out. So that means the function Person. But that used this. too. So that named the global this. so Person doesnt have a name. So it is undefined when called from the internal function. 
-    }.bind(this), 2000);
-}
-
-// class Person {
-//     constructor(name) {
-//         this.name = name;
-//         console.log("Name: " + this.name);
-//         setTimeout(function () {
-//             console.log("Hi  " + this.name); 
-//         }, 2000);
-//     }
+// function Person(name) {
+//     this.name = name;
+//     var self = this;
+//     console.log("Name: " + this.name);
+//     setTimeout(function () {
+//         console.log("Hi  " + self.name);  //Explain this - this looks at one scope out. So that means the function Person. But that used this. too. So that named the global this. so Person doesnt have a name. So it is undefined when called from the internal function. 
+//     }.bind(this), 2000);
 // }
+
+
 
 //call it like this (do it, even if you know it’s silly ;-)
 // Person("Kurt Wonnegut");  //This calls the function - This constructor function may be converted to a class declaration.ts(80002)
 // console.log("I'm global: "+ name);  //Explain this - It looks at the global name, which was set in the function with this.name
 
-var p = new Person("Kurt Wonnegut");  //Create an instance using the constructor function
+//var p = new Person("Kurt Wonnegut");  //Create an instance using the constructor function
 //console.log("I'm global: "+ name);  //What’s different ?
 // Now the Person is a variable. Before it was on global this. Different scopes now. 
 
-var greeter = function () {
-    console.log(this.message);
-};
-var comp1 = { message: "Hello World" };
-var comp2 = { message: "Hi" };
+// var greeter = function () {
+//     console.log(this.message);
+// };
+// var comp1 = { message: "Hello World" };
+// var comp2 = { message: "Hi" };
 
-var g1 = greeter.bind(comp1);//We can store a reference, with a specific “this” to use
-var g2 = greeter.bind(comp2);//And here another “this”
-setTimeout(g1, 500);
-setTimeout(g2, 1000);
+// var g1 = greeter.bind(comp1);//We can store a reference, with a specific “this” to use
+// var g2 = greeter.bind(comp2);//And here another “this”
+// setTimeout(g1, 500);
+// setTimeout(g2, 1000);
 
 
+class Person {
+    constructor(name) {
+        this.name = name;
+        console.log("Name: " + this.name);
+        setTimeout(function () {
+            console.log("Hi  " + this.name);
+        }, 2000);
+    }
+}
