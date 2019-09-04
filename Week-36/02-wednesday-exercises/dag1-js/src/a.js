@@ -43,7 +43,7 @@ all.reverse();
 all.sort(function (a, b) {
   return a.localeCompare(b);
 });
-//
+//console.log(all);
 
 //l) MAP
 var all2 = all.map(name => name.toUpperCase());
