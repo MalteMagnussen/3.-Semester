@@ -149,3 +149,30 @@ function oneForAll(type, filter) {
 
 var SQLString = cars.map(car => "INSERT INTO cars (id,year,make,model,price) VALUES ("+car.id+","+car.year+","+car.make+","+car.model+","+car.price+");");
 console.log(SQLString)
+
+
+// 1) Given the code below answer, don’t execute the code, in what order you would expect to see the outputs:
+// aaaaaaaa
+// dddddddd
+// ffffffff
+// eeeeeeee
+// bbbbbbbb
+
+// var msgPrinter = function(msg,delay){
+//     setTimeout(function(){
+//       console.log(msg);
+//     },delay);
+//   };
+//   console.log("aaaaaaaaaa");
+//   msgPrinter ("bbbbbbbbbb",2000);
+//   console.log("dddddddddd");
+//   msgPrinter ("eeeeeeeeee",1000);
+//   console.log("ffffffffff");
+
+// Result:
+//aaaaaaaaaa
+//dddddddddd
+//ffffffffff
+//eeeeeeeeee
+//bbbbbbbbbb
+
