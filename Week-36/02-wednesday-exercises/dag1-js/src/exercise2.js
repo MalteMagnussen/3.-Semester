@@ -42,6 +42,18 @@ try {
 } catch (e) {
     console.log("cb Failed. Cause: " + e.log);
 }
+
+
+// 4))
+console.log(cb(10,10,mul));
+// $ node exercise2.js
+// Result from the two numbers: 10+10=100
+
+// 5)
+console.log(cb(10,10,function(n1,n2){
+    return n1/n2;
+}))
+
 //
 //The following questions might seem trivial, but it's extremely important that you can answer (and understand) each, in order to do the JS-stuff we want to do this semester
 //
