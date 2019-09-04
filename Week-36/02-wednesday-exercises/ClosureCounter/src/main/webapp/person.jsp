@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : Sep 4, 2019, 5:58:56 PM
+    Document   : person
+    Created on : Sep 4, 2019, 6:51:59 PM
     Author     : Malte
 --%>
 
@@ -21,27 +21,45 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
     </head>
+
     <body>
-        <button onclick="test1()">Count counter1</button>
-        <span id="c1"></span>
-        <button onclick="test2()" >Count counter2</button>
-        <span id="c2"></span>
+        <div class="container">
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your name">
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" id="age" placeholder="Enter your age">
+            </div> 
+
+            <button onclick="getPerson()" class="btn btn-primary">Get info</button>
+
+            <h1 id="info"></h1>
+        </div>
 
         <script>
-            function test1() {
-                counter1.increment();
-                $("#c1").html(counter1.value());
+            function formName() {
+                testperson.setName(document.getElementById('name').value);
             }
-            function test2() {
-                counter2.increment();
-                $("#c2").html(counter2.value());
+            function formAge() {
+                testperson.setAge(document.getElementById('age').value);
             }
-            
+            function getPerson() {
+                formAge()
+                formName()
+                $("#info").html(testperson.info());
+            }
         </script>
-        <script src="JavaScript/counterModule.js"></script>
+
         <!-- JQUERY JS -->
         <script src="https://code.jquery.com/jquery-3.4.0.min.js" crossorigin="anonymous"></script>
         <!-- BOOTSTRAP JS -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+        <script src="JavaScript/person.js"></script>
+
     </body>
 </html>
