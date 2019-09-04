@@ -120,3 +120,30 @@ console.log("Volvo Cars")
 cars.filter(car => car.make === "Volvo").forEach(car => console.log(car))
 
 console.log("All cars with a price below 5000")
+cars.filter(car => car.price < 5000).forEach(car => console.log(car))
+
+//       Can you refactor this into three methods, that takes the filter text as an argument.
+function newerThan(year) {
+    return cars.filter(car => car.year > year)
+}
+
+function carMake (make) {
+    return cars.filter(car => car.make === make)
+}
+
+function lessThanPrice ( price ) {
+    return cars.filter(car => car.price < price)
+}
+
+//       Can you refactor this into one method, that takes the filter text, and type, as arguments
+function oneForAll(type, filter) {
+    return cars.filter(type => filter)
+}
+
+
+//4a)      Use map, join + just a little bit more to implement a function, that ,
+// given the cars array used above, will create, and return a string with valid SQL statements to '
+// insert the data into a table with matching column names (id, year, make, model, price) as sketched below:
+
+//INSERT INTO cars (id,year,make,model,price) VALUES ( 1, 1997 'Ford','E350', 3000 );
+
