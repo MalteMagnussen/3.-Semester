@@ -43,16 +43,37 @@ try {
     console.log("cb Failed. Cause: " + e.log);
 }
 
+//1)
+var names = ["Malte", "Benjamin", "Jens", "Bo", "Paul", "JoJo", "Dio"];
+//console.log(names.join());
+
+var newlinenames = names.map(name => "<li>"+name+"</li>");
+newlinenames.unshift("<ul>")
+newlinenames.push("</ul>")
+//console.log(newlinenames.join("\n"));
+//console.log(newlinenames.join(""));
+
+var bigNames = names.map(name => name.toUpperCase())
+
+var namefilter = names.filter(name => name.length <= 3);
+//console.log(namefilter.join());
+/*
+names.forEach(element => {
+    console.log(element);
+})
+namefilter.forEach(element => {
+    console.log(element);
+})*/
 
 // 4))
-console.log(cb(10,10,mul));
+//console.log(cb(10,10,mul));
 // $ node exercise2.js
 // Result from the two numbers: 10+10=100
 
 // 5)
-console.log(cb(10,10,function(n1,n2){
-    return n1/n2;
-}))
+//console.log(cb(10,10,function(n1,n2){
+//    return n1/n2;
+//}))
 
 //
 //The following questions might seem trivial, but it's extremely important that you can answer (and understand) each, in order to do the JS-stuff we want to do this semester
@@ -83,3 +104,19 @@ console.log(cb(10,10,function(n1,n2){
 // Result from the two numbers: 3+hh=3hh 
 // Because hh is a string, and you can concat strings with +, then it just slams on the 3. 
 
+var cars = [
+    { id: 1, year: 1997, make: 'Ford', model: 'E350', price: 3000 },
+    { id: 2, year: 1999, make: 'Chevy', model: 'Venture', price: 4900 },
+    { id: 3, year: 2000, make: 'Chevy', model: 'Venture', price: 5000 },
+    { id: 4, year: 1996, make: 'Jeep', model: 'Grand Cherokee', price: 4799 },
+    { id: 5, year: 2005, make: 'Volvo', model: 'V70', price: 44799 }
+  ];
+
+console.log("Cars newer than 1999")
+var newerthan1999 = cars.filter(car => car.year > 1999)
+newerthan1999.forEach(car => console.log(car))
+
+console.log("Volvo Cars")
+cars.filter(car => car.make === "Volvo").forEach(car => console.log(car))
+
+console.log("All cars with a price below 5000")
