@@ -112,15 +112,15 @@ var cars = [
     { id: 5, year: 2005, make: 'Volvo', model: 'V70', price: 44799 }
   ];
 
-console.log("Cars newer than 1999")
+//console.log("Cars newer than 1999")
 var newerthan1999 = cars.filter(car => car.year > 1999)
-newerthan1999.forEach(car => console.log(car))
+//newerthan1999.forEach(car => console.log(car))
 
-console.log("Volvo Cars")
-cars.filter(car => car.make === "Volvo").forEach(car => console.log(car))
+//console.log("Volvo Cars")
+//cars.filter(car => car.make === "Volvo").forEach(car => console.log(car))
 
-console.log("All cars with a price below 5000")
-cars.filter(car => car.price < 5000).forEach(car => console.log(car))
+//console.log("All cars with a price below 5000")
+//cars.filter(car => car.price < 5000).forEach(car => console.log(car))
 
 //       Can you refactor this into three methods, that takes the filter text as an argument.
 function newerThan(year) {
@@ -147,3 +147,5 @@ function oneForAll(type, filter) {
 
 //INSERT INTO cars (id,year,make,model,price) VALUES ( 1, 1997 'Ford','E350', 3000 );
 
+var SQLString = cars.map(car => "INSERT INTO cars (id,year,make,model,price) VALUES ("+car.id+","+car.year+","+car.make+","+car.model+","+car.price+");");
+console.log(SQLString)
