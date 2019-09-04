@@ -19,10 +19,29 @@ var sub = function (n1, n2) {
     return n1 - n2;
 };
 
+// Mul
+var mul = function (n1 , n2) {
+    return n1 * n2 ;
+}
+
 //Callback example
-var cb = function (n1, n2, callback) {
-    return "Result from the two numbers: " + n1 + "+" + n2 + "=" + callback(n1, n2);
-};
+try {
+
+    var cb = function (n1, n2, callback) {
+        if (
+            typeof n1 === "number", //Will fail if n1 is undefined, or is not a number
+            typeof n2 === "number", //Will fail if n2 is undefined, or is not a number
+            typeof callback === "function" //Will fail if callback is undefined or is not a function
+        ) {
+            return "Result from the two numbers: " + n1 + "+" + n2 + "=" + callback(n1, n2);
+        } else {
+            return console.log("cb Failed because of wrong inputs.")
+        }
+    };
+
+} catch (e) {
+    console.log("cb Failed. Cause: " + e.log);
+}
 //
 //The following questions might seem trivial, but it's extremely important that you can answer (and understand) each, in order to do the JS-stuff we want to do this semester
 //
@@ -45,7 +64,7 @@ var cb = function (n1, n2, callback) {
 //console.log( cb(4,3,sub) ); // What will it print
 // Result from the two numbers: 4+3=1 - It takes in 4 and 3 and puts them in as strings, then calls sub(4,3) == 1
 
-//console.log(cb(3,3,add())); // What will it print (and what was the problem)
+//console.log(cb(3, 3, add())); // What will it print (and what was the problem)
 // It tries to call the add() function. With no parameters. As a parameter for cb. Does not work.
 
 //console.log(cb(3,"hh",add));// What will it print
