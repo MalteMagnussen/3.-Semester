@@ -203,13 +203,34 @@ var SQLString = cars.map(car => "INSERT INTO cars (id,year,make,model,price) VAL
 // setTimeout(g1, 500);
 // setTimeout(g2, 1000);
 
+var testObject = {color:"Red", speed: "Fast", power: 1000}
+
+var loopObject = function (obj) {
+    for (prop in obj) {
+        console.log(prop, obj[prop]);
+    }
+}
+console.log("all 3");
+loopObject(testObject)
+console.log("No color");
+delete testObject.color
+loopObject(testObject)
+console.log("name JoJo")
+testObject.name="JoJo"
+loopObject(testObject)
+
 
 class Person {
-    constructor(name) {
-        this.name = name;
-        console.log("Name: " + this.name);
-        setTimeout(function () {
-            console.log("Hi  " + this.name);
-        }, 2000);
+
+    constructor(firstName, lastName, age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+    }
+
+    get details() {
+        for (prop in Person) {
+            console.log(prop, obj[prop]);
+        }
     }
 }
