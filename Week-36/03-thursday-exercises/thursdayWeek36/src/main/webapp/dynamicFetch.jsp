@@ -19,7 +19,7 @@
 
         <!-- My CSS 
         <link href="css/calculator.css" rel="stylesheet">
--->
+        -->
 
         <!-- Insert bootstrap CSS - integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
@@ -28,12 +28,12 @@
     <body>
         <div class="container">
 
-            <input type="number" id="personId"><button id="submitButton" class="btn-primary">Get User</button>
-            
-            <p id="printPerson">
+            <input type="number" id="personId"><button id="submitButton" class="btn-primary">Get User</button><button id="allButton" class="btn-primary">Get All</button>
+
+            <pre id="printPerson">
                 
-            </p>
-            
+            </pre>
+
         </div>
 
 
@@ -44,7 +44,7 @@
 
         <!-- My own custom JavaScript -->
         <script src="JavaScript/dynamicFetchJS.js"></script>
-
+        <script src="JavaScript/tableHelper.js"></script>
     </body>
 </html>
 
