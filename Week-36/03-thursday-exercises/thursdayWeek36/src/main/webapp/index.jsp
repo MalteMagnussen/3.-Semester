@@ -30,9 +30,15 @@
 
             <div id="myDiv3">myDiv3Test</div>
         </div>
-        
+
         <script>
-            changeColor();
+            function divcolor() {
+                let divarray = Array.from(document.body.getElementsByTagName('div'))
+                divarray.forEach(element => {
+                    element.style.backgroundColor = "red";
+                });
+            }
+            divcolor()
         </script>
 
         <!-- JQUERY JS -->
@@ -41,7 +47,6 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
         <!-- My own custom JavaScript -->
-        <script src="JavaScript/threeDivs.js"></script>
 
     </body>
 </html>
