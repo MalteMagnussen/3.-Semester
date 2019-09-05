@@ -12,22 +12,40 @@ var cars = [
     {id: 5, year: 2005, make: 'Volvo', model: 'V70', price: 44799}
 ];
 
+// MAKES THE START OF THE TABLE. 
+function tableHeaderStart() {
+    return "<table class=\"table\"><thead><tr>";
+}
+
+// END OF TABLE HEADER
+function tableHeaderEnd() {
+    return "</tr></thead><tbody>";
+}
+
+// MAKES A SINGLE TABLE HEADER.
+function tableHeader(header) {
+    return "<th scope=\"col\">" + header + "</th>";
+}
+
+// MAKES A SINGLE TABLE ROW.
+function tableRow(car) {
+    let returnString = "<tr>";
+    Object.values(car).forEach(element => returnString += "<td>"+element+"</td>");
+    return returnString+"</tr>";
+}
+
+// RETURNS AN ARRAY OF OBJECTS AS A TABLE.
 let carmap = function (cars) {
-  // Creating the table headers. 
-  let returnString = "<table class=\"table\"><thead><tr>";
-  returnString += "<th scope=\"col\">id</th>";
-  returnString += "    <th scope=\"col\">year</th>";
-  returnString += "    <th scope=\"col\">make</th>";
-  returnString += "    <th scope=\"col\">model</th>";
-  returnString += "    <th scope=\"col\">price</th>";
-  returnString += "  </tr>";
-  returnString += "</thead>";
-  returnString += "<tbody>";
-  
-  
-  
-  
-  // Ending table:
-  returnString +="</tbody></table>"
+    // TABLE HEADER
+    let returnString = tableHeaderStart();
+    Object.keys(cars[0]).forEach(element => returnString += tableHeader(element));
+    returnString += tableHeaderEnd();
+    
+    // TABLE ROWS
+    cars.forEach(element => returnString += tableRow(element));
+    
+    // Ending table:
+    returnString += "</tbody></table>";
 };
 
+document.getElementById("CarsTable").innerHTML = carmap(cars);
