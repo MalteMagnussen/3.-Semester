@@ -4,16 +4,19 @@
  * and open the template in the editor.
  */
 
+// Getting various things from document first.
 let submitButton = document.getElementById("submitButton");
 
 let allButton = document.getElementById("allButton");
 
 let printPerson = document.getElementById("printPerson");
 
+// JSON function
 function getPerson(obj) {
     return JSON.stringify(obj, null, 3);
 }
 
+// Get by ID
 submitButton.addEventListener("click", function () {
     let personId = document.getElementById("personId").value;
     let url = "https://jsonplaceholder.typicode.com/users/" + personId;
@@ -25,6 +28,7 @@ submitButton.addEventListener("click", function () {
             });
 });
 
+// Get ALL - Into table - Name, Phone
 function getAll(obj) {
     var arrayOfObj = Object.values(obj);
 
@@ -44,6 +48,7 @@ function getAll(obj) {
 
 }
 
+// Event Listener for Get All.
 allButton.addEventListener("click", function () {
     let url = "https://jsonplaceholder.typicode.com/users";
 
