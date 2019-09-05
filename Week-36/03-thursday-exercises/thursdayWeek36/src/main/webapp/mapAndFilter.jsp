@@ -26,12 +26,15 @@
 
     </head>
     <body>
-        <div class="container" id="CarsTable">
+        <div class="container">
 
-             
-            
+            <div id="CarsTable"></div>
+
+            <input type="number" id="carPrice">
+            <button class="btn btn-primary" id="filterCars">Press to filter.</button>
         </div>
-        
+
+
         <!-- JQUERY JS -->
         <script src="https://code.jquery.com/jquery-3.4.0.min.js" crossorigin="anonymous"></script>
         <!-- BOOTSTRAP JS -->

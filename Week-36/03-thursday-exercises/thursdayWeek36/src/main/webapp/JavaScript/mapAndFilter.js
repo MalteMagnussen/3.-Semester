@@ -12,6 +12,9 @@ var cars = [
     {id: 5, year: 2005, make: 'Volvo', model: 'V70', price: 44799}
 ];
 
+
+// START OF TABLE CREATION
+
 // MAKES THE START OF THE TABLE. 
 function tableHeaderStart() {
     return "<table class=\"table\"><thead><tr>";
@@ -30,8 +33,8 @@ function tableHeader(header) {
 // MAKES A SINGLE TABLE ROW.
 function tableRow(car) {
     let returnString = "<tr>";
-    Object.values(car).forEach(element => returnString += "<td>"+element+"</td>");
-    return returnString+"</tr>";
+    Object.values(car).forEach(element => returnString += "<td>" + element + "</td>");
+    return returnString + "</tr>";
 }
 
 // RETURNS AN ARRAY OF OBJECTS AS A TABLE.
@@ -40,14 +43,33 @@ let carmap = function (cars) {
     let returnString = tableHeaderStart();
     Object.keys(cars[0]).forEach(element => returnString += tableHeader(element));
     returnString += tableHeaderEnd();
-    
+
     // TABLE ROWS
     cars.forEach(element => returnString += tableRow(element));
-    
+
     // Ending table:
     returnString += "</tbody></table>";
-    
+
     return returnString;
 };
-
 document.getElementById("CarsTable").innerHTML = carmap(cars);
+// END OF TABLE CREATION FUNCTIONS
+
+// Update car table.
+function UpdateCars(cars) {
+    document.getElementById("CarsTable").innerHTML = carmap(cars);
+}
+
+
+// FILTER FUNCTIONS BELOW:
+function filterCarsByPrice(cars, checkValue) {
+    let returnCars = cars.filter(function(car) {
+        return car.price < checkValue;
+    });
+    
+    UpdateCars(returnCars);
+}
+
+document.getElementById("filterCars").addEventListener("click", function(){
+    filterCarsByPrice(cars, document.getElementById("carPrice").value);
+});
