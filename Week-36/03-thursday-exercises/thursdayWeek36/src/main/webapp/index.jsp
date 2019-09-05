@@ -24,22 +24,21 @@
     </head>
     <body>
         <div class="container">
-            <div id="myDiv1">myDiv1Test</div>
 
-            <div id="myDiv2">myDiv2Test</div>
+            <button id="colorChanger" onclick="colorChanger()" class="btn btn-primary">Change Color</button>
+            
+            <div id="myDiv1">
+                myDiv1Test
+            </div>
 
-            <div id="myDiv3">myDiv3Test</div>
+            <div id="myDiv2">
+                myDiv2Test
+            </div>
+
+            <div id="myDiv3">
+                myDiv3Test
+            </div>
         </div>
-
-        <script>
-            function divcolor() {
-                let divarray = Array.from(document.body.getElementsByTagName('div'))
-                divarray.forEach(element => {
-                    element.style.backgroundColor = "red";
-                });
-            }
-            divcolor()
-        </script>
 
         <!-- JQUERY JS -->
         <script src="https://code.jquery.com/jquery-3.4.0.min.js" crossorigin="anonymous"></script>
@@ -47,6 +46,6 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
         <!-- My own custom JavaScript -->
-
+        <script src="JavaScript/threeDiv.js"></script>
     </body>
 </html>
