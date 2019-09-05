@@ -46,6 +46,8 @@ let carmap = function (cars) {
     
     // Ending table:
     returnString += "</tbody></table>";
+    
+    return returnString;
 };
 
 document.getElementById("CarsTable").innerHTML = carmap(cars);
