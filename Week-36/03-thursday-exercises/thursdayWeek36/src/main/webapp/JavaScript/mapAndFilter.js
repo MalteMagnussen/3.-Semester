@@ -12,5 +12,22 @@ var cars = [
     {id: 5, year: 2005, make: 'Volvo', model: 'V70', price: 44799}
 ];
 
-
+let carmap = function (cars) {
+  // Creating the table headers. 
+  let returnString = "<table class=\"table\"><thead><tr>";
+  returnString += "<th scope=\"col\">id</th>";
+  returnString += "    <th scope=\"col\">year</th>";
+  returnString += "    <th scope=\"col\">make</th>";
+  returnString += "    <th scope=\"col\">model</th>";
+  returnString += "    <th scope=\"col\">price</th>";
+  returnString += "  </tr>";
+  returnString += "</thead>";
+  returnString += "<tbody>";
+  
+  
+  
+  
+  // Ending table:
+  returnString +="</tbody></table>"
+};
 
