@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-
+// 1
 function divcolor() {
     let divarray = Array.from(document.body.getElementsByTagName('div'));
     divarray.forEach(element => {
@@ -13,6 +13,7 @@ function divcolor() {
 }
 divcolor();
 
+// 2
 function colorChanger() {
     document.getElementById('myDiv1').style.backgroundColor = "blue";
     document.getElementById('myDiv2').style.backgroundColor = "yellow";
