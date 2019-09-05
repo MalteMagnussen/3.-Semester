@@ -23,17 +23,25 @@
 
     </head>
     <body>
+        <div class="container">
+            <div id="myDiv1">myDiv1Test</div>
+
+            <div id="myDiv2">myDiv2Test</div>
+
+            <div id="myDiv3">myDiv3Test</div>
+        </div>
         
-        <div id="myDiv1">myDiv1Test</div>
-        
-        <div id="myDiv2">myDiv2Test</div>
-        
-        <div id="myDiv3">myDiv3Test</div>
-        
-        
+        <script>
+            changeColor();
+        </script>
+
         <!-- JQUERY JS -->
         <script src="https://code.jquery.com/jquery-3.4.0.min.js" crossorigin="anonymous"></script>
         <!-- BOOTSTRAP JS -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+        <!-- My own custom JavaScript -->
+        <script src="JavaScript/threeDivs.js"></script>
+
     </body>
 </html>
