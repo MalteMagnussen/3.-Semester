@@ -28,31 +28,12 @@
     <body>
         <div class="container">
 
-            <div id="container">
-                <div id="display" class="t4"></div>
-                <div id="buttons">
-                    <div class="t1">7</div>
-                    <div class="t1">8</div>
-                    <div class="t1">9</div>
-                    <div class="t1">/</div>
-
-                    <div class="t1">4</div>
-                    <div class="t1">5</div>
-                    <div class="t1">6</div>
-                    <div class="t1">*</div>
-
-                    <div class="t1">1</div>
-                    <div class="t1">2</div>
-                    <div class="t1">3</div>
-                    <div class="t1">-</div>
-
-                    <div class="t1">0</div>
-                    <div class="t1">.</div>
-                    <div class="t1">+</div>
-                    <div id="calculate"class="t1">=</div>
-                </div>
-            </div>
-
+            <input type="number" id="personId"><button id="submitButton" class="btn-primary">Get User</button>
+            
+            <p id="printPerson">
+                
+            </p>
+            
         </div>
 
 
