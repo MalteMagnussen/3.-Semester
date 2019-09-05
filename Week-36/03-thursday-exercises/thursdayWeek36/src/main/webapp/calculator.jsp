@@ -19,7 +19,7 @@
 
         <!-- My CSS -->
         <link href="css/calculator.css" rel="stylesheet">
-        
+
 
         <!-- Insert bootstrap CSS - integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
@@ -28,8 +28,31 @@
     <body>
         <div class="container">
 
-            
-            
+            <div id="container">
+                <div id="display" class="t4"></div>
+                <div id="buttons">
+                    <div class="t1">7</div>
+                    <div class="t1">8</div>
+                    <div class="t1">9</div>
+                    <div class="t1">/</div>
+
+                    <div class="t1">4</div>
+                    <div class="t1">5</div>
+                    <div class="t1">6</div>
+                    <div class="t1">*</div>
+
+                    <div class="t1">1</div>
+                    <div class="t1">2</div>
+                    <div class="t1">3</div>
+                    <div class="t1">-</div>
+
+                    <div class="t1">0</div>
+                    <div class="t1">.</div>
+                    <div class="t1">+</div>
+                    <div id="calculate"class="t1">=</div>
+                </div>
+            </div>
+
         </div>
 
 
