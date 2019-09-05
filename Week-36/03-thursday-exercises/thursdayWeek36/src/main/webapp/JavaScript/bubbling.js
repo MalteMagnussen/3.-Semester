@@ -12,5 +12,6 @@ Array.from(document.getElementsByClassName("mydiv"))
         });
 
 function hi(name) {
-    console.log("Hi from: " + name);
+    document.getElementById("mydivtext").innerHTML += "Hi from: " + name + "<br>";
 }
+
