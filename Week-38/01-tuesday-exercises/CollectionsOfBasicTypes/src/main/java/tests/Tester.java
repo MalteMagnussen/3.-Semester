@@ -18,6 +18,7 @@ public class Tester {
 
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
+        Persistence.generateSchema("pu", null);
         EntityManager em = emf.createEntityManager();
 
         Customer customer1 = new Customer("customer1firstName", "customer1lastName");

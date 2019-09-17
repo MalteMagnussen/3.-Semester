@@ -19,6 +19,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -33,6 +35,9 @@ public class Customer implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
+
+    @OneToMany
+    private List<Address> addresses = new ArrayList();
 
     @ElementCollection
     @CollectionTable(
