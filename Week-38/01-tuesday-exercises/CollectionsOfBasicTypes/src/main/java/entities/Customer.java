@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -18,6 +19,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -36,7 +38,12 @@ public class Customer implements Serializable {
     private String firstName;
     private String lastName;
 
-    @OneToMany
+    @OneToMany(
+            cascade = CascadeType.PERSIST
+    )
+    @JoinColumn(
+            name = "Customer_ID"
+    )
     private List<Address> addresses = new ArrayList();
 
     @ElementCollection
@@ -57,6 +64,18 @@ public class Customer implements Serializable {
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public void addAddress(Address address) {
+        this.addresses.add(address);
     }
 
     public void addPhone(String phoneNo, String description) {

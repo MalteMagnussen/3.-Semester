@@ -5,6 +5,8 @@
  */
 package tests;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import entities.Address;
 import entities.Customer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -41,6 +43,13 @@ public class Tester {
 
         customer2.addPhone("65004300", "Home Phone");
         customer2.addPhone("23003400", "Mobile Phone");
+        
+        //ADDRESSES 
+        customer1.addAddress(new Address("Lyngbyvej", "Lyngby"));
+        customer1.addAddress(new Address("Sommerhusvej", "Sommerhusby"));
+        
+        customer2.addAddress(new Address("Gillelejevej", "Gilleleje"));
+        customer2.addAddress(new Address("Lyngbyvej", "Lyngby"));
 
         try {
             em.getTransaction().begin();
