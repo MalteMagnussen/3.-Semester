@@ -20,6 +20,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -41,12 +42,10 @@ public class Customer implements Serializable {
 //    @OneToMany(
 //            cascade = CascadeType.PERSIST
 //    )
-//    @JoinColumn(
-//            name = "Customer_ID"
-//    )
-    
-    
-    @OneToMany(mappedBy = "customer")
+
+    @ManyToMany(
+            cascade = CascadeType.PERSIST
+    )
     private List<Address> addresses = new ArrayList();
 
     @ElementCollection
@@ -69,17 +68,17 @@ public class Customer implements Serializable {
         this.lastName = lastName;
     }
 
-//    public List<Address> getAddresses() {
-//        return addresses;
-//    }
-//
-//    public void setAddresses(List<Address> addresses) {
-//        this.addresses = addresses;
-//    }
-//
-//    public void addAddress(Address address) {
-//        this.addresses.add(address);
-//    }
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public void addAddress(Address address) {
+        this.addresses.add(address);
+    }
 
     public void addPhone(String phoneNo, String description) {
         phones.put(phoneNo, description);
