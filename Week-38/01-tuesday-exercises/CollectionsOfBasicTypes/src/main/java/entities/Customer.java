@@ -37,13 +37,16 @@ public class Customer implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
-
-    @OneToMany(
-            cascade = CascadeType.PERSIST
-    )
-    @JoinColumn(
-            name = "Customer_ID"
-    )
+//
+//    @OneToMany(
+//            cascade = CascadeType.PERSIST
+//    )
+//    @JoinColumn(
+//            name = "Customer_ID"
+//    )
+    
+    
+    @OneToMany(mappedBy = "customer")
     private List<Address> addresses = new ArrayList();
 
     @ElementCollection
@@ -66,17 +69,17 @@ public class Customer implements Serializable {
         this.lastName = lastName;
     }
 
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-    }
-
-    public void addAddress(Address address) {
-        this.addresses.add(address);
-    }
+//    public List<Address> getAddresses() {
+//        return addresses;
+//    }
+//
+//    public void setAddresses(List<Address> addresses) {
+//        this.addresses = addresses;
+//    }
+//
+//    public void addAddress(Address address) {
+//        this.addresses.add(address);
+//    }
 
     public void addPhone(String phoneNo, String description) {
         phones.put(phoneNo, description);
