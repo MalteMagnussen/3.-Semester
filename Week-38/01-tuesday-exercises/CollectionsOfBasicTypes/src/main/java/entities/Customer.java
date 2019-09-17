@@ -7,11 +7,18 @@ package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapKeyColumn;
 
 /**
  *
@@ -26,18 +33,42 @@ public class Customer implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "hobbies"
+    )
+    @Column(name = "HOBBY")
     private List<String> hobbies = new ArrayList<>();
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @MapKeyColumn(name = "PHONE")
+    @Column(name = "Description")
+    private Map<String, String> phones = new HashMap();
 
     public Customer() {
     }
-    
+
+    public Customer(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public void addPhone(String phoneNo, String description) {
+        phones.put(phoneNo, description);
+    }
+
+    public String getPhoneDescription(String phoneNo) {
+        return phones.get(phoneNo);
+    }
+
     public void addHobby(String s) {
         hobbies.add(s);
     }
-    
+
     public String getHobbies() {
         String returnString = "";
-        for(String hobby: hobbies) {
+        for (String hobby : hobbies) {
             returnString += hobby + ", ";
         }
         return returnString;
@@ -61,7 +92,6 @@ public class Customer implements Serializable {
         this.lastName = lastName;
     }
 
-
     /**
      * Get the value of firstName
      *
@@ -80,7 +110,6 @@ public class Customer implements Serializable {
         this.firstName = firstName;
     }
 
-
     public Long getId() {
         return id;
     }
@@ -89,6 +118,4 @@ public class Customer implements Serializable {
         this.id = id;
     }
 
-    
-    
 }
