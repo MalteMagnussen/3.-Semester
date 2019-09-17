@@ -32,6 +32,11 @@ import javax.persistence.OneToOne;
 @Entity
 public class Customer implements Serializable {
 
+    // FOR REVIEWER:
+    // DID THESE AS PAIR PROGRAMMING IN THE CLASS ON TUESDAY. 
+    // EVERYWHERE IT SAID "EXPLAIN" WE EXPLAINED IT TO EACH OTHER VERBALLY.
+    // EVERYWHERE WE DIDN'T UNDERSTAND SOMETHING, WE ASKED THE TEACHER AND HE EXPLAINED TO US. 
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
