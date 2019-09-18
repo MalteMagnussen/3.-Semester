@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -32,9 +33,9 @@ public class PersonResource {
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllPersonsDTO() {
         PersonsDTO persons = new PersonsDTO(FACADE.getAllPersons());
-        Map all = new HashMap();
-        all.put("all", persons);
-        return GSON.toJson(all);
+//        Map all = new HashMap();
+//        all.put("all", persons);
+        return GSON.toJson(persons);
     }
 
     @Path("{id}")
@@ -66,7 +67,7 @@ public class PersonResource {
         return Response.ok(responseDTO).build();
     }
 
-    @PUT
+    @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public String deleteCar(@PathParam("id") int id) {
