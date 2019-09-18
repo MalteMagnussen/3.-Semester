@@ -28,7 +28,6 @@ public class PersonResource {
     private static final IPersonFacade FACADE = PersonFacade.getPersonFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-//    @Path("/all")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllPersonsDTO() {
@@ -46,7 +45,6 @@ public class PersonResource {
         return GSON.toJson(person);
     }
 
-    // @Path("")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
