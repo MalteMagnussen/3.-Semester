@@ -105,7 +105,7 @@ public class PersonFacade implements IPersonFacade {
             em.merge(p);
             em.getTransaction().commit();
             return p;
-        } catch(Exception e) {
+        } catch (Exception e) {
             em.getTransaction().rollback();
             throw new IllegalArgumentException("Something went wrong when editing Person: " + e.getMessage());
         } finally {

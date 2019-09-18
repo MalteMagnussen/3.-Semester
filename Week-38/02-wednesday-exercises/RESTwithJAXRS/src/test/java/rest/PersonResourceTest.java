@@ -18,7 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
 
-public class RenameMeResourceTest {
+public class PersonResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";

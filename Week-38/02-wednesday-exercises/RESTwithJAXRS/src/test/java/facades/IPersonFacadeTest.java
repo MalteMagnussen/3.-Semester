@@ -15,12 +15,12 @@ import utils.Settings;
 import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
 
-public class FacadeExampleTest {
+public class IPersonFacadeTest {
 
     private static EntityManagerFactory emf;
     private static PersonFacade facade;
 
-    public FacadeExampleTest() {
+    public IPersonFacadeTest() {
     }
 
     @BeforeAll
