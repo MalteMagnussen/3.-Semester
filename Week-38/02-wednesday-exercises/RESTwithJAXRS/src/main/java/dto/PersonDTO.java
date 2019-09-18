@@ -5,6 +5,8 @@
  */
 package dto;
 
+import entities.Person;
+
 /**
  *
  * @author Malte
@@ -21,6 +23,13 @@ public class PersonDTO {
         this.fName = fName;
         this.lName = lName;
         this.phone = phone;
+    }
+    
+    public PersonDTO(Person person) {
+        this.id = person.getId();
+        this.fName = person.getFirstName();
+        this.lName = person.getLastName();
+        this.phone = person.getPhone();
     }
 
     public PersonDTO() {

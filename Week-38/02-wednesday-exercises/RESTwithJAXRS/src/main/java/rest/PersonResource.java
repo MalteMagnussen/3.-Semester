@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -32,10 +33,7 @@ public class PersonResource {
         List<PersonDTO> peopleDTO = new ArrayList<>();
         for (Person person : FACADE.getAllPersons()) {
             peopleDTO.add(
-                    new PersonDTO(person.getId(),
-                            person.getFirstName(),
-                            person.getLastName(),
-                            person.getPhone())
+                    new PersonDTO(person)
             );
         }
 
@@ -43,5 +41,15 @@ public class PersonResource {
         all.put("all", peopleDTO);
         return GSON.toJson(all);
     }
+    
+    @Path("/{id}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getPersonDTObyID(@PathParam("id") int id) {
+        PersonDTO person = new PersonDTO(FACADE.getPerson(id));
+        return GSON.toJson(person);
+    }
+    
+    
 
 }
