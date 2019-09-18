@@ -38,27 +38,79 @@ public class PersonFacade implements IPersonFacade {
 
     @Override
     public Person addPerson(String fName, String lName, String phone) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Person person = new Person(fName, lName, phone);
+            em.persist(person);
+            em.getTransaction().commit();
+            return person;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new IllegalArgumentException("Something went wrong when persisting Person: " + e.getMessage());
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public Person deletePerson(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Person person = em.find(Person.class, id);
+            em.remove(person);
+            em.getTransaction().commit();
+            return person;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new IllegalArgumentException("Something went wrong when deleting Person: " + e.getMessage());
+        } finally {
+            em.close();
+        }
+
     }
 
     @Override
     public Person getPerson(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Person person = em.find(Person.class, id);
+            em.getTransaction().commit();
+            return person;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public List<Person> getAllPersons() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            List<Person> people = em.createNamedQuery("Person.getAll").getResultList();
+            em.getTransaction().commit();
+            return people;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public Person editPerson(Person p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(p);
+            em.getTransaction().commit();
+            return p;
+        } catch(Exception e) {
+            em.getTransaction().rollback();
+            throw new IllegalArgumentException("Something went wrong when editing Person: " + e.getMessage());
+        } finally {
+            em.close();
+        }
     }
 
 }

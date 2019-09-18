@@ -7,15 +7,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Person.getAll", query = "SELECT p FROM Person p")}
+)
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     private String firstName;
     private String lastName;
     private String phone;
@@ -39,13 +44,15 @@ public class Person implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
+        this.created = new Date();
+        this.lastEdited = new Date();
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
