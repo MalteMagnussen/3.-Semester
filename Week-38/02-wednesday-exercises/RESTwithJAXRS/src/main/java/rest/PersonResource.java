@@ -11,11 +11,15 @@ import facades.PersonFacade;
 import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("person")
 public class PersonResource {
@@ -24,7 +28,7 @@ public class PersonResource {
     private static final IPersonFacade FACADE = PersonFacade.getPersonFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    @Path("/all")
+//    @Path("/all")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllPersonsDTO() {
@@ -34,12 +38,42 @@ public class PersonResource {
         return GSON.toJson(all);
     }
 
-    @Path("/{id}")
+    @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getPersonDTObyID(@PathParam("id") int id) {
         PersonDTO person = new PersonDTO(FACADE.getPerson(id));
         return GSON.toJson(person);
+    }
+
+    // @Path("")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response savePerson(String p) {
+        PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
+        Person person = FACADE.addPerson(personDTO.getfName(), personDTO.getlName(), personDTO.getPhone());
+        PersonDTO responseDTO = new PersonDTO(person);
+        return Response.ok(responseDTO).build();
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response editCar(String p) {
+        PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
+        Person person = FACADE.getPerson(personDTO.getId());
+        person.editPerson(personDTO);
+        PersonDTO responseDTO = new PersonDTO(FACADE.editPerson(person));
+        return Response.ok(responseDTO).build();
+    }
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{id}")
+    public String deleteCar(@PathParam("id") int id) {
+        FACADE.deletePerson(id);
+        return "{\"status\": \"removed\"}";
     }
 
 }

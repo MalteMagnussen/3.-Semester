@@ -1,5 +1,6 @@
 package entities;
 
+import dto.PersonDTO;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -46,6 +47,24 @@ public class Person implements Serializable {
         this.phone = phone;
         this.created = new Date();
         this.lastEdited = new Date();
+    }
+
+    public void editPerson(PersonDTO p) {
+        int counter = 0;
+        if (!p.getfName().equals(this.firstName)) {
+            this.firstName = p.getfName();
+            counter++;
+        }
+        if (!p.getlName().equals(this.lastName)) {
+            this.lastName = p.getlName();
+            counter++;
+        }
+        if (!p.getPhone().equals(this.phone)) {
+            this.phone = p.getPhone();
+        }
+        if (counter > 0) {
+            this.lastEdited = new Date();
+        }
     }
 
     public int getId() {
