@@ -4,7 +4,6 @@ import entities.Person;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -38,18 +37,22 @@ public class PersonFacade implements IPersonFacade {
 
     @Override
     public Person addPerson(String fName, String lName, String phone) {
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            Person person = new Person(fName, lName, phone);
-            em.persist(person);
-            em.getTransaction().commit();
-            return person;
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw new IllegalArgumentException("Something went wrong when persisting Person: " + e.getMessage());
-        } finally {
-            em.close();
+        if (fName != null && !fName.isEmpty() && lName != null && !lName.isEmpty() && phone != null && !phone.isEmpty()) {
+            EntityManager em = getEntityManager();
+            try {
+                em.getTransaction().begin();
+                Person person = new Person(fName, lName, phone);
+                em.persist(person);
+                em.getTransaction().commit();
+                return person;
+            } catch (Exception e) {
+                em.getTransaction().rollback();
+                throw new IllegalArgumentException("Something went wrong when persisting Person: " + e.getMessage());
+            } finally {
+                em.close();
+            }
+        } else {
+            throw new IllegalArgumentException("Wrong input. Try again.");
         }
     }
 
@@ -78,7 +81,11 @@ public class PersonFacade implements IPersonFacade {
             em.getTransaction().begin();
             Person person = em.find(Person.class, id);
             em.getTransaction().commit();
-            return person;
+            if (person != null) {
+                return person;
+            } else {
+                throw new IllegalArgumentException("No Person persisted with that ID.");
+            }
         } finally {
             em.close();
         }

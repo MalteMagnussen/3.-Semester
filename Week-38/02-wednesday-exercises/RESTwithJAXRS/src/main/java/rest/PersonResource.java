@@ -3,13 +3,12 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.PersonDTO;
+import dto.PersonsDTO;
 import entities.Person;
 import facades.IPersonFacade;
 import utils.EMF_Creator;
 import facades.PersonFacade;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
@@ -29,19 +28,12 @@ public class PersonResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllPersonsDTO() {
-
-        List<PersonDTO> peopleDTO = new ArrayList<>();
-        for (Person person : FACADE.getAllPersons()) {
-            peopleDTO.add(
-                    new PersonDTO(person)
-            );
-        }
-
+        PersonsDTO persons = new PersonsDTO(FACADE.getAllPersons());
         Map all = new HashMap();
-        all.put("all", peopleDTO);
+        all.put("all", persons);
         return GSON.toJson(all);
     }
-    
+
     @Path("/{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -49,7 +41,5 @@ public class PersonResource {
         PersonDTO person = new PersonDTO(FACADE.getPerson(id));
         return GSON.toJson(person);
     }
-    
-    
 
 }
