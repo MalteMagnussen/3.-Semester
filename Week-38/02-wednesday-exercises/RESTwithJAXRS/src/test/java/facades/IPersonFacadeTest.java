@@ -50,6 +50,11 @@ public class IPersonFacadeTest {
 
         EntityManager em = emf.createEntityManager();
         try {
+            em.getTransaction().begin();
+            Query query = em.createNativeQuery("truncate table jaxrs_test.PERSON;");
+            query.executeUpdate();
+            em.getTransaction().commit();
+            
             for (Person p : people) {
                 em.getTransaction().begin();
                 em.persist(p);
@@ -62,12 +67,6 @@ public class IPersonFacadeTest {
 
     @AfterEach
     public void tearDown() {
-        EntityManager em = emf.createEntityManager();
-
-        em.getTransaction().begin();
-        Query query = em.createNativeQuery("truncate table jaxrs_test.PERSON;");
-        query.executeUpdate();
-        em.getTransaction().commit();
     }
 
     @Test
@@ -97,7 +96,6 @@ public class IPersonFacadeTest {
     }
 
 //    public Person deletePerson(int id);
-    
     @Test
     public void getPersonTest() {
         System.out.println("Get Person Test - Facade");
@@ -135,7 +133,7 @@ public class IPersonFacadeTest {
         assertNotNull(result);
         assertEquals(expResult, result);
     }
-    
+
     @Test
     public void editPersonTest() {
         System.out.println("Edit Person Test - Facade");
