@@ -1,5 +1,6 @@
 package facades;
 
+import entities.Address;
 import entities.Person;
 import exceptions.MissingInputException;
 import exceptions.PersonNotFoundException;
@@ -38,12 +39,12 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public Person addPerson(String fName, String lName, String phone) throws MissingInputException {
+    public Person addPerson(String fName, String lName, String phone, Address address) throws MissingInputException {
         if (fName != null && !fName.isEmpty() && lName != null && !lName.isEmpty() && phone != null && !phone.isEmpty()) {
             EntityManager em = getEntityManager();
             try {
                 em.getTransaction().begin();
-                Person person = new Person(fName, lName, phone);
+                Person person = new Person(fName, lName, phone, address);
                 em.persist(person);
                 em.getTransaction().commit();
                 return person;

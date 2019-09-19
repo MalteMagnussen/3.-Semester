@@ -26,7 +26,7 @@ public class PersonDTO {
         this.lName = lName;
         this.phone = phone;
     }
-    
+
     public PersonDTO(Person person) {
         this.id = person.getId();
         this.fName = person.getFirstName();
@@ -35,6 +35,14 @@ public class PersonDTO {
     }
 
     public PersonDTO() {
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public int getId() {

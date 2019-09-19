@@ -1,5 +1,6 @@
 package facades;
 
+import entities.Address;
 import utils.EMF_Creator;
 import entities.Person;
 import exceptions.MissingInputException;
@@ -11,7 +12,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,6 +27,7 @@ public class IPersonFacadeTest {
     private static PersonFacade facade;
     private Person person;
     private List<Person> people;
+    private Address address;
 
     public IPersonFacadeTest() {
     }
@@ -44,11 +45,14 @@ public class IPersonFacadeTest {
     @BeforeEach
     public void setUp() {
         people = new ArrayList<>();
-        person = new Person("Malte", "Magnussen", "42301207");
+
+        address = new Address("Emiliekildevej", "Ordrup", "1234");
+
+        person = new Person("Malte", "Magnussen", "42301207", address);
 
         people.add(person);
-        people.add(new Person("Jens", "Laigaard", "98765432"));
-        people.add(new Person("August", "Enevoldsen", "12345678"));
+        people.add(new Person("Jens", "Laigaard", "98765432", address));
+        people.add(new Person("August", "Enevoldsen", "12345678", address));
 
         EntityManager em = emf.createEntityManager();
         try {
@@ -57,6 +61,15 @@ public class IPersonFacadeTest {
             query.executeUpdate();
             em.getTransaction().commit();
 
+//            em.getTransaction().begin();
+//            Query query1 = em.createNativeQuery("truncate table jaxrs_test.ADDRESS;");
+//            query1.executeUpdate();
+//            em.getTransaction().commit();
+
+            em.getTransaction().begin();
+            em.persist(address);
+            em.getTransaction().commit();
+            
             for (Person p : people) {
                 em.getTransaction().begin();
                 em.persist(p);
@@ -75,9 +88,9 @@ public class IPersonFacadeTest {
     public void addPersonTest() throws MissingInputException {
         System.out.println("Add Person Test - Facade");
         // Arrange
-        Person expResult = new Person("Martin", "Smith", "123");
+        Person expResult = new Person("Martin", "Smith", "123", address);
         // Act
-        Person result = facade.addPerson("Martin", "Smith", "123");
+        Person result = facade.addPerson("Martin", "Smith", "123", address);
         // Assert
         assertNotNull(result);
         assertEquals(expResult, result);
@@ -90,7 +103,7 @@ public class IPersonFacadeTest {
         Throwable expResult = new MissingInputException("First Name and/or Last Name is missing");
         // Act
         Throwable result = assertThrows(MissingInputException.class, () -> {
-            facade.addPerson(null, null, null);
+            facade.addPerson(null, null, null, null);
         });
         // Assert
         assertNotNull(result);

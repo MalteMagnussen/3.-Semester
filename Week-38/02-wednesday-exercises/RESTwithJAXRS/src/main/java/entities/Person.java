@@ -5,7 +5,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +36,9 @@ public class Person implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date lastEdited;
 
-    @ManyToOne
+    @ManyToOne(
+            cascade = CascadeType.PERSIST,
+            fetch = FetchType.LAZY)
     private Address address;
 
     public Person() {
@@ -48,7 +52,8 @@ public class Person implements Serializable {
         this.lastEdited = lastEdited;
     }
 
-    public Person(String firstName, String lastName, String phone) {
+    public Person(String firstName, String lastName, String phone, Address address) {
+        this.address = address;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -68,6 +73,11 @@ public class Person implements Serializable {
         }
         if (!p.getPhone().equals(this.phone)) {
             this.phone = p.getPhone();
+            counter++;
+        }
+        if (!p.getAddress().equals(this.address)) {
+            this.address = p.getAddress();
+            counter++;
         }
         if (counter > 0) {
             this.lastEdited = new Date();

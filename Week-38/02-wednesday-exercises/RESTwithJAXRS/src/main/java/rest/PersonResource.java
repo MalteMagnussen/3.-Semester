@@ -59,7 +59,7 @@ public class PersonResource {
     public Response savePerson(String p) throws MissingInputException {
         try {
             PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
-            Person person = FACADE.addPerson(personDTO.getfName(), personDTO.getlName(), personDTO.getPhone());
+            Person person = FACADE.addPerson(personDTO.getfName(), personDTO.getlName(), personDTO.getPhone(), personDTO.getAddress());
             PersonDTOnoId responseDTO = new PersonDTOnoId(person);
             return Response.ok(responseDTO).build();
         } catch (MissingInputException ex) {
