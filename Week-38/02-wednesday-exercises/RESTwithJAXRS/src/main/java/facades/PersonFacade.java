@@ -48,7 +48,7 @@ public class PersonFacade implements IPersonFacade {
                 return person;
             } catch (Exception e) {
                 em.getTransaction().rollback();
-                throw new IllegalArgumentException("Something went wrong when persisting Person: " + e.getMessage());
+                throw new IllegalArgumentException("Something went wrong when persisting Person.");
             } finally {
                 em.close();
             }
@@ -58,7 +58,7 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public Person deletePerson(int id) {
+    public Person deletePerson(int id) throws PersonNotFoundException {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
@@ -68,11 +68,10 @@ public class PersonFacade implements IPersonFacade {
             return person;
         } catch (Exception e) {
             em.getTransaction().rollback();
-            throw new IllegalArgumentException("Could not delete, provided id does not exist");
+            throw new PersonNotFoundException("Could not delete, provided id does not exist");
         } finally {
             em.close();
         }
-
     }
 
     @Override

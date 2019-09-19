@@ -129,7 +129,7 @@ public class PersonResourceTest {
                 .get("person")
                 .then()
                 .extract().body().jsonPath().getList("all", PersonDTO.class);
-        
+
         assertThat(persons, containsInAnyOrder(new PersonDTO(person1), new PersonDTO(person2), new PersonDTO(person3)));
     }
 
@@ -146,6 +146,16 @@ public class PersonResourceTest {
     }
 
     @Test
+    public void getPersonByIdTestWrong() {
+        given()
+                .contentType("application/json").when()
+                .get("/person/5").then().assertThat()
+                .statusCode(HttpStatus.NOT_FOUND_404.getStatusCode())
+                .body("code", equalTo(404))
+                .body("message", equalTo("No person with provided id found"));
+    }
+
+    @Test
     public void deletePersonByIdTest() {
         given()
                 .contentType("application/json").when()
@@ -154,18 +164,45 @@ public class PersonResourceTest {
                 .body("status", equalTo("removed"));
     }
 
-//    @Test
-//    public void putPersonTest() {
-//        given()
-//                .contentType("application/json").when()
-//                .put("/person").then().log().body().assertThat()
-//                .statusCode(HttpStatus.OK_200.getStatusCode())
-//                .body("id", equalTo(1))
-//                .body("fName", equalTo("Malte"))
-//                .body("lName", equalTo("Magnussen"))
-//                .body("phone", equalTo("42301207"));
-//    }
-    
+    @Test
+    public void deletePersonByIdTestWrong() {
+        given()
+                .contentType("application/json").when()
+                .delete("/person/5").then().assertThat()
+                .statusCode(HttpStatus.NOT_FOUND_404.getStatusCode())
+                .body("code", equalTo(404))
+                .body("message", equalTo("Could not delete, provided id does not exist"));
+    }
+
+    @Test
+    public void putPersonTest() {
+        person2.setFirstName("Morten");
+        person2.setLastName("Hedegaard");
+
+        given()
+                .contentType("application/json")
+                .body(new PersonDTO(person2))
+                .when()
+                .put("person")
+                .then()
+                .body("fName", equalTo("Morten"))
+                .body("lName", equalTo("Hedegaard"))
+                .body("phone", equalTo("98765432"))
+                .body("id", equalTo(2));
+    }
+
+    @Test
+    public void putPersonTestWrong() {
+        given()
+                .contentType("application/json")
+                .body("Something Wrong")
+                .when()
+                .put("person")
+                .then()
+                .body("code", equalTo(500))
+                .body("message", equalTo("Internal Server Error"));
+    }
+
     @Test
     public void postPersonTest() {
         given()
@@ -177,6 +214,18 @@ public class PersonResourceTest {
                 .body("fName", equalTo("Benjamin"))
                 .body("lName", equalTo("Kongshaug"))
                 .body("phone", equalTo("00001111"));
+    }
+
+    @Test
+    public void postPersonTestWrong() {
+        given()
+                .contentType("application/json")
+                .body("Something wrong")
+                .when()
+                .post("person")
+                .then()
+                .body("code", equalTo(500))
+                .body("message", equalTo("Internal Server Error"));
     }
 
 }
