@@ -111,6 +111,16 @@ public class PersonResourceTest {
                 .body("all.size()", is(3));
     }
     
-    
+    @Test
+    public void getPersonByIdTest() {
+        given()
+                .contentType("application/json").when()
+                .get("/person/1").then().log().body().assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("id", equalTo(1))
+                .body("fName", equalTo("Malte"))
+                .body("lName", equalTo("Magnussen"))
+                .body("phone", equalTo("42301207"));
+    }
 
 }
