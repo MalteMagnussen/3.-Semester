@@ -80,9 +80,13 @@ public class PersonResource {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public String deletePerson(@PathParam("id") int id) {
-        FACADE.deletePerson(id);
-        return "{\"status\": \"removed\"}";
+    public String deletePerson(@PathParam("id") int id) throws PersonNotFoundException {
+        try {
+            FACADE.deletePerson(id);
+            return "{\"status\": \"removed\"}";
+        } catch (PersonNotFoundException ex) {
+            throw new PersonNotFoundException(ex.getMessage());
+        }
     }
 
 }

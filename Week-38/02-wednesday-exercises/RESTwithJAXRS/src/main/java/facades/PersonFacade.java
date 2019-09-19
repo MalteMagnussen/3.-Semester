@@ -68,7 +68,7 @@ public class PersonFacade implements IPersonFacade {
             return person;
         } catch (Exception e) {
             em.getTransaction().rollback();
-            throw new IllegalArgumentException("Something went wrong when deleting Person: " + e.getMessage());
+            throw new IllegalArgumentException("Could not delete, provided id does not exist");
         } finally {
             em.close();
         }
@@ -85,7 +85,7 @@ public class PersonFacade implements IPersonFacade {
             if (person != null) {
                 return person;
             } else {
-                throw new PersonNotFoundException("No Person exists with ID: " + id);
+                throw new PersonNotFoundException("No person with provided id found");
             }
         } finally {
             em.close();

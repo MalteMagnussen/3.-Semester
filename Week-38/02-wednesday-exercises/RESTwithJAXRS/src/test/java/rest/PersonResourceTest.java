@@ -1,5 +1,7 @@
 package rest;
 
+import dto.PersonDTO;
+import dto.PersonsDTO;
 import entities.Person;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
@@ -16,6 +18,9 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.AfterAll;
@@ -56,17 +61,21 @@ public class PersonResourceTest {
         httpServer.shutdownNow();
     }
 
-    private Person person;
+    private Person person1;
+    private Person person2;
+    private Person person3;
     private List<Person> people;
 
     @BeforeEach
     public void setUp() {
         people = new ArrayList<>();
-        person = new Person("Malte", "Magnussen", "42301207");
+        person1 = new Person("Malte", "Magnussen", "42301207");
+        person2 = new Person("Jens", "Laigaard", "98765432");
+        person3 = new Person("August", "Enevoldsen", "12345678");
 
-        people.add(person);
-        people.add(new Person("Jens", "Laigaard", "98765432"));
-        people.add(new Person("August", "Enevoldsen", "12345678"));
+        people.add(person1);
+        people.add(person2);
+        people.add(person3);
 
         EntityManager em = emf.createEntityManager();
 
@@ -110,7 +119,20 @@ public class PersonResourceTest {
                 .body("all[2].phone", equalTo("12345678"))
                 .body("all.size()", is(3));
     }
-    
+
+    @Test
+    public void getAllPersonsTestNew() {
+        List<PersonDTO> persons;
+        persons = given()
+                .contentType("application/json")
+                .when()
+                .get("person")
+                .then()
+                .extract().body().jsonPath().getList("all", PersonDTO.class);
+        
+        assertThat(persons, containsInAnyOrder(new PersonDTO(person1), new PersonDTO(person2), new PersonDTO(person3)));
+    }
+
     @Test
     public void getPersonByIdTest() {
         given()
@@ -122,7 +144,7 @@ public class PersonResourceTest {
                 .body("lName", equalTo("Magnussen"))
                 .body("phone", equalTo("42301207"));
     }
-    
+
     @Test
     public void deletePersonByIdTest() {
         given()
@@ -131,7 +153,7 @@ public class PersonResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("status", equalTo("removed"));
     }
-    
+
 //    @Test
 //    public void putPersonTest() {
 //        given()
@@ -143,5 +165,18 @@ public class PersonResourceTest {
 //                .body("lName", equalTo("Magnussen"))
 //                .body("phone", equalTo("42301207"));
 //    }
+    
+    @Test
+    public void postPersonTest() {
+        given()
+                .contentType("application/json")
+                .body(new PersonDTO("Benjamin", "Kongshaug", "00001111"))
+                .when()
+                .post("person")
+                .then()
+                .body("fName", equalTo("Benjamin"))
+                .body("lName", equalTo("Kongshaug"))
+                .body("phone", equalTo("00001111"));
+    }
 
 }
