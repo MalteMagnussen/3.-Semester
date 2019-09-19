@@ -2,6 +2,7 @@ package facades;
 
 import utils.EMF_Creator;
 import entities.Person;
+import exceptions.PersonNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -54,7 +55,7 @@ public class IPersonFacadeTest {
             Query query = em.createNativeQuery("truncate table jaxrs_test.PERSON;");
             query.executeUpdate();
             em.getTransaction().commit();
-            
+
             for (Person p : people) {
                 em.getTransaction().begin();
                 em.persist(p);
@@ -97,7 +98,7 @@ public class IPersonFacadeTest {
 
 //    public Person deletePerson(int id);
     @Test
-    public void getPersonTest() {
+    public void getPersonTest() throws PersonNotFoundException {
         System.out.println("Get Person Test - Facade");
         // Arrange
         Person expResult = person;
@@ -112,9 +113,9 @@ public class IPersonFacadeTest {
     public void getWrongPersonTest() {
         System.out.println("Get Person by Wrong ID Test - Facade");
         // Arrange
-        Throwable expResult = new IllegalArgumentException("No Person persisted with that ID.");
+        Throwable expResult = new PersonNotFoundException("No Person persisted with that ID.");
         // Act
-        Throwable result = assertThrows(IllegalArgumentException.class, () -> {
+        Throwable result = assertThrows(PersonNotFoundException.class, () -> {
             facade.getPerson(232);
         });
         // Assert

@@ -85,7 +85,7 @@ public class PersonFacade implements IPersonFacade {
             if (person != null) {
                 return person;
             } else {
-                throw new PersonNotFoundException("No Person exists with that ID.");
+                throw new PersonNotFoundException("No Person exists with ID: " + id);
             }
         } finally {
             em.close();

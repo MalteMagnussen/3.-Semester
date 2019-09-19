@@ -43,12 +43,12 @@ public class PersonResource {
     @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getPersonDTObyID(@PathParam("id") int id) {
+    public String getPersonDTObyID(@PathParam("id") int id) throws PersonNotFoundException {
         try {
             PersonDTO person = new PersonDTO(FACADE.getPerson(id));
             return GSON.toJson(person);
         } catch (PersonNotFoundException ex) {
-            return "TODO PROPER ERROR MESSAGE: " + ex.getMessage();
+            throw new PersonNotFoundException(ex.getMessage());
         }
     }
 
@@ -65,7 +65,7 @@ public class PersonResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response editCar(String p) {
+    public Response editPerson(String p) {
         try {
             PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
             Person person = FACADE.getPerson(personDTO.getId());
@@ -80,7 +80,7 @@ public class PersonResource {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public String deleteCar(@PathParam("id") int id) {
+    public String deletePerson(@PathParam("id") int id) {
         FACADE.deletePerson(id);
         return "{\"status\": \"removed\"}";
     }
