@@ -6,6 +6,7 @@
 package facades;
 
 import entities.Person;
+import exceptions.PersonNotFoundException;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public interface IPersonFacade {
 
     public Person deletePerson(int id);
 
-    public Person getPerson(int id);
+    public Person getPerson(int id) throws PersonNotFoundException;
 
     public List<Person> getAllPersons();
 

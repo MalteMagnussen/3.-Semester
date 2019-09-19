@@ -1,6 +1,7 @@
 package facades;
 
 import entities.Person;
+import exceptions.PersonNotFoundException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -75,7 +76,7 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public Person getPerson(int id) {
+    public Person getPerson(int id) throws PersonNotFoundException {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
@@ -84,7 +85,7 @@ public class PersonFacade implements IPersonFacade {
             if (person != null) {
                 return person;
             } else {
-                throw new IllegalArgumentException("No Person persisted with that ID.");
+                throw new PersonNotFoundException("No Person exists with that ID.");
             }
         } finally {
             em.close();

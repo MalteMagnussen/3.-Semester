@@ -132,6 +132,16 @@ public class PersonResourceTest {
                 .body("status", equalTo("removed"));
     }
     
-    
+//    @Test
+//    public void putPersonTest() {
+//        given()
+//                .contentType("application/json").when()
+//                .put("/person").then().log().body().assertThat()
+//                .statusCode(HttpStatus.OK_200.getStatusCode())
+//                .body("id", equalTo(1))
+//                .body("fName", equalTo("Malte"))
+//                .body("lName", equalTo("Magnussen"))
+//                .body("phone", equalTo("42301207"));
+//    }
 
 }

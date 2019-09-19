@@ -6,9 +6,12 @@ import dto.PersonDTO;
 import dto.PersonDTOnoId;
 import dto.PersonsDTO;
 import entities.Person;
+import exceptions.PersonNotFoundException;
 import facades.IPersonFacade;
 import utils.EMF_Creator;
 import facades.PersonFacade;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -41,8 +44,12 @@ public class PersonResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getPersonDTObyID(@PathParam("id") int id) {
-        PersonDTO person = new PersonDTO(FACADE.getPerson(id));
-        return GSON.toJson(person);
+        try {
+            PersonDTO person = new PersonDTO(FACADE.getPerson(id));
+            return GSON.toJson(person);
+        } catch (PersonNotFoundException ex) {
+            return "TODO PROPER ERROR MESSAGE: " + ex.getMessage();
+        }
     }
 
     @POST
@@ -59,11 +66,15 @@ public class PersonResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response editCar(String p) {
-        PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
-        Person person = FACADE.getPerson(personDTO.getId());
-        person.editPerson(personDTO);
-        PersonDTO responseDTO = new PersonDTO(FACADE.editPerson(person));
-        return Response.ok(responseDTO).build();
+        try {
+            PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
+            Person person = FACADE.getPerson(personDTO.getId());
+            person.editPerson(personDTO);
+            PersonDTO responseDTO = new PersonDTO(FACADE.editPerson(person));
+            return Response.ok(responseDTO).build();
+        } catch (PersonNotFoundException ex) {
+            return Response.notModified(ex.getMessage()).build();
+        }
     }
 
     @DELETE
