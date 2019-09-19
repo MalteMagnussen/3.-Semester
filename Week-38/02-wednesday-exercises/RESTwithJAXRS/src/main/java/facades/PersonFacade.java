@@ -1,6 +1,7 @@
 package facades;
 
 import entities.Person;
+import exceptions.MissingInputException;
 import exceptions.PersonNotFoundException;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -37,7 +38,7 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public Person addPerson(String fName, String lName, String phone) {
+    public Person addPerson(String fName, String lName, String phone) throws MissingInputException {
         if (fName != null && !fName.isEmpty() && lName != null && !lName.isEmpty() && phone != null && !phone.isEmpty()) {
             EntityManager em = getEntityManager();
             try {
@@ -48,12 +49,12 @@ public class PersonFacade implements IPersonFacade {
                 return person;
             } catch (Exception e) {
                 em.getTransaction().rollback();
-                throw new IllegalArgumentException("Something went wrong when persisting Person.");
+                throw new MissingInputException("First Name and/or Last Name is missing");
             } finally {
                 em.close();
             }
         } else {
-            throw new IllegalArgumentException("Wrong input. Try again.");
+            throw new MissingInputException("First Name and/or Last Name is missing");
         }
     }
 
@@ -105,18 +106,22 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public Person editPerson(Person p) {
+    public Person editPerson(Person p) throws MissingInputException {
         EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.merge(p);
-            em.getTransaction().commit();
-            return p;
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw new IllegalArgumentException("Something went wrong when editing Person: " + e.getMessage());
-        } finally {
-            em.close();
+        if (p.getFirstName() != null && !p.getFirstName().isEmpty() && p.getLastName() != null && !p.getLastName().isEmpty()) {
+            try {
+                em.getTransaction().begin();
+                em.merge(p);
+                em.getTransaction().commit();
+                return p;
+            } catch (Exception e) {
+                em.getTransaction().rollback();
+                throw new MissingInputException(e.getMessage());
+            } finally {
+                em.close();
+            }
+        } else {
+            throw new MissingInputException("First Name and/or Last Name is missing");
         }
     }
 

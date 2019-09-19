@@ -6,6 +6,7 @@ import dto.PersonDTO;
 import dto.PersonDTOnoId;
 import dto.PersonsDTO;
 import entities.Person;
+import exceptions.MissingInputException;
 import exceptions.PersonNotFoundException;
 import facades.IPersonFacade;
 import utils.EMF_Creator;
@@ -55,24 +56,28 @@ public class PersonResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response savePerson(String p) {
-        PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
-        Person person = FACADE.addPerson(personDTO.getfName(), personDTO.getlName(), personDTO.getPhone());
-        PersonDTOnoId responseDTO = new PersonDTOnoId(person);
-        return Response.ok(responseDTO).build();
+    public Response savePerson(String p) throws MissingInputException {
+        try {
+            PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
+            Person person = FACADE.addPerson(personDTO.getfName(), personDTO.getlName(), personDTO.getPhone());
+            PersonDTOnoId responseDTO = new PersonDTOnoId(person);
+            return Response.ok(responseDTO).build();
+        } catch (MissingInputException ex) {
+            throw new MissingInputException(ex.getMessage());
+        }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response editPerson(String p) {
+    public Response editPerson(String p) throws PersonNotFoundException {
         try {
             PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
             Person person = FACADE.getPerson(personDTO.getId());
             person.editPerson(personDTO);
             PersonDTO responseDTO = new PersonDTO(FACADE.editPerson(person));
             return Response.ok(responseDTO).build();
-        } catch (PersonNotFoundException ex) {
+        } catch (MissingInputException ex) {
             return Response.notModified(ex.getMessage()).build();
         }
     }

@@ -2,6 +2,7 @@ package facades;
 
 import utils.EMF_Creator;
 import entities.Person;
+import exceptions.MissingInputException;
 import exceptions.PersonNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,7 @@ public class IPersonFacadeTest {
     }
 
     @Test
-    public void addPersonTest() {
+    public void addPersonTest() throws MissingInputException {
         System.out.println("Add Person Test - Facade");
         // Arrange
         Person expResult = new Person("Martin", "Smith", "123");
@@ -86,9 +87,9 @@ public class IPersonFacadeTest {
     public void addPersonWrongTest() {
         System.out.println("Add Person Wrong Input Test - Facade");
         // Arrange
-        Throwable expResult = new IllegalArgumentException("Wrong input. Try again.");
+        Throwable expResult = new MissingInputException("First Name and/or Last Name is missing");
         // Act
-        Throwable result = assertThrows(IllegalArgumentException.class, () -> {
+        Throwable result = assertThrows(MissingInputException.class, () -> {
             facade.addPerson(null, null, null);
         });
         // Assert
@@ -138,7 +139,7 @@ public class IPersonFacadeTest {
     }
 
     @Test
-    public void editPersonTest() {
+    public void editPersonTest() throws MissingInputException {
         System.out.println("Edit Person Test - Facade");
         // Arrange
         Person expResult = person;
@@ -148,5 +149,22 @@ public class IPersonFacadeTest {
         // Assert
         assertNotNull(result);
         assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void editPersonTestWrong() {
+        System.out.println("Edit Person Wrong Test - Facade");
+        // Arrange
+        Person editPerson = person;
+        editPerson.setFirstName("");
+        editPerson.setLastName("");
+        Throwable expResult = new MissingInputException("First Name and/or Last Name is missing");
+        // Act
+        Throwable result = assertThrows(MissingInputException.class, () -> {
+            facade.editPerson(editPerson);
+        });
+        // Assert
+        assertNotNull(result);
+        assertEquals(expResult.getCause(), result.getCause());
     }
 }
