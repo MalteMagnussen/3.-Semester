@@ -122,5 +122,16 @@ public class PersonResourceTest {
                 .body("lName", equalTo("Magnussen"))
                 .body("phone", equalTo("42301207"));
     }
+    
+    @Test
+    public void deletePersonByIdTest() {
+        given()
+                .contentType("application/json").when()
+                .delete("/person/1").then().log().body().assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("status", equalTo("removed"));
+    }
+    
+    
 
 }
