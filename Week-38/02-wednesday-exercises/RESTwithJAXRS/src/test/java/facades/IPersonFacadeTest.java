@@ -97,9 +97,6 @@ public class IPersonFacadeTest {
         assertEquals(expResult.getCause(), result.getCause());
     }
 
-//    public Person deletePerson(int id);
-    
-    
     @Test
     public void getPersonTest() throws PersonNotFoundException {
         System.out.println("Get Person Test - Facade");
@@ -150,7 +147,7 @@ public class IPersonFacadeTest {
         assertNotNull(result);
         assertEquals(expResult, result);
     }
-    
+
     @Test
     public void editPersonTestWrong() {
         System.out.println("Edit Person Wrong Test - Facade");
@@ -162,6 +159,20 @@ public class IPersonFacadeTest {
         // Act
         Throwable result = assertThrows(MissingInputException.class, () -> {
             facade.editPerson(editPerson);
+        });
+        // Assert
+        assertNotNull(result);
+        assertEquals(expResult.getCause(), result.getCause());
+    }
+
+    @Test
+    public void deletePersonTestWrong() {
+        System.out.println("Delete Person Wrong Test - Facade");
+        // Arrange
+        Throwable expResult = new PersonNotFoundException("Could not delete, provided id does not exist");
+        // Act
+        Throwable result = assertThrows(PersonNotFoundException.class, () -> {
+            facade.deletePerson(5);
         });
         // Assert
         assertNotNull(result);
