@@ -23,7 +23,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
 
 public class PersonResourceTest {
@@ -42,7 +41,7 @@ public class PersonResourceTest {
 
     @BeforeAll
     public static void setUpClass() {
-        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST, Strategy.DROP_AND_CREATE);
+        emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.TEST, Strategy.DROP_AND_CREATE);
 
         httpServer = startServer();
 
@@ -95,7 +94,7 @@ public class PersonResourceTest {
     public void getAllPersonsTest() {
         given()
                 .contentType("application/json").when()
-                .get("/person").then().assertThat()
+                .get("/person").then().log().body().assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("all[0].id", equalTo(1))
                 .body("all[0].fName", equalTo("Malte"))
@@ -109,7 +108,9 @@ public class PersonResourceTest {
                 .body("all[2].fName", equalTo("August"))
                 .body("all[2].lName", equalTo("Enevoldsen"))
                 .body("all[2].phone", equalTo("12345678"))
-                .body("size()", is(3));
+                .body("all.size()", is(3));
     }
+    
+    
 
 }

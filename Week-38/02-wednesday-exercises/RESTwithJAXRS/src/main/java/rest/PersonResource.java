@@ -3,13 +3,12 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.PersonDTO;
+import dto.PersonDTOnoId;
 import dto.PersonsDTO;
 import entities.Person;
 import facades.IPersonFacade;
 import utils.EMF_Creator;
 import facades.PersonFacade;
-import java.util.HashMap;
-import java.util.Map;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -52,7 +51,7 @@ public class PersonResource {
     public Response savePerson(String p) {
         PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
         Person person = FACADE.addPerson(personDTO.getfName(), personDTO.getlName(), personDTO.getPhone());
-        PersonDTO responseDTO = new PersonDTO(person);
+        PersonDTOnoId responseDTO = new PersonDTOnoId(person);
         return Response.ok(responseDTO).build();
     }
 
