@@ -70,11 +70,9 @@ public class CustomerFacade implements ICustomerFacade {
             em.getTransaction().begin();
             Customer customer = em.find(Customer.class, id);
             em.getTransaction().commit();
-            if (customer != null) {
-                return customer;
-            } else {
-                throw new PersonNotFoundException("Couldn't find customer.");
-            }
+            return customer;
+        } catch (Exception e) {
+            throw new PersonNotFoundException("Couldn't find customer.");
         } finally {
             em.close();
         }
@@ -98,27 +96,89 @@ public class CustomerFacade implements ICustomerFacade {
     }
 
     @Override
-    public ItemType createItemType(String name, String description, int price) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ItemType createItemType(String name, String description, int price) throws MissingInputException {
+        if (name != null && !name.isEmpty() && description != null && !description.isEmpty() && !(price <= 0)) {
+            ItemType item = new ItemType(name, description, price);
+            EntityManager em = getEntityManager();
+            try {
+                em.getTransaction().begin();
+                em.persist(item);
+                em.getTransaction().commit();
+                return item;
+            } finally {
+                em.close();
+            }
+        } else {
+            throw new MissingInputException("Name or Description was empty or price was <= 0.");
+        }
     }
 
     @Override
-    public Order addOrderToCustomer(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Customer addOrderToCustomer(Customer customer, Order order) throws MissingInputException, PersonNotFoundException {
+        if (customer != null && order != null) {
+            customer.addOrder(order);
+            EntityManager em = getEntityManager();
+            try {
+                em.getTransaction().begin();
+                em.merge(customer);
+                em.getTransaction().commit();
+                return customer;
+            } catch (Exception e) {
+                throw new PersonNotFoundException("Customer didn't exist in database.");
+            } finally {
+                em.close();
+            }
+        } else {
+            throw new MissingInputException("Customer or Order was null.");
+        }
     }
 
     @Override
-    public OrderLine addOrderLineToOrder(int itemQuantity, String itemName, Order order) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Order addOrderLineToOrder(OrderLine orderLine, Order order) throws MissingInputException, PersonNotFoundException {
+        if (orderLine != null && order != null) {
+            order.addOrder(orderLine);
+            EntityManager em = getEntityManager();
+            try {
+                em.getTransaction().begin();
+                em.merge(order);
+                em.getTransaction().commit();
+                return order;
+            } catch (Exception e) {
+                throw new PersonNotFoundException("Order didn't exist in database.");
+            } finally {
+                em.close();
+            }
+        } else {
+            throw new MissingInputException("OrderLine or Order was null.");
+        }
     }
 
     @Override
-    public List<Order> allOrderFromCustomer(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Order> allOrderFromCustomer(Customer customer) throws PersonNotFoundException, MissingInputException {
+        if (customer != null) {
+            EntityManager em = getEntityManager();
+            try {
+                em.getTransaction().begin();
+                List<Order> orders = em.createNamedQuery("Order.getByCustomer", Order.class).setParameter("customer", customer).getResultList();
+                em.getTransaction().commit();
+                return orders;
+            } catch (Exception e) {
+                throw new PersonNotFoundException("Couldn't find any orders from this customer.");
+            } finally {
+                em.close();
+            }
+        } else {
+            throw new MissingInputException("Customer must not be null.");
+        }
     }
 
     @Override
     public int totalPriceOfOrder(Order order) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItemType findItemType(long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

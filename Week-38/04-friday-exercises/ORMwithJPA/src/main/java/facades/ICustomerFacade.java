@@ -25,13 +25,15 @@ public interface ICustomerFacade {
     
     public List<Customer> getAllCustomers() throws PersonNotFoundException;
     
-    public ItemType createItemType(String name, String description, int price);
+    public ItemType createItemType(String name, String description, int price) throws MissingInputException;
     
-    public Order addOrderToCustomer(Customer customer);
+    public ItemType findItemType(long id);
     
-    public OrderLine addOrderLineToOrder(int itemQuantity, String itemName, Order order);
+    public Customer addOrderToCustomer(Customer customer, Order order) throws MissingInputException, PersonNotFoundException;
     
-    public List<Order> allOrderFromCustomer(Customer customer);
+    public Order addOrderLineToOrder(OrderLine orderLine, Order order) throws MissingInputException, PersonNotFoundException;
+    
+    public List<Order> allOrderFromCustomer(Customer customer) throws PersonNotFoundException, MissingInputException;
     
     public int totalPriceOfOrder(Order order);
 }
