@@ -150,7 +150,7 @@ public class PersonResourceTest {
         given()
                 .contentType("application/json").when()
                 .get("/person/5").then().assertThat()
-                .statusCode(HttpStatus.NOT_FOUND_404.getStatusCode())
+                .statusCode(HttpStatus.BAD_REQUEST_400.getStatusCode())
                 .body("code", equalTo(404))
                 .body("message", equalTo("No person with provided id found"));
     }
@@ -169,7 +169,7 @@ public class PersonResourceTest {
         given()
                 .contentType("application/json").when()
                 .delete("/person/5").then().assertThat()
-                .statusCode(HttpStatus.NOT_FOUND_404.getStatusCode())
+                .statusCode(HttpStatus.BAD_REQUEST_400.getStatusCode())
                 .body("code", equalTo(404))
                 .body("message", equalTo("Could not delete, provided id does not exist"));
     }
