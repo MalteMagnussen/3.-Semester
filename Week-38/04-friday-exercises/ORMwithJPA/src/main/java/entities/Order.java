@@ -23,10 +23,10 @@ import javax.persistence.OneToMany;
 @Entity
 public class Order implements Serializable {
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
     private Customer customer;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<OrderLine> orders = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
