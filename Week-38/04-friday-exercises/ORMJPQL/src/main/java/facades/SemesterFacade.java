@@ -33,7 +33,7 @@ public class SemesterFacade {
      * @param _emf
      * @return an instance of this facade class.
      */
-    public static SemesterFacade getCustomerFacade(EntityManagerFactory _emf) {
+    public static SemesterFacade getSemesterFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
             instance = new SemesterFacade();

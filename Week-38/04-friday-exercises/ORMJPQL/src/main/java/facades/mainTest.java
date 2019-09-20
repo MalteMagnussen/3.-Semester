@@ -5,7 +5,11 @@
  */
 package facades;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import utils.EMF_Creator;
+import static utils.EMF_Creator.createEntityManagerFactory;
 
 /**
  *
@@ -14,6 +18,10 @@ import javax.persistence.EntityManagerFactory;
 public class mainTest {
 
     public static void main(String[] args) {
+        EntityManagerFactory emf = createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
+        
+        SemesterFacade facade = SemesterFacade.getSemesterFacade(emf);
+        System.out.println(facade.teachOnMostSemesters()); // Expect ID = 3
         
     }
 }

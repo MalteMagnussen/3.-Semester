@@ -113,7 +113,9 @@ public class Teacher implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Teacher[ id=" + id + " ]";
+        return "Teacher{" + "id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", semesterCollection=" + semesterCollection + '}';
     }
+
+    
     
 }
