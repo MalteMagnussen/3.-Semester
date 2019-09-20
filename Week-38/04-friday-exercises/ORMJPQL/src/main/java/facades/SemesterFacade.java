@@ -7,6 +7,7 @@ package facades;
 
 import entities.Semester;
 import entities.Student;
+import entities.Teacher;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -185,6 +186,20 @@ public class SemesterFacade {
         } finally {
             em.close();
         }
+    }
+    
+    // Find (using JPQL) the teacher(s) who teaches on most semesters.
+    public Teacher teachOnMostSemesters() {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Teacher teacher = (Teacher) em.createQuery("SELECT t FROM Teacher t WHERE t.id = (SELECT max(s.id) FROM Teacher t JOIN t.semesterCollection s)").getSingleResult();
+            em.getTransaction().commit();
+            return teacher;        
+        } finally {
+            em.close();
+        }
+        
     }
 
 }
