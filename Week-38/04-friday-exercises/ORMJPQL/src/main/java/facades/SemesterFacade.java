@@ -7,9 +7,12 @@ package facades;
 
 import entities.Semester;
 import entities.Student;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import mappers.StudentInfo;
 
 /**
  *
@@ -81,7 +84,7 @@ public class SemesterFacade {
     }
 
     // Assign a new student to a semester (given the student-id and semester-id)
-    public Student assignToSemester(int studentId, int semesterId) {
+    public Student assignToSemester(Long studentId, Long semesterId) {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
@@ -127,6 +130,61 @@ public class SemesterFacade {
     }
 
     // Find (using JPQL)  the total number of students, for a semester given the semester name as a parameter.
+    public int getStudentCountBySemester(String semester) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            int studentCount = em.createNamedQuery("Student.findBySemesterCount").setParameter("semester", semester).getFirstResult();
+            em.getTransaction().commit();
+            return studentCount;
+        } finally {
+            em.close();
+        }
+    }
+
     // Find (using JPQL) the total number of students in all semesters.
     // Find (using JPQL) the teacher(s) who teaches on most semesters.
+    // Now create a method (using JPQL) with the following signature to return a list of all Students, encapsulated as StudentInfo’s.
+    public List<StudentInfo> getStudentInfo() {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Collection<Student> students = em.createNamedQuery("Student.findAll").getResultList();
+            em.getTransaction().commit();
+            List<StudentInfo> studentInfo = new ArrayList<>();
+            for (Student student : students) {
+                studentInfo.add(new StudentInfo(student.getFirstname(), student.getLastname(), student.getId(), student.getSemester().getName(), student.getSemester().getDescription()));
+            }
+            return studentInfo;
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<StudentInfo> getStudentInfo2() {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            List<StudentInfo> students = em.createQuery("SELECT new mappers.StudentInfo(s.firstname, s.lastname, s.id, s.semester.name, s.semester.description) FROM Student s").getResultList();
+            em.getTransaction().commit();
+            return students;
+        } finally {
+            em.close();
+        }
+    }
+
+    //  Create a method, similar to the one above, but which returns a single StudentInfo, given a students id as sketched below:
+    public StudentInfo getStudentInfo(long id) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            StudentInfo student = (StudentInfo) em.createQuery("SELECT new mappers.StudentInfo(s.firstname, s.lastname, s.id, s.semester.name, s.semester.description) FROM Student s WHERE s.id = :id")
+                    .setParameter("id", id).getSingleResult();
+            em.getTransaction().commit();
+            return student;
+        } finally {
+            em.close();
+        }
+    }
+
 }
