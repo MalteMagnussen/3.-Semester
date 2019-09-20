@@ -81,8 +81,20 @@ public class CustomerFacade implements ICustomerFacade {
     }
 
     @Override
-    public List<Customer> getAllCustomers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Customer> getAllCustomers() throws PersonNotFoundException {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            List<Customer> customers = em.createNamedQuery("Customer.getAll", Customer.class).getResultList();
+            em.getTransaction().commit();
+            if (customers != null) {
+                return customers;
+            } else {
+                throw new PersonNotFoundException("Couldn't find customers.");
+            }
+        } finally {
+            em.close();
+        }
     }
 
     @Override

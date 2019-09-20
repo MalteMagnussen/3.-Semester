@@ -23,7 +23,7 @@ public interface ICustomerFacade {
     
     public Customer findCustomer(Long id) throws PersonNotFoundException;
     
-    public List<Customer> getAllCustomers();
+    public List<Customer> getAllCustomers() throws PersonNotFoundException;
     
     public ItemType createItemType(String name, String description, int price);
     
