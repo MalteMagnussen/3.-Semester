@@ -37,6 +37,14 @@ public class OrderLine implements Serializable {
         this.quantity = quantity;
     }
 
+    public ItemType getItem() {
+        return item;
+    }
+
+    public void setItem(ItemType item) {
+        this.item = item;
+    }
+
     /**
      * Get the value of quantity
      *

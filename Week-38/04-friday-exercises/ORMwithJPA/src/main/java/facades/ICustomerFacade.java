@@ -27,7 +27,7 @@ public interface ICustomerFacade {
     
     public ItemType createItemType(String name, String description, int price) throws MissingInputException;
     
-    public ItemType findItemType(long id);
+    public ItemType findItemType(long id) throws PersonNotFoundException;
     
     public Customer addOrderToCustomer(Customer customer, Order order) throws MissingInputException, PersonNotFoundException;
     
@@ -35,5 +35,5 @@ public interface ICustomerFacade {
     
     public List<Order> allOrderFromCustomer(Customer customer) throws PersonNotFoundException, MissingInputException;
     
-    public int totalPriceOfOrder(Order order);
+    public int totalPriceOfOrder(Order order) throws MissingInputException;
 }

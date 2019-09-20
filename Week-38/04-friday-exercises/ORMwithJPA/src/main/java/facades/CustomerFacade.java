@@ -85,11 +85,9 @@ public class CustomerFacade implements ICustomerFacade {
             em.getTransaction().begin();
             List<Customer> customers = em.createNamedQuery("Customer.getAll", Customer.class).getResultList();
             em.getTransaction().commit();
-            if (customers != null) {
-                return customers;
-            } else {
-                throw new PersonNotFoundException("Couldn't find customers.");
-            }
+            return customers;
+        } catch (Exception e) {
+            throw new PersonNotFoundException("Couldn't find customers.");
         } finally {
             em.close();
         }
@@ -173,13 +171,39 @@ public class CustomerFacade implements ICustomerFacade {
     }
 
     @Override
-    public int totalPriceOfOrder(Order order) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int totalPriceOfOrder(Order order) throws MissingInputException {
+        if (order != null) {
+            if (order.getOrders() != null && !order.getOrders().isEmpty()) {
+                int totalPrice = 0;
+                for (OrderLine item : order.getOrders()) {
+                    if (item.getItem() != null && item.getQuantity() > 0) {
+                        totalPrice += item.getItem().getPrice() * item.getQuantity();
+                    } else {
+                        throw new MissingInputException("An item in the order had either 0 quantity or was null.");
+                    }
+                }
+                return totalPrice;
+            } else {
+                throw new MissingInputException("Order must contain OrderLines.");
+            }
+        } else {
+            throw new MissingInputException("Order must not be null.");
+        }
     }
 
     @Override
-    public ItemType findItemType(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ItemType findItemType(long id) throws PersonNotFoundException {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            ItemType item = em.find(ItemType.class, id);
+            em.getTransaction().commit();
+            return item;
+        } catch (Exception e) {
+            throw new PersonNotFoundException("Couldn't find item.");
+        } finally {
+            em.close();
+        }
     }
 
 }
