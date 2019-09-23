@@ -100,7 +100,7 @@ var result = [4, 8, 15, 21, 11];
 // And lets hope for no nullpointer shenanigans at the last number. 
 
 function comfortable(element, index, array) {
-    if (index < array.length-1)
+    if (index < array.length - 1)
         return element + array[index + 1];
     else return element;
 }
@@ -121,28 +121,29 @@ console.log(printArray);
 // </nav>
 
 function navigationHelper(item) {
-    return '<a href="">'+item+'</a>'
+    return '<a href="">' + item + '</a>'
 }
 
 console.log(' b) Use map() to create to create the <a>’s for a navigation set ');
 
-var aNames = namesArray.map(navigationHelper);
+function navLinks(array) {
+    var aNames = array.map(navigationHelper);
 
-var printString = '<nav>\n';
-printString += aNames.join('\n');
-printString += '\n</nav>';
-
-console.log(printString);
+    var printString = '<nav>\n';
+    printString += aNames.join('\n');
+    return printString += '\n</nav>';
+}
+console.log(navLinks(namesArray));
 
 // c) Use map()+(join + ..) to create to create a string, representing a two column table, for the data given below:
-var names = [{name:"Lars",phone:"1234567"}, {name: "Peter",phone: "675843"}, {name: "Jan", phone: "98547"},{name: "Bo", phone: "79345"}];
+var names = [{ name: "Lars", phone: "1234567" }, { name: "Peter", phone: "675843" }, { name: "Jan", phone: "98547" }, { name: "Bo", phone: "79345" }];
 
 console.log('c) Use map()+(join + ..) to create to create a string, representing a two column table');
 
 function myTable(array) {
     var returnString = '<table>\n';
 
-    var myTableArray = function(array) {
+    var myTableArray = function (array) {
         function helper(element) {
             var returnString = '<tr>\n';
             returnString += '<td>' + element.name + '</td>\n';
@@ -163,6 +164,36 @@ console.log(myTable(names));
 // d) Create a single html-file and test the two examples given above.
 // Hint: add a single div with an id=names, and use DOM-manipulation (document.getElementById.innerHTML = theString) to add the nav or table.
 
+function navLinks2(array) {
+
+    var array2 = array.map(function (item) {
+        return item.name;
+    })
+
+    var aNames = array2.map(navigationHelper);
+
+    var printString = '<nav>\n';
+    printString += aNames.join('\n');
+    return printString += '\n</nav>';
+}
+
 document.getElementById("names").innerHTML = myTable(names);
 
-document.getElementById("printString").innerHTML = printString;
+document.getElementById("printString").innerHTML = navLinks2(names);
+
+// d) Add a button with a click-handler and use the filter method to find only names containing the letter ‘a’. 
+// Update the nav and the table to represent the filtered data.
+
+document.getElementById("myButton").onclick = function () {
+
+    function filterNames(name) {
+        if (name.name.includes('a'))
+            return name;
+    }
+
+    var filteredNames = names.filter(filterNames);
+
+    document.getElementById("names").innerHTML = myTable(filteredNames);
+
+    document.getElementById("printString").innerHTML = navLinks2(filteredNames);
+}
