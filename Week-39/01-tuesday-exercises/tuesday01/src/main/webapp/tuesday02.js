@@ -28,3 +28,29 @@ function getSum(total, num) {
 // How the fuck does this even work. 
 console.log(numbers.reduce(getSum, 0));
 
+// c) Given this array:
+var members = [
+ {name : "Peter", age: 18},
+ {name : "Jan", age: 35},
+ {name : "Janne", age: 25},
+ {name : "Martin", age: 22}]
+
+// Create a reducer callback that, using the Array’s  reduce() method,  will return the average age of all members (25 for the provided array).
+// Hint: The reduce callback takes two additional arguments as sketched below:
+// var reducer = function(accumulator, member,index,arr ){
+// Index is the current index for which the value (member) are passed in, and arr is the array.
+// Use this to return different values from your reduce-function,  according to whether you have reached the last element or not.
+
+console.log('Create a reducer callback that, using the Array’s  reduce() method,'  
++ '\nwill return the average age of all members (25 for the provided array).');
+
+members.reduce(function(total, member, index, array){
+
+    var averageAge = 0 + (total + member.age) / (index+1);
+
+    console.log('Average age after '+(index+1)+' iterations is: ' + averageAge);
+
+    return total + member.age;
+}, 0);
+
+
