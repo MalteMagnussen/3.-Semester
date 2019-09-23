@@ -159,3 +159,10 @@ function myTable(array) {
 }
 
 console.log(myTable(names));
+
+// d) Create a single html-file and test the two examples given above.
+// Hint: add a single div with an id=names, and use DOM-manipulation (document.getElementById.innerHTML = theString) to add the nav or table.
+
+document.getElementById("names").innerHTML = myTable(names);
+
+document.getElementById("printString").innerHTML = printString;
