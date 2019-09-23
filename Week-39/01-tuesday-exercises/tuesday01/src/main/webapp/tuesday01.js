@@ -197,3 +197,4 @@ document.getElementById("myButton").onclick = function () {
 
     document.getElementById("printString").innerHTML = navLinks2(filteredNames);
 }
+
