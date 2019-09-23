@@ -87,3 +87,28 @@ Array.prototype.myFilter = function (callback) {
 
 console.log('3) Using the Prototype property to add new functionality to existing objects');
 console.log(namesArray.myFilter(filterNames));
+
+// 4) Getting really comfortable with filter and map
+// a) Given this array: var numbers = [1, 3, 5, 10, 11];
+// Use map + a sufficient callback to map numbers into this array:
+// var result = [4,8,15,21,11];
+// Hints: The map() callback can take me additional arguments, see here
+
+var numbers = [1, 3, 5, 10, 11];
+var result = [4, 8, 15, 21, 11];
+// Basically every number is just summed with the next one. So lets iterate over and plus the next number unto the one you're standing on. 
+// And lets hope for no nullpointer shenanigans at the last number. 
+
+function comfortable(element, index, array) {
+    if (index < array.length-1)
+        return element + array[index + 1];
+    else return element;
+}
+
+var printArray = numbers.map(comfortable);
+
+console.log('4) Getting really comfortable with filter and map '
+    + '\na) Given this array: var numbers = [1, 3, 5, 10, 11]; '
+    + '\nUse map + a sufficient callback to map numbers into this array: var result = [4,8,15,21,11];')
+console.log(printArray);
+
