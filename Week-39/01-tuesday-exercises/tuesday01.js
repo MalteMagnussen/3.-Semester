@@ -112,3 +112,50 @@ console.log('4) Getting really comfortable with filter and map '
     + '\nUse map + a sufficient callback to map numbers into this array: var result = [4,8,15,21,11];')
 console.log(printArray);
 
+// b) Use map() to create to create the <a>’s for a navigation set and eventually a string like below (use join() to get the string of <a>’s):
+// <nav>
+//   <a href=””>Lars</a>
+//   <a href=””>Peter</a>
+//   <a href=””>Jan</a>
+//   <a href=””>Bo</a>
+// </nav>
+
+function navigationHelper(item) {
+    return '<a href="">'+item+'</a>'
+}
+
+console.log(' b) Use map() to create to create the <a>’s for a navigation set ');
+
+var aNames = namesArray.map(navigationHelper);
+
+var printString = '<nav>\n';
+printString += aNames.join('\n');
+printString += '\n</nav>';
+
+console.log(printString);
+
+// c) Use map()+(join + ..) to create to create a string, representing a two column table, for the data given below:
+var names = [{name:"Lars",phone:"1234567"}, {name: "Peter",phone: "675843"}, {name: "Jan", phone: "98547"},{name: "Bo", phone: "79345"}];
+
+console.log('c) Use map()+(join + ..) to create to create a string, representing a two column table');
+
+function myTable(array) {
+    var returnString = '<table>\n';
+
+    var myTableArray = function(array) {
+        function helper(element) {
+            var returnString = '<tr>\n';
+            returnString += '<td>' + element.name + '</td>\n';
+            returnString += '<td>' + element.phone + '</td>';
+            return returnString + '\n</tr>';
+        }
+        var objects = array.map(helper);
+        return objects.join("\n");
+    };
+
+    returnString += myTableArray(array);
+
+    return returnString + '\n</table>';
+}
+
+console.log(myTable(names));
