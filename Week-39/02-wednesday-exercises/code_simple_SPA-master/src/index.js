@@ -1,8 +1,24 @@
 import 'bootstrap/dist/css/bootstrap.css'
-import jokes from "./jokes";
 
-const allJokes = jokes.getJokes().map(joke => "<li>"+joke+"</li>");
-document.getElementById("jokes").innerHTML = allJokes.join("");
+var fetchJoke = function () {
 
+    var returnObj;
 
+    fetch('https://studypoints.info/jokes/api/jokes/period/hour')
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      returnObj = JSON.parse(data);
+    })
 
+    return returnObj.joke;
+}
+
+var addQuote = function () {
+    document.getElementById("myDiv").innerHTML = fetchJoke();
+}
+
+var myButton = document.getElementById("myButton");
+
+myButton.addEventListener("click", addQuote);

@@ -5,21 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="style.css" rel="stylesheet">
 </head>
+<!-- Small application to display a quote of the hour
+1) Remove all html (and only this) inside the div with the container class  (in index.htm in the public folder)
+2) Add a button to the file + an empty div-tag, both with id’s so they are easy to “find”
+3) In index.js remove all code meant for the initial joke-sample, 
+    add an event listener to the button’s click event and pass a callback 
+    that will update the div tag in the index.html with a new quote.
+4) Initially, fetch the quote from a remote API: https://studypoints.info/jokes/api/jokes/period/hour 
+5) Use fetch() to get the quote.
+6) Use developer-tools in your browser and it’s network options to monitor the AJAX-request.
+    Explain why, what you did above, is even possible, when we know the Same Origin Policy governs when/where AJAX-request can go
+7) Change the functionality to get a new quote every hour. (Hint: use setInterval() )
+
+-->
 
 <body>
   <div class="container">
-    <em>
-        This is meant as a quick intro to how we will create front-end code for the rest of the semester.<br/>
-        The ONLY HTML-file you should consider is index.htm (in the public folder) and ALL your javascript code should go into the source folder.<br/>
-        Use this small example as a template for this week. Next time we will focus on JavaScript, it will be with React, i a way "similar" this<br/>
-        Make sure all your JavaScript code is included in index.js, the "by magic" it will be included in the bundle.js file which is included by the index.html
-    </em>
-    <br/>
-    <br/>
-    <h2>Jokes</h2>
-    <p id="jokes"> </p>
+    <button id="myButton">Get Quote</button>
+    <div id="myDiv"> </div>
   </div>
   <script src="bundle.js"></script>
 </body>
 
-</html>
+</html> 
