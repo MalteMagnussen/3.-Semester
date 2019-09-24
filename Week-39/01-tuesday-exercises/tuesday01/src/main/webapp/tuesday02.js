@@ -159,6 +159,8 @@ var args = ['Apply01', 'Apply02', 'Apply03'];
 console.log(hello.apply(obj, args));
 
 console.log('bind()');
+var bound = hello.bind(obj);
+console.log(bound('Bind01', 'Bind02', 'Bind03'));
 
 // One of the examples should include an example of explicit setting this using either call(), apply() or bind().
 // Explain to each other, using the examples (as if it was the exam):
@@ -170,4 +172,10 @@ console.log('bind()');
 // I don't quite understand this in JavaScript yet, and I'll have to work more with it to get it. 
 
 // The purpose of the methods call(), apply() and bind()
+
+// This is very difficult to understand for me currently. 
+// I don't have a deep enough understanding yet to properly explain what is going on, but here is what i understand so far:
+// The first parameter in call is the new this for the function. Invokes the function immediately.
+// The first parameter in apply is the new this for the function. Invokes the function immediately. Accepts args as an array.
+// The first parameter in bind is the new this. But you save the function, to be executed later with args. 
 
