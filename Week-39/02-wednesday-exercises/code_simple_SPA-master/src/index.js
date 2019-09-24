@@ -1,20 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import "isomorphic-fetch"
 
-var myFetch = function (URL) {
+var myFetch = function (URL, element) {
     fetch(URL)
-        .then(response => {
-            return response.json()
-        })
+        .then(response => response.json())
         .then(data => {
-            return data;
+            element = data.joke;
         })
 }
 
 var jokeURL = 'https://studypoints.info/jokes/api/jokes/period/hour';
 
-var addQuote = function () {
-    document.getElementById("myDiv").innerHTML = myFetch(jokeURL);
+var getJoke = function () {
+    return myFetch(jokeURL, document.getElementById("myDiv").innerHTML);
 }
 
-document.getElementById("myButton").addEventListener("click", addQuote);
+document.getElementById("myButton").addEventListener("click", getJoke);
