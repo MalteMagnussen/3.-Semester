@@ -106,11 +106,23 @@ console.log(reduceVotes());
 // Team up with another member of the class. Read about hoisting and implement at least two examples (individually) to illustrate that:
 // 1) Function declarations are completely hoisted
 
-
+printHoist = function(number) {
+    return number;
+}
+console.log('Function declarations are completely hoisted');
+console.log(printHoist(5));
+var printHoist;
 
 // 2) var declarations are also hoisted, but not assignments made with them
 
+console.log('var declarations are also hoisted, but not assignments made with them');
+hoistingExample01 = 5;
+console.log(hoistingExample01);
+var hoistingExample01;
 
+console.log(hoistingExample02);
+var hoistingExample02;
+hoistingExample02 = 5;
 
 // Explain to each other (as if it was the exam):
 // 1) What hoisting is:
@@ -128,3 +140,4 @@ console.log(reduceVotes());
 // 3) What is the difference between the keyword var and the ES6 keyword let?
 
 // let is not hoisted. 
+
