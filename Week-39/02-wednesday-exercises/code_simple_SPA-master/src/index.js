@@ -1,24 +1,20 @@
 import 'bootstrap/dist/css/bootstrap.css'
+import "isomorphic-fetch"
 
-var fetchJoke = function () {
-
-    var returnObj;
-
-    fetch('https://studypoints.info/jokes/api/jokes/period/hour')
-    .then(response => {
-      return response.json()
-    })
-    .then(data => {
-      returnObj = JSON.parse(data);
-    })
-
-    return returnObj.joke;
+var myFetch = function (URL) {
+    fetch(URL)
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            return data;
+        })
 }
+
+var jokeURL = 'https://studypoints.info/jokes/api/jokes/period/hour';
 
 var addQuote = function () {
-    document.getElementById("myDiv").innerHTML = fetchJoke();
+    document.getElementById("myDiv").innerHTML = myFetch(jokeURL);
 }
 
-var myButton = document.getElementById("myButton");
-
-myButton.addEventListener("click", addQuote);
+document.getElementById("myButton").addEventListener("click", addQuote);
