@@ -32,3 +32,17 @@ document.getElementById("myButton").addEventListener("click", getJoke);
 // And I've read several webpages about it so far. 
 // Read about it here: https://en.wikipedia.org/wiki/Same-origin_policy
 // It is something about security. 
+
+// Add the necessary event handlers, so when pressing each of the “hearts”, 
+// it will write the  message North, South, East or West respectively.
+
+var clover = function(ID) {
+    document.getElementById(ID).addEventListener("click", function () {
+        document.getElementById("heartDiv").innerHTML = ID;
+    })
+}
+
+clover("north");
+clover("south");
+clover("west");
+clover("east");
