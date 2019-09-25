@@ -113,8 +113,39 @@ function getOneUser() {
 document.getElementById("getOneUser").onclick = getOneUser;
 
 // 3) Add a new User - POST
-
-
+function postUser() {
+    var age = document.getElementById("age").value;
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var genderArray = document.getElementsByName("gender");
+    var gender;
+    for (var i = 0; i < genderArray.length; i++){
+        if (genderArray[i].checked){
+            gender = genderArray[i].value;
+        }
+    }
+    var person = {age:age, name:name, email:email, gender:gender};
+    var URL = 'http://localhost:3333/api/users/';
+    request(URL, "POST", person);
+}
+document.getElementById("postPerson").onclick = postUser;
 
 // 4) Edit an existing user - PUT
+function putUser() {
+    var age = document.getElementById("age").value;
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var genderArray = document.getElementsByName("gender");
+    var gender;
+    for (var i = 0; i < genderArray.length; i++){
+        if (genderArray[i].checked){
+            gender = genderArray[i].value;
+        }
+    }
+    var person = {age:age, name:name, email:email, gender:gender};
+    var URL = 'http://localhost:3333/api/users/'+document.getElementById("id").value;
+    request(URL, "PUT", person);
+}
+document.getElementById("putPerson").onclick = postUser;
+
 // 5) Delete an existing user - DELETE

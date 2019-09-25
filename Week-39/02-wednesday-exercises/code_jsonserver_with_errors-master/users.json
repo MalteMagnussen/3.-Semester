@@ -90,6 +90,27 @@
       "name": "Baker Pratt",
       "gender": "male",
       "email": "bakerpratt@jumpstack.com"
+    },
+    {
+      "age": "24",
+      "name": "Malte",
+      "email": "malte@fog.dk",
+      "gender": "male",
+      "id": 113
+    },
+    {
+      "age": "77",
+      "name": "Test",
+      "email": "test@test.com",
+      "gender": "male",
+      "id": 114
+    },
+    {
+      "age": "77",
+      "name": "Test",
+      "email": "test@test.com",
+      "gender": "male",
+      "id": 115
     }
   ]
 }
