@@ -8,9 +8,23 @@
 
 <body>
   <div class="container">
+
     <input type="text" id="input">
-    <button id="getOneUser" class="btn btn-primary">Get One User By ID</button> 
+    <button id="getOneUser" class="btn btn-primary">Get One User By ID</button>
     <button id="getAllData" class="btn btn-primary">Get All Persons</button>
+    
+    <div class="container">
+      Input info about Person. <br>
+      age
+      <input type="number" id="age"><br>
+      name
+      <input type="text" minlength="3" id="name"><br>
+      email
+      <input type="email" id="email"> <br>
+      <input type="radio" name="gender" value="male" checked> Male<br>
+      <input type="radio" name="gender" value="female"> Female<br>
+      <button id="postPerson" class="btn btn-primary">Post Person</button>
+    </div>
     <div id="content"> </div>
   </div>
   <script src="bundle.js"></script>

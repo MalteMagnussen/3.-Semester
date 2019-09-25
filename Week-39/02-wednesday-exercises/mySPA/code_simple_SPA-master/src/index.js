@@ -113,5 +113,8 @@ function getOneUser() {
 document.getElementById("getOneUser").onclick = getOneUser;
 
 // 3) Add a new User - POST
+
+
+
 // 4) Edit an existing user - PUT
 // 5) Delete an existing user - DELETE
