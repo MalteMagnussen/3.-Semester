@@ -146,6 +146,10 @@ function putUser() {
     var URL = 'http://localhost:3333/api/users/'+document.getElementById("id").value;
     request(URL, "PUT", person);
 }
-document.getElementById("putPerson").onclick = postUser;
+document.getElementById("putPerson").onclick = putUser;
 
 // 5) Delete an existing user - DELETE
+function deleteUser() {
+    request('http://localhost:3333/api/users/'+document.getElementById("id").value, "DELETE");
+}
+document.getElementById("deletePerson").onclick = deleteUser;
