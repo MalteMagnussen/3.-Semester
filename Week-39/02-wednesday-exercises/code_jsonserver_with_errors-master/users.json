@@ -1,11 +1,11 @@
 {
   "users": [
     {
-      "id": 100,
       "age": 39,
       "name": "Madeleine Flynn",
       "gender": "female",
-      "email": "madeleineflynn@jumpstack.com"
+      "email": "madeleineflynn@jumpstack.com",
+      "id": 100
     },
     {
       "id": 101,
@@ -90,13 +90,6 @@
       "name": "Baker Pratt",
       "gender": "male",
       "email": "bakerpratt@jumpstack.com"
-    },
-    {
-      "age": 23,
-      "name": "Peter Pan",
-      "gender": "male",
-      "email": "peters@pan.com",
-      "id": 113
     }
   ]
 }
