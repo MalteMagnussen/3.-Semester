@@ -130,3 +130,7 @@
 
 # Visio autosave temporary files
 **/*.~vsd*
+
+# Node
+**/node_modules
+**/build
