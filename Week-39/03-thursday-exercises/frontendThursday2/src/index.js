@@ -3,7 +3,7 @@ import jokes from "./jokes";
 
 
 var content = document.getElementById("content");
-var URI = 'http://localhost:8080/jaxrs/api/person/';
+var URI = 'https://www.maltemagnussen.com/rest/api/person/';
 
 function getErrorTable(data) {
     var tableData = ["<tr><td>" + data.code + "</td><td>" + data.message + "</td></tr>"];
