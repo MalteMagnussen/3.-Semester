@@ -27,13 +27,14 @@ public class PersonResource {
     public static List<Integer> ids = new ArrayList<>();
 
     public PersonResource() {
+        if (people.isEmpty()){
         peterPan.setID(1);
         ids.add(1);
         people.add(peterPan);
         johnWick.setID(2);
         ids.add(2);
         people.add(johnWick);
-
+        }
     }
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
