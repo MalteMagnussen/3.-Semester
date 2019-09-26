@@ -3,10 +3,10 @@ import jokes from "./jokes";
 
 
 var content = document.getElementById("content");
-var URI = 'http://localhost:8080/jaxrs/api/person';
+var URI = 'http://localhost:8080/jaxrs/api/person/';
 
 function getErrorTable(data) {
-    var tableData = ["<tr><td>" + data.status + "</td><td>" + data.msg + "</td></tr>"];
+    var tableData = ["<tr><td>" + data.code + "</td><td>" + data.message + "</td></tr>"];
     tableData.unshift('<table class="table"><tr><th scope="col">Status</th><th scope="col">Message</th></tr>');
     tableData.push("</table>");
     return tableData.join("");
@@ -64,7 +64,7 @@ function request(URL, method, body) {
  * @param data 
  */
 function makeTable(data) {
-    var tableData = data.all.map(person => "<tr><td>" + person.id + "</td><td>" + person.fname + "</td><td>" + person.lname + "</td><td>" + person.phone + "</td></tr>");
+    var tableData = data.all.map(person => "<tr><td>" + person.id + "</td><td>" + person.fName + "</td><td>" + person.lName + "</td><td>" + person.phone + "</td></tr>");
     tableData.unshift('<table class="table"><tr><th scope="col">id</th><th scope="col">First name</th><th scope="col">Last name</th><th scope="col">Phone</th></tr>');
     tableData.push("</table>");
     return tableData.join("");
@@ -75,8 +75,8 @@ function makeTable(data) {
  * @param data 
  */
 function getOneUserTable(data) {
-    var tableData = ["<tr><td>" + data.id + "</td><td>" + data.age + "</td><td>" + data.name + "</td><td>" + data.gender + "</td><td>" + data.email + "</td></tr>"];
-    tableData.unshift('<table class="table"><tr><th scope="col">id</th><th scope="col">age</th><th scope="col">name</th><th scope="col">gender</th><th scope="col">email</th></tr>');
+    var tableData = ["<tr><td>" + data.id + "</td><td>" + data.fName + "</td><td>" + data.lName + "</td><td>" + data.phone + "</td></tr>"];
+    tableData.unshift('<table class="table"><tr><th scope="col">id</th><th scope="col">First name</th><th scope="col">Last name</th><th scope="col">Phone</th></tr>');
     tableData.push("</table>");
     return tableData.join("");
 };
@@ -117,7 +117,7 @@ function getOneUser() {
     var URL = URI + ID;
 
     errorHandlingFetch(URL, function (data) {
-        content.innerHTML = makeTable(data);
+        content.innerHTML = getOneUserTable(data);
     })
 }
 document.getElementById("GET").onclick = getOneUser;
