@@ -124,8 +124,10 @@ document.getElementById("GET").onclick = getOneUser;
 
 // 3) Add a new User - POST
 function postUser() {
-    var name = document.getElementById("name").value;
-    var person = { name: name };
+    var fName = document.getElementById("fname").value;
+    var lName = document.getElementById("lname").value;
+    var phone = document.getElementById("phone").value;
+    var person = { fName: fName, lName: lName, phone: phone };
     var URL = URI;
     request(URL, "POST", person);
 }
