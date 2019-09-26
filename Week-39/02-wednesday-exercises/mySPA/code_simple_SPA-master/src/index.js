@@ -1,6 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import jokes from "./jokes";
 
+var content = document.getElementById("content");
+
+function getErrorTable(data) {
+    var tableData = ["<tr><td>" + data.status + "</td><td>" + data.msg + "</td></tr>"];
+    tableData.unshift('<table class="table"><tr><th scope="col">Status</th><th scope="col">Message</th></tr>');
+    tableData.push("</table>");
+    return tableData.join("");
+}
+
 /**
  * Fetch with Error Handling - Help function
  * @param String URL 
@@ -19,9 +28,8 @@ var errorHandlingFetch = function (URL, callback) {
         .then(data => callback(data))
         .catch(err => {
             if (err.status) {
-                var error = getErrorTable(err.fullError);
-                document.getElementById("content").innerHTML = error;
                 err.fullError.then(e => console.log(e.detail))
+                err.fullError.then(e => content.innerHTML = getErrorTable(e))
             }
             else { console.log("Network error"); }
         });
@@ -74,9 +82,21 @@ function getOneUserTable(data) {
     return tableData.join("");
 };
 
-function getErrorTable(data) {
-    var tableData = ["<tr><td>" + data.status + "</td><td>" + data.msg + "</td></tr>"];
-    tableData.unshift('<table class="table"><tr><th scope="col">Status</th><th scope="col">Message</th></tr>');
+function generateTable(data) {
+    var tableData = [];
+    //Headers
+    tableData.push('<table class="table"><tr>');
+    for (var key in Object.keys(data)) {
+        tableData.push('<th scope="col">' + key + '</th>');
+    }
+    tableData.push('</tr>');
+
+    //Body
+    tableData.push('<tr>');
+    for (var property in Object.values(data)) {
+        tableData.push('<td>' + property + '</td>');
+    }
+    tableData.push('</tr>');
     tableData.push("</table>");
     return tableData.join("");
 }
@@ -91,20 +111,17 @@ function getErrorTable(data) {
  */
 function getAllUsers() {
     var URL = 'http://localhost:3333/api/users';
-    var content = document.getElementById("content");
 
     errorHandlingFetch(URL, function (data) {
         content.innerHTML = makeTable(data);
     })
 }
-
 document.getElementById("getAllData").onclick = getAllUsers;
 
 // 2) Show a single user, given an ID - GET BY ID
 function getOneUser() {
     var ID = document.getElementById("input").value;
     var URL = 'http://localhost:3333/api/users/' + ID;
-    var content = document.getElementById("content");
 
     errorHandlingFetch(URL, function (data) {
         content.innerHTML = getOneUserTable(data);
@@ -119,12 +136,12 @@ function postUser() {
     var email = document.getElementById("email").value;
     var genderArray = document.getElementsByName("gender");
     var gender;
-    for (var i = 0; i < genderArray.length; i++){
-        if (genderArray[i].checked){
+    for (var i = 0; i < genderArray.length; i++) {
+        if (genderArray[i].checked) {
             gender = genderArray[i].value;
         }
     }
-    var person = {age:age, name:name, email:email, gender:gender};
+    var person = { age: age, name: name, email: email, gender: gender };
     var URL = 'http://localhost:3333/api/users/';
     request(URL, "POST", person);
 }
@@ -137,19 +154,25 @@ function putUser() {
     var email = document.getElementById("email").value;
     var genderArray = document.getElementsByName("gender");
     var gender;
-    for (var i = 0; i < genderArray.length; i++){
-        if (genderArray[i].checked){
+    for (var i = 0; i < genderArray.length; i++) {
+        if (genderArray[i].checked) {
             gender = genderArray[i].value;
         }
     }
-    var person = {age:age, name:name, email:email, gender:gender};
-    var URL = 'http://localhost:3333/api/users/'+document.getElementById("id").value;
+    var person = { age: age, name: name, email: email, gender: gender };
+    var URL = 'http://localhost:3333/api/users/' + document.getElementById("id").value;
     request(URL, "PUT", person);
 }
 document.getElementById("putPerson").onclick = putUser;
 
 // 5) Delete an existing user - DELETE
 function deleteUser() {
-    request('http://localhost:3333/api/users/'+document.getElementById("id").value, "DELETE");
+    request('http://localhost:3333/api/users/' + document.getElementById("id").value, "DELETE");
 }
 document.getElementById("deletePerson").onclick = deleteUser;
+
+// Go back to the terminal-window that executes your json-server backend. Stop the server (CTRL-C) and start it again, this time using this command:
+//  npm run nocors
+//  Test your SPA again, and explain the result.
+ 
+// I don't notice any difference. Everything is still working fine after i started the server with npm run nocors. 
