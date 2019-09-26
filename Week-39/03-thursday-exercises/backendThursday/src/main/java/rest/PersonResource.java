@@ -3,7 +3,9 @@ package rest;
 import entities.Person;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import entities.Person;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -19,65 +21,65 @@ import javax.ws.rs.core.Response;
 @Path("person")
 public class PersonResource {
 
-    public static List<Integer> ids = new ArrayList<>();
     public static Person peterPan = new Person("Peter Pan");
+    public static Person johnWick = new Person("John Wick");
+    public static List<Person> people = new ArrayList<>();
+    public static List<Integer> ids = new ArrayList<>();
 
     public PersonResource() {
-        peterPan.setID(ids.size()+1);
+        peterPan.setID(1);
+        ids.add(1);
+        people.add(peterPan);
+        johnWick.setID(2);
+        ids.add(2);
+        people.add(johnWick);
+
     }
-    
+
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllPersonsDTO() {
-        return null;
-//        PersonsDTO persons = new PersonsDTO(FACADE.getAllPersons());
-//        return GSON.toJson(persons);
+        HashMap map;
+        map = new HashMap<>();
+        map.put("all", people);
+        return GSON.toJson(map);
     }
 
     @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getPersonDTObyID(@PathParam("id") int id) {
-        return null;
-//        try {
-//            PersonDTO person = new PersonDTO(FACADE.getPerson(id));
-//            return GSON.toJson(person);
-//        } catch (PersonNotFoundException ex) {
-//            throw new PersonNotFoundException(ex.getMessage());
-//        }
+        HashMap map = new HashMap<>();
+        people.forEach((person) -> {
+            map.put(person.getID(), person.getName());
+        });
+        return GSON.toJson(map.get(id));
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response savePerson(String p) {
-        return null;
-//        try {
-//            PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
-//            Person person = FACADE.addPerson(personDTO.getfName(), personDTO.getlName(), personDTO.getPhone());
-//            PersonDTOnoId responseDTO = new PersonDTOnoId(person);
-//            return Response.ok(responseDTO).build();
-//        } catch (MissingInputException ex) {
-//            throw new MissingInputException(ex.getMessage());
-//        }
+        Person person = GSON.fromJson(p, Person.class);
+        person.setID(ids.size());
+        ids.add(person.getID());
+        people.add(person);
+        return Response.ok(person).build();
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response editPerson(String p) {
-        return null;
-//        try {
-//            PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
-//            Person person = FACADE.getPerson(personDTO.getId());
-//            person.editPerson(personDTO);
-//            PersonDTO responseDTO = new PersonDTO(FACADE.editPerson(person));
-//            return Response.ok(responseDTO).build();
-//        } catch (MissingInputException ex) {
-//            return Response.notModified(ex.getMessage()).build();
-//        }
+        Person person = GSON.fromJson(p, Person.class);
+        people.forEach((_person) -> {
+            if (person.getID() == _person.getID()){
+                _person.setName(person.getName());
+            }
+        });
+        return Response.ok(person).build();
     }
 
     @DELETE
@@ -92,7 +94,5 @@ public class PersonResource {
 //            throw new PersonNotFoundException(ex.getMessage());
 //        }
     }
-
-    
 
 }
