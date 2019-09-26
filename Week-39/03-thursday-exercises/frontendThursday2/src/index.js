@@ -135,9 +135,12 @@ document.getElementById("POST").onclick = postUser;
 
 // 4) Edit an existing user - PUT
 function putUser() {
-    var name = document.getElementById("name").value;
-    var person = { name: name };
-    var URL = URI + document.getElementById("id").value;
+    var fName = document.getElementById("fname").value;
+    var lName = document.getElementById("lname").value;
+    var phone = document.getElementById("phone").value;
+    var id = document.getElementById("id").value;
+    var person = { fName: fName, lName: lName, phone: phone, id: id };
+    var URL = URI;
     request(URL, "PUT", person);
 }
 document.getElementById("PUT").onclick = putUser;
