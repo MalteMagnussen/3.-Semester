@@ -3,7 +3,7 @@ import jokes from "./jokes";
 
 
 var content = document.getElementById("content");
-var URI = 'http://localhost:8080/backendThursday/api/person/';
+var URI = 'http://localhost:8080/jaxrs/api/person';
 
 function getErrorTable(data) {
     var tableData = ["<tr><td>" + data.status + "</td><td>" + data.msg + "</td></tr>"];
@@ -64,8 +64,8 @@ function request(URL, method, body) {
  * @param data 
  */
 function makeTable(data) {
-    var tableData = data.all.map(person => "<tr><td>" + person.ID + "</td><td>" + person.name + "</td></tr>");
-    tableData.unshift('<table class="table"><tr><th scope="col">id</th><th scope="col">name</th></tr>');
+    var tableData = data.all.map(person => "<tr><td>" + person.id + "</td><td>" + person.fname + "</td><td>" + person.lname + "</td><td>" + person.phone + "</td></tr>");
+    tableData.unshift('<table class="table"><tr><th scope="col">id</th><th scope="col">First name</th><th scope="col">Last name</th><th scope="col">Phone</th></tr>');
     tableData.push("</table>");
     return tableData.join("");
 }
@@ -125,7 +125,7 @@ document.getElementById("GET").onclick = getOneUser;
 // 3) Add a new User - POST
 function postUser() {
     var name = document.getElementById("name").value;
-    var person = {name: name};
+    var person = { name: name };
     var URL = URI;
     request(URL, "POST", person);
 }
@@ -134,7 +134,7 @@ document.getElementById("POST").onclick = postUser;
 // 4) Edit an existing user - PUT
 function putUser() {
     var name = document.getElementById("name").value;
-    var person = {name: name};
+    var person = { name: name };
     var URL = URI + document.getElementById("id").value;
     request(URL, "PUT", person);
 }
