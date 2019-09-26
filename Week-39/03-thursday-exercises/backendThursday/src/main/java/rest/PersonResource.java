@@ -75,7 +75,7 @@ public class PersonResource {
     public Response editPerson(String p) {
         Person person = GSON.fromJson(p, Person.class);
         people.forEach((_person) -> {
-            if (person.getID() == _person.getID()){
+            if (person.getID() == _person.getID()) {
                 _person.setName(person.getName());
             }
         });
@@ -86,13 +86,13 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public String deletePerson(@PathParam("id") int id) {
-        return null;
-//        try {
-//            FACADE.deletePerson(id);
-//            return "{\"status\": \"removed\"}";
-//        } catch (PersonNotFoundException ex) {
-//            throw new PersonNotFoundException(ex.getMessage());
-//        }
+        people.forEach((person) -> {
+            if (person.getID() == id) {
+                people.remove(person);
+            }
+        });
+        return "{\"status\": \"removed\"}";
+
     }
 
 }
