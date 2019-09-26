@@ -66,7 +66,7 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response savePerson(String p) {
         Person person = GSON.fromJson(p, Person.class);
-        person.setID(ids.size());
+        person.setID(ids.size()+1);
         ids.add(person.getID());
         people.add(person);
         return Response.ok(person).build();

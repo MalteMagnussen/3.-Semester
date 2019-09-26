@@ -31,7 +31,7 @@ JAX-RS provides a concept Filters which can be used when you want to modify any 
 In our case we can use it to set the required CORS headers on all request
 
 
-*/
+ */
 @Provider  //This will ensure that the filter is used "automatically"
 @PreMatching
 public class CorsRequestFilter implements ContainerRequestFilter {
