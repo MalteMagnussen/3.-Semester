@@ -40,7 +40,7 @@ public class PersonResource {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getAllPersonsDTO() {
+    public String getAllPersons() {
         HashMap map;
         map = new HashMap<>();
         map.put("all", people);
@@ -50,7 +50,7 @@ public class PersonResource {
     @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getPersonDTObyID(@PathParam("id") int id) {
+    public String getPersonbyID(@PathParam("id") int id) {
         HashMap map = new HashMap<>();
         people.forEach((person) -> {
             map.put(person.getID(), person.getName());
