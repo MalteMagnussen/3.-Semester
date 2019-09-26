@@ -27,13 +27,13 @@ public class PersonResource {
     public static List<Integer> ids = new ArrayList<>();
 
     public PersonResource() {
-        if (people.isEmpty()){
-        peterPan.setID(1);
-        ids.add(1);
-        people.add(peterPan);
-        johnWick.setID(2);
-        ids.add(2);
-        people.add(johnWick);
+        if (people.isEmpty()) {
+            peterPan.setID(1);
+            ids.add(1);
+            people.add(peterPan);
+            johnWick.setID(2);
+            ids.add(2);
+            people.add(johnWick);
         }
     }
 
@@ -52,11 +52,13 @@ public class PersonResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getPersonbyID(@PathParam("id") int id) {
-        HashMap map = new HashMap<>();
-        people.forEach((person) -> {
-            map.put(person.getID(), person.getName());
-        });
-        return GSON.toJson(map.get(id));
+        Person person = null;
+        for (Person _person : people) {
+            if (_person.getID() == id) {
+                person = _person;
+            }
+        }
+        return GSON.toJson(person);
     }
 
     @POST
