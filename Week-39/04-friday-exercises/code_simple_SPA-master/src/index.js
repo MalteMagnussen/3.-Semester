@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css'
 
-var URI = 'http://restcountries.eu/rest/v1/alpha?codes=';
+var URI = 'https://www.maltemagnussen.com/countryRestProxy/api/countryProxy/';
 var content = document.getElementById("content");
 
 function generateTable(data) {
