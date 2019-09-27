@@ -49,10 +49,21 @@ var errorHandlingFetch = function (URL, callback) {
         });
 }
 
+var previous = "";
+
 // GET THE COUNTRY 
 document.getElementById("svg2").addEventListener("click", function (e) {
     var id = e.target.id;
     var URL = URI + id;
+
+    // style="fill:#c0c0c0;stroke:#ffffff;stroke-width:6.11153841;stroke-miterlimit:4;stroke-dasharray:none"
+    if (previous !== "")
+        previous.style = "fill:#c0c0c0;stroke:#ffffff;stroke-width:0.4;stroke-miterlimit:4;stroke-dasharray:none";
+
+    previous=e.target;
+
+    e.target.style = "fill:#0004ff;stroke:#ffffff;stroke-width:0.11153841;stroke-miterlimit:4;stroke-dasharray:none"
+
 
     function countryData(data) {
         if (!data.status) {
