@@ -87,9 +87,7 @@ public class CountryProxyResource {
                     jsonStr = scan.nextLine();
                 }
             }
-            if (jsonStr == null || jsonStr.isEmpty()) {
-                return "{\"status\":400, \"message\":\"Bad Request\"}";
-            }
+            
             return jsonStr;
         } catch (IOException ex) {
             return "{\"status\":400, \"message\":\"Bad Request\"}";
