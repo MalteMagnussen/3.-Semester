@@ -55,12 +55,16 @@ document.getElementById("svg2").addEventListener("click", function (e) {
     var URL = URI + id;
 
     function countryData(data) {
-        var info = {};
-        info.Name = data[0].name;
-        info.Population = data[0].population;
-        info.Area = data[0].area;
-        info.Borders = data[0].borders;
-        content.innerHTML = generateTable(info);
+        if (!data.status) {
+            var info = {};
+            info.Name = data[0].name;
+            info.Population = data[0].population;
+            info.Area = data[0].area;
+            info.Borders = data[0].borders;
+            content.innerHTML = generateTable(info);
+        } else {
+            content.innerHTML = getErrorTable(data);
+        }
     }
 
     errorHandlingFetch(URL, countryData);
