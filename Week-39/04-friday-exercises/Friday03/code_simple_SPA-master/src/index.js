@@ -73,7 +73,7 @@ function populateTable() {
 submitbutton.addEventListener("click", populateTable);
 
 function sqlData() {
-    var myArray = dataStore.map(e=>"INSERT INTO names (names, surname, gender) VALUES" + 
+    var myArray = dataStore.map(e=>"INSERT INTO NAMES (`name`, surname, gender) VALUES" + 
     "('"+e.name+"','"+e.surname+"','"+e.gender+"');");
     sql.innerHTML = myArray.join("\n");
 }
