@@ -1,3 +1,7 @@
+Make sure to npm install if no node modules
+
+Use npm instead of yarn
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
