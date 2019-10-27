@@ -2,6 +2,9 @@ Make sure to npm install if no node modules
 
 Use npm instead of yarn
 
+ONLY FOR THE FIRST TWO DAYS - NOT THE RIGHT WAY TO DO IT GOING FORWARD.
+WE NEED HASHES ETC IN THE FUTURE
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
