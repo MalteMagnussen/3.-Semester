@@ -36,6 +36,35 @@ function WelcomePerson(props) {
     </div>
   );
 }
+/*
+d)  Add Type Checking, using Proptypes, 
+to the Welcome component so that it only accepts objects with 
+as a minimum (required) the properties firstName, lastName and email, 
+which all must be of type String. 
+That is, all the objects given in step a) are valid, and so are these (friends will not be rendered):
+*/
+const validPersons = [
+  { firstName: "Kurt", lastName: "Wonnegut", email: "k@wonnegut.dk" },
+  {
+    firstName: "Kurt",
+    lastName: "Wonnegut",
+    email: "k@wonnegut.dk",
+    friends: ["Kim", "Janne"]
+  }
+];
+/*
+But these should report an error (missing required values)
+*/
+const errorPersons = [
+  { firstName: "Jane", email: "j@wonnegut.dk", phone: "12345" },
+  { firstName: "Jane" }
+];
+
+WelcomePerson.propTypes = {
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired
+};
 
 /*
 d) Add Type Checking, using Proptypes, to the Welcome component so that it only accepts a String value for name, 
@@ -47,6 +76,13 @@ Welcome.propTypes = {
   name: PropTypes.string
 };
 
+/*
+e) Handle list of names of arbitrary sizes 
+In the example above you your “list” could only handle exactly three persons.
+Use our old friend map to replace the three hardcoded lines to something similar to this (fill in the few missing parts):
+{names.map((      )=><WelcomePerson        />)}
+This will probably provide a nasty warning in the console. Read about keys here (a topic for tomorrow) to solve this problem
+*/
 function App() {
   return (
     <div>
@@ -56,7 +92,26 @@ function App() {
       <WelcomePerson person={names[0]} />
       <WelcomePerson person={names[1]} />
       <WelcomePerson person={names[2]} />
-
+      <br></br>
+      Map:
+      <br></br>
+      <ul>
+        {names.map((p, index) => (
+          <li key={index}>
+            <WelcomePerson person={p} />
+          </li>
+        ))}
+      </ul>
+      <br></br>
+      Valid Persons:
+      <br></br>
+      <WelcomePerson person={validPersons[0]} />
+      <WelcomePerson person={validPersons[1]} />
+      <br></br>
+      Error Persons:
+      <br></br>
+      <WelcomePerson person={errorPersons[0]} />
+      <WelcomePerson person={errorPersons[1]} />
       {/*<Welcome />
       <Welcome name={45} />*/}
     </div>
