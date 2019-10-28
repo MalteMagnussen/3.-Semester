@@ -11,3 +11,9 @@ export default {
   gender: "Male",
   email: "kurt@wonnegut.dk"
 };
+
+/*
+5) Add these lines to file2.js
+*/
+export const males = ["Peter", "Jan"];
+export const females = ["Janne", "Sarah"];
