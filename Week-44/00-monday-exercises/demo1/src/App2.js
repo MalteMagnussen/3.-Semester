@@ -77,7 +77,7 @@ gender: "Male"
 lastName: "Wonnegut"
 phone: 123456
 */
-// Attempt:
+// Attempt of doing it another way:
 const personv3 = {
   Person,
   friends: [...males, ...females],

@@ -7,6 +7,7 @@ import App from "./App";
 //NOTE: THIS IS NOT THE WAY TO DO THINGS AFTER THE FIRST 2-3 DAYS
 
 import App2 from "./App2";
+import App3 from "./App3";
 
 let app = <App />;
 
@@ -21,6 +22,14 @@ const DontUseMeForReal = () => {
         ex2
       </a>{" "}
       &nbsp;
+      <a href="/" className="x" id="app3">
+        ex3
+      </a>{" "}
+      &nbsp;
+      {/* 
+      c) Update index.js and add the necessary changes to select this new Component
+      Verify that your new component is rendered
+      */}
       {/* Add as many as you have exercises, but remember className="x" */}
       {app}
     </div>
@@ -39,6 +48,9 @@ function handleSelect(event) {
       break;
     case "app2":
       app = <App2 />;
+      break;
+    case "app3":
+      app = <App3 />;
       break;
   }
   ReactDOM.render(<DontUseMeForReal />, document.getElementById("root"));
