@@ -95,13 +95,9 @@ function App() {
       <br></br>
       Map:
       <br></br>
-      <ul>
-        {names.map((p, index) => (
-          <li key={index}>
-            <WelcomePerson person={p} />
-          </li>
-        ))}
-      </ul>
+      {names.map((p, index) => (
+        <WelcomePerson person={p} key={index} />
+      ))}
       <br></br>
       Valid Persons:
       <br></br>
