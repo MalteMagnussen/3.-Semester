@@ -9,7 +9,7 @@ import App from "./App";
 import App2 from "./App2";
 import App3 from "./App3";
 
-let app = <App />;
+let app = <App initialValue={10} increment={2} />;
 
 const DontUseMeForReal = () => {
   return (

@@ -22,9 +22,11 @@ The JavaScript API, used to read/write is extremely simple, you can do like this
 localStorage.setItem("count", count);
 localStorage.getItem("count") //Returns value as a string
 */
-function App(props, increment) {
+function App(props) {
+  const { initialValue, increment } = props;
+
   // State variable count
-  const [count, setCount] = useState(props.initialValue);
+  const [count, setCount] = useState(initialValue);
 
   useState(() => {
     window.localStorage.setItem("count", count);
