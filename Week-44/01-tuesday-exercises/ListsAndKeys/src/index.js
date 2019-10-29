@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import App from "./ListDemoApp";
 //Create a new file App2.js (and App3.js ....)
 //In index.js, delete EVERYTHING BELOW the import of App and use the strategy below to switch between the smaller exercises
 //NOTE: THIS IS NOT THE WAY TO DO THINGS AFTER THE FIRST 2-3 DAYS
@@ -9,7 +9,10 @@ import App from "./App";
 import App2 from "./App2";
 
 let app = <App />;
-
+/* 
+b) Change index.js to use this file, similar to what you did yesterday. 
+Verify that you see the numbers rendered in and UL.
+*/
 const DontUseMeForReal = () => {
   return (
     <div className="App" onClick={handleSelect}>
