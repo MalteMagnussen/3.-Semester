@@ -15,9 +15,13 @@ export default function App2() {
     if (run === false) {
       return;
     }
-    setInterval(() => {
+    const timer = setInterval(() => {
       setTime(Time());
     }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
   }, [run]);
 
   return (

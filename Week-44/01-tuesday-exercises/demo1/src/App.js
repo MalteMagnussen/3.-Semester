@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 /*
@@ -25,10 +25,21 @@ localStorage.getItem("count") //Returns value as a string
 function App(props) {
   const { initialValue, increment } = props;
 
-  // State variable count
-  const [count, setCount] = useState(initialValue);
+  const variable = () => {
+    if (localStorage.getItem("count") !== null) {
+      return Number(window.localStorage.getItem("count"));
+    } else {
+      return initialValue;
+    }
+  };
 
-  useState(() => {
+  const [count, setCount] = useState(
+    variable
+  ); /* OR (Number(window.localStorage.getItem("count") || initialValue) */
+  // This also works and is the Solution Lars suggested.
+  // Then you can remove the "variable" and all that unnecessary code.
+
+  useEffect(() => {
     window.localStorage.setItem("count", count);
   });
 
