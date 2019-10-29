@@ -7,8 +7,9 @@ import App from "./ListDemoApp";
 //NOTE: THIS IS NOT THE WAY TO DO THINGS AFTER THE FIRST 2-3 DAYS
 
 import App2 from "./App2";
+import ListDemoApp2 from "./ListDemoApp2";
 
-let app = <App />;
+let app = <ListDemoApp2 />;
 /* 
 b) Change index.js to use this file, similar to what you did yesterday. 
 Verify that you see the numbers rendered in and UL.
@@ -41,7 +42,7 @@ function handleSelect(event) {
       app = <App />;
       break;
     case "app2":
-      app = <App2 />;
+      app = <ListDemoApp2 />;
       break;
   }
   ReactDOM.render(<DontUseMeForReal />, document.getElementById("root"));
