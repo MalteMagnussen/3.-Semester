@@ -25,19 +25,19 @@ localStorage.getItem("count") //Returns value as a string
 function App(props) {
   const { initialValue, increment } = props;
 
-  const variable = () => {
+  /* 
+ const variable = () => {
     if (localStorage.getItem("count") !== null) {
       return Number(window.localStorage.getItem("count"));
     } else {
       return initialValue;
     }
-  };
+  }; */
 
   const [count, setCount] = useState(
-    variable
-  ); /* OR (Number(window.localStorage.getItem("count") || initialValue) */
-  // This also works and is the Solution Lars suggested.
-  // Then you can remove the "variable" and all that unnecessary code.
+    Number(window.localStorage.getItem("count") || initialValue)
+  );
+  /* OR variable */
 
   useEffect(() => {
     window.localStorage.setItem("count", count);
