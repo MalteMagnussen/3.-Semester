@@ -40,7 +40,7 @@ function handleSelect(event) {
   const id = event.target.id;
   switch (id) {
     case "app1":
-      app = <App />;
+      app = <App initialValue={10} increment={2} />;
       break;
     case "app2":
       app = <App2 />;

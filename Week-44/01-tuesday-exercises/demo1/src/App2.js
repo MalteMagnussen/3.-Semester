@@ -9,17 +9,23 @@ Hint: Use the effect hook with a cleanup function
 
 export default function App2() {
   const [time, setTime] = useState(Time());
+  const [run, setRun] = useState(false);
   //setInterval(() => {},1000);
   useEffect(() => {
+    if (run === false) {
+      return;
+    }
     setInterval(() => {
       setTime(Time());
     }, 1000);
-  });
+  }, [run]);
 
   return (
     <div>
       <h3>Exercise 2</h3>
-      {time}
+      Time is: {time}
+      <br></br>
+      <button onClick={() => setRun(!run)}>Time</button>
     </div>
   );
 }
