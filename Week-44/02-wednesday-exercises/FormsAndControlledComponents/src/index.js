@@ -7,11 +7,12 @@ import App from "./App";
 //NOTE: THIS IS NOT THE WAY TO DO THINGS AFTER THE FIRST 2-3 DAYS
 import FormDemo from "./FormDemo";
 import App2 from "./App2";
+import FormDemoMultiple from "./FormDemoMultiple";
 
 /*
 b) Follow the pattern from the previous exercises and make the necessary changes to index.js to render this example.
 */
-let app = <FormDemo />;
+let app = <FormDemoMultiple />;
 
 const DontUseMeForReal = () => {
   return (
@@ -26,6 +27,10 @@ const DontUseMeForReal = () => {
       &nbsp;
       <a href="/" className="x" id="app3">
         FormDemo
+      </a>{" "}
+      &nbsp;
+      <a href="/" className="x" id="app4">
+        FormDemoMultiple
       </a>{" "}
       &nbsp;
       {/* Add as many as you have exercises, but remember className="x" */}
@@ -49,6 +54,9 @@ function handleSelect(event) {
       break;
     case "app3":
       app = <FormDemo />;
+      break;
+    case "app4":
+      app = <FormDemoMultiple />;
       break;
   }
   ReactDOM.render(<DontUseMeForReal />, document.getElementById("root"));
