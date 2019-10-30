@@ -9,9 +9,12 @@ function App({ apiFacade }) {
 
   useEffect(() => {
     //This would be a great place to fetch data (all persons) from the backend
-    apiFacade.getPersons().then(data => {
-      setPersons(data);
-    });
+    const interval = setInterval(() => {
+      apiFacade.getPersons().then(data => {
+        setPersons(data);
+      });
+    }, 5000);
+    // return clearInterval(interval);
   });
 
   const storeAddEditPerson = person => {
