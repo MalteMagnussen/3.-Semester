@@ -9,12 +9,16 @@ function App({ apiFacade }) {
 
   useEffect(() => {
     //This would be a great place to fetch data (all persons) from the backend
-    const interval = setInterval(() => {
+    const timer = setInterval(() => {
       apiFacade.getPersons().then(data => {
         setPersons(data);
       });
     }, 5000);
-    // return clearInterval(interval);
+
+    // Clean-up
+    return () => {
+      clearInterval(timer);
+    };
   });
 
   const storeAddEditPerson = person => {
