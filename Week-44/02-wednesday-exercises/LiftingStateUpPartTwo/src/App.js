@@ -29,17 +29,23 @@ function App() {
   ];
 
   const [persons, setPersons] = useState(initialValue);
+  const [newPerson, setPerson] = useState({ name: "", id: uuid() });
 
   return (
     <div className="App">
       <h1>State Lift Demo</h1>
       <h2>Total Persons: {persons.length}</h2>
+      <p>{JSON.stringify(persons)}</p>
       <div className="row">
         <div className="col-6">
-          <AllPersons />
+          <AllPersons persons={persons} />
         </div>
         <div className="col-6">
-          <NewPerson />
+          <NewPerson
+            setPersons={setPersons}
+            newPerson={newPerson}
+            setPerson={setPerson}
+          />
         </div>
       </div>
     </div>
