@@ -15,17 +15,21 @@ const TodoList = props => {
       <ul>
         {todos.map(todo => (
           <li key={todo.id}>
-            {todo.todoText}
+            {todo.todoText} {"("}
             <a
               href="#/"
-              onClick={(e => e.preventDefault(), deleteTodo(todo.id))}
+              onClick={e => {
+                e.preventDefault();
+                deleteTodo(todo.id);
+              }}
             >
-              {" "}
-              (delete{" "}
+              delete{""}
             </a>
+            {", "}
             <a href="#/" onClick={() => editTodo(todo.id)}>
-              , edit){" "}
+              edit
             </a>
+            {")"}
           </li>
         ))}
       </ul>
