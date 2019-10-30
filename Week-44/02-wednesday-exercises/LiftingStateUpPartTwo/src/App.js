@@ -29,7 +29,39 @@ function App() {
   ];
 
   const [persons, setPersons] = useState(initialValue);
-  const [newPerson, setPerson] = useState({ name: "", id: uuid() });
+  const [newPerson, setNewPerson] = useState({ name: "", id: "" });
+
+  const addPerson = person => {
+    const id = person.id;
+    // If id === "" then it is a new person
+    if (id === "") {
+      person.id = uuid();
+      persons.push(person);
+    } else {
+      // if id !== "" then it is a editPerson
+      // Find person
+      let personToEdit = persons.find(p => p.id === person.id);
+      // Edit person with new values
+      personToEdit.name = person.name;
+    }
+    setPersons([...persons]);
+    setNewPerson({ name: "", id: "" });
+  };
+
+  const deletePerson = id => {
+    setPersons(
+      persons.filter(person => {
+        return person.id !== id;
+      })
+    );
+  };
+
+  const editPerson = id => {
+    const editPerson = persons.find(person => {
+      return person.id === id;
+    });
+    setNewPerson(editPerson);
+  };
 
   return (
     <div className="App">
@@ -38,14 +70,14 @@ function App() {
       <p>{JSON.stringify(persons)}</p>
       <div className="row">
         <div className="col-6">
-          <AllPersons persons={persons} />
+          <AllPersons
+            persons={persons}
+            deletePerson={deletePerson}
+            editPerson={editPerson}
+          />
         </div>
         <div className="col-6">
-          <NewPerson
-            setPersons={setPersons}
-            newPerson={newPerson}
-            setPerson={setPerson}
-          />
+          <NewPerson addPerson={addPerson} newPerson={newPerson} />
         </div>
       </div>
     </div>
