@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 export default function NewPerson(props) {
-  const { addPerson } = props;
+  const { addPerson, newPerson } = props;
 
-  const [person, setPerson] = useState(props.newPerson);
+  const [person, setPerson] = useState(newPerson);
 
   const handleChange = event => {
     const target = event.target;
@@ -13,11 +13,19 @@ export default function NewPerson(props) {
   };
 
   const handleSubmit = event => {
-    event.preventDefault();
     if (person.name === "") return;
     addPerson(person);
     setPerson({ name: "", id: "" });
+    event.preventDefault();
   };
+
+  useEffect(
+    () =>
+      setPerson({
+        ...newPerson
+      }),
+    [newPerson]
+  );
 
   const title = person.id === "" ? "New" : "Edit";
   return (

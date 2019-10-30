@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-export default function AllPersons(props) {
-  const { persons, deletePerson, editPerson } = props;
-
+const AllPersons = ({ persons, deletePerson, editPerson }) => {
   return (
     <React.Fragment>
       <p>All Persons - Complete me</p>
@@ -16,47 +14,36 @@ export default function AllPersons(props) {
           </tr>
         </thead>
         <tbody>
-          <TableRows
-            persons={persons}
-            deletePerson={deletePerson}
-            editPerson={editPerson}
-          />
+          {persons.map(person => (
+            <tr key={person.id}>
+              <td>{person.name}</td>
+              <td>{person.id}</td>
+              <td>
+                <a
+                  href="#"
+                  onClick={event => {
+                    event.preventDefault();
+                    deletePerson(person.id);
+                  }}
+                >
+                  delete
+                </a>
+              </td>
+              <td>
+                <a
+                  href="#"
+                  onClick={() => {
+                    editPerson(person.id);
+                  }}
+                >
+                  edit
+                </a>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </React.Fragment>
   );
-}
-
-function TableRows(props) {
-  const { persons, deletePerson, editPerson } = props;
-  const rows = persons.map(person => {
-    return (
-      <tr key={person.id}>
-        <td>{person.name}</td>
-        <td>{person.id}</td>
-        <td>
-          <a
-            href="#"
-            onClick={event => {
-              event.preventDefault();
-              deletePerson(person.id);
-            }}
-          >
-            delete
-          </a>
-        </td>
-        <td>
-          <a
-            href="#"
-            onClick={() => {
-              editPerson(person.id);
-            }}
-          >
-            edit
-          </a>
-        </td>
-      </tr>
-    );
-  });
-  return <React.Fragment>{rows}</React.Fragment>;
-}
+};
+export default AllPersons;
