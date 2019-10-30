@@ -7,12 +7,16 @@ function App({ apiFacade }) {
   const [personToAddEdit, setPersonToAddEdit] = useState(emptyPerson);
   const [persons, setPersons] = useState([]);
 
+  const updateList = () => {
+    apiFacade.getPersons().then(data => {
+      setPersons(data);
+    });
+  };
+
   useEffect(() => {
     //This would be a great place to fetch data (all persons) from the backend
     const timer = setInterval(() => {
-      apiFacade.getPersons().then(data => {
-        setPersons(data);
-      });
+      updateList();
     }, 5000);
 
     // Clean-up
@@ -23,6 +27,8 @@ function App({ apiFacade }) {
 
   const storeAddEditPerson = person => {
     //Call this from the AddEditPerson control with the person to Add or Edit and Add/Edit via the apiFacade
+    apiFacade.addEditPerson(person);
+    console.log("storeAddEditPerson");
   };
 
   const deletePerson = id => {

@@ -31,13 +31,14 @@ function apiFacade() {
 
   function addEditPerson(person) {
     //Complete me. A smart version will handle both Add and Edit, but focus on Add (POST) only first
-    // How to differentiate between edit and add will be through checking on ID.
-    // If ID === "", add
-    // If ID === something, edit
+
     if (person.id === "") {
-      // EDIT
-    } else {
       // ADD
+      let options = makeOptions("POST", person);
+      fetch(URL, options);
+      console.log("Fetch");
+    } else {
+      // EDIT
     }
   }
 

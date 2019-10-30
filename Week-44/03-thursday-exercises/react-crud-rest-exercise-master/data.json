@@ -27,6 +27,13 @@
       "name": "Marguerite Hunter",
       "gender": "female",
       "email": "margueritehunter@zedalis.com"
+    },
+    {
+      "id": "EMe6XEF",
+      "age": "24",
+      "name": "Malte Hviid-Magnussen",
+      "email": "maltehviidmagnussen@gmail.com",
+      "gender": "Apache Helicopter"
     }
   ]
 }
