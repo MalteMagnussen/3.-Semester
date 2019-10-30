@@ -36,7 +36,11 @@ export default function App3() {
   useEffect(() => {
     const timer = setInterval(() => {
       console.log("Fetching Dad Joke");
-      fetch("https://icanhazdadjoke.com/slack")
+      fetch("https://icanhazdadjoke.com/slack", {
+        headers: {
+          Accept: "application/json"
+        }
+      })
         .then(res => res.json())
         .then(data => setDadJoke(data.attachments[0].text))
         .catch(err => console.log(err));
