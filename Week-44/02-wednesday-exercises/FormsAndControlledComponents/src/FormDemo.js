@@ -25,35 +25,34 @@ const NameForm = () => {
   const [name, setName] = useState(initialState);
 
   /* Handle a change in the form */
-  function handleChange(event) {
+  const handleChange = event => {
     const target = event.target;
     const id = target.id;
     const value = target.value;
     setName(value);
-  }
+  };
 
   /* Handle a form submit */
-  function handleSubmit(event) {
+  const handleSubmit = event => {
     event.preventDefault();
-
-    /**
-     * Reset Fields
-     */
+    window.alert(name);
+    /* Reset Fields */
     setName(initialState);
-  }
+  };
 
   return (
     <div>
-      <form onSubmit={handleSubmit} onChange={handleChange}>
-        <label>
-          Name:
-          <input type="text" id="name" placeholder="Name" value={name} />
-        </label>
-        <button type="submit" value="Submit">
-          Submit
-        </button>
+      <form>
+        <input
+          type="text"
+          id="name"
+          placeholder="Name"
+          value={name}
+          onChange={handleChange}
+        />
+        <button onClick={handleSubmit}>Submit</button>
       </form>
-      {JSON.stringify(name)}
+      {name}
     </div>
   );
 };
