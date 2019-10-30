@@ -2,29 +2,30 @@ import React, { useState, useEffect } from "react";
 import AddEditPerson from "./AddEditPerson";
 import AllPersons from "./AllPersons";
 
-
-function App({apiFacade}) {
+function App({ apiFacade }) {
   const emptyPerson = { id: "", age: "", name: "", email: "", gender: "" };
   const [personToAddEdit, setPersonToAddEdit] = useState(emptyPerson);
   const [persons, setPersons] = useState([]);
 
   useEffect(() => {
     //This would be a great place to fetch data (all persons) from the backend
+    apiFacade.getPersons().then(data => {
+      setPersons(data);
+    });
   });
 
-  const storeAddEditPerson = (person) => {
+  const storeAddEditPerson = person => {
     //Call this from the AddEditPerson control with the person to Add or Edit and Add/Edit via the apiFacade
-  }
+  };
 
-  const deletePerson = (id) => {
+  const deletePerson = id => {
     //Call this from the AllPerson control with the id for the person to delete
-  }
+  };
 
-  const editPerson = (person) => {
+  const editPerson = person => {
     //Call thisfrom the AllPerson control with the  person to edit
     //Set the state variable personToAddEdit with this person (a clone) to make the new value flow down via props
-  }
-
+  };
 
   return (
     <div className="container">
