@@ -19,8 +19,13 @@ That is the spinner should not spin.
 */
 
 const NameForm = () => {
+  /* Getter and setter for name [input from form] */
   const [name, setName] = useState("");
+
+  /* Handle a change in the form */
   function handleChange(event) {}
+
+  /* Handle a form submit */
   function handleSubmit(event) {}
 
   return (
