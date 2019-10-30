@@ -19,25 +19,41 @@ That is the spinner should not spin.
 */
 
 const NameForm = () => {
+  /* InitialState for the form */
+  const initialState = "";
   /* Getter and setter for name [input from form] */
-  const [name, setName] = useState("");
+  const [name, setName] = useState(initialState);
 
   /* Handle a change in the form */
-  function handleChange(event) {}
+  function handleChange(event) {
+    const target = event.target;
+    const id = target.id;
+    const value = target.value;
+    setName(value);
+  }
 
   /* Handle a form submit */
-  function handleSubmit(event) {}
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    /**
+     * Reset Fields
+     */
+    setName(initialState);
+  }
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onChange={handleChange}>
         <label>
           Name:
-          <input type="text" />
+          <input type="text" id="name" placeholder="Name" value={name} />
         </label>
-        <input type="submit" value="Submit" />
+        <button type="submit" value="Submit">
+          Submit
+        </button>
       </form>
-      {name}
+      {JSON.stringify(name)}
     </div>
   );
 };
