@@ -18,7 +18,7 @@ function App({ apiFacade }) {
     //This would be a great place to fetch data (all persons) from the backend
     const timer = setInterval(() => {
       updateList();
-    }, 5000);
+    }, 3000);
 
     // Clean-up
     return () => {
@@ -34,11 +34,13 @@ function App({ apiFacade }) {
 
   const deletePerson = id => {
     //Call this from the AllPerson control with the id for the person to delete
+    apiFacade.deletePerson(id);
   };
 
   const editPerson = person => {
     //Call thisfrom the AllPerson control with the  person to edit
     //Set the state variable personToAddEdit with this person (a clone) to make the new value flow down via props
+    setPersonToAddEdit(person);
   };
 
   return (

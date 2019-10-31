@@ -36,13 +36,21 @@ function apiFacade() {
       // ADD
       let options = makeOptions("POST", person);
       fetch(URL, options);
-      console.log("Fetch");
+      console.log("POST");
     } else {
       // EDIT
+      const uri = URL + "/" + person.id;
+      const options = makeOptions("PUT", person);
+      fetch(uri, options);
+      console.log("PUT");
     }
   }
 
   function deletePerson(id) {
+    const uri = URL + "/" + id;
+    const options = makeOptions("DELETE");
+    fetch(uri, options);
+    console.log("DELETE");
     //Complete me
   }
 
