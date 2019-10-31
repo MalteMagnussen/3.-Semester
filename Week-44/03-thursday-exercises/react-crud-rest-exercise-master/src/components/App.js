@@ -14,6 +14,7 @@ function App({ apiFacade }) {
   };
 
   useEffect(() => {
+    updateList();
     //This would be a great place to fetch data (all persons) from the backend
     const timer = setInterval(() => {
       updateList();
@@ -23,7 +24,7 @@ function App({ apiFacade }) {
     return () => {
       clearInterval(timer);
     };
-  });
+  }, []);
 
   const storeAddEditPerson = person => {
     //Call this from the AddEditPerson control with the person to Add or Edit and Add/Edit via the apiFacade
