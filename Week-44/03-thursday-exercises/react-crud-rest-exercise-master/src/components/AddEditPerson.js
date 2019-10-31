@@ -5,7 +5,7 @@ export default function AddEditPerson(props) {
   const [person, setPerson] = useState({ ...newPerson });
 
   const emptyPerson = { id: "", age: "", name: "", email: "", gender: "" };
-  const { addEditPerson, key } = props;
+  const { addEditPerson } = props;
   /* Add the required changes to use Reacts "Controlled Component Pattern" 
      to handle inputs related to a person */
   const handleChange = event => {
@@ -46,7 +46,12 @@ export default function AddEditPerson(props) {
         <div className="form-group">
           <label className="control-label col-sm-3">Id:</label>
           <div className="col-sm-9">
-            <input className="form-control" readOnly id="id" value={key} />
+            <input
+              className="form-control"
+              readOnly
+              id="id"
+              value={person.id}
+            />
           </div>
         </div>
         <div className="form-group">
@@ -116,6 +121,9 @@ export default function AddEditPerson(props) {
               style={{ marginLeft: 5 }}
               type="button"
               className="btn btn-dark"
+              onClick={() => {
+                setPerson({ ...emptyPerson });
+              }}
             >
               Cancel
             </button>
