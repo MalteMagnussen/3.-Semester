@@ -61,7 +61,6 @@ function App({ apiFacade }) {
             newPerson={personToAddEdit}
             //  Next two lines, are if you decide to use the pattern introduced in the day-2 exercises
             addEditPerson={storeAddEditPerson}
-            key={personToAddEdit.id}
           />
         </div>
       </div>
