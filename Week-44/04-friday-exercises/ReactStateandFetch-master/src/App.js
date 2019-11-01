@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import CountryTable from "./CountryTable";
 import "./App.css";
+import ReactDOM from "react-dom";
+import Paginator from "react-hooks-paginator";
 
 const App = props => {
   const factory = props.factory;
@@ -8,7 +10,20 @@ const App = props => {
   const getCountries = factory.getCountries;
 
   const [labels, setLabels] = useState([]);
-  const [countries, setCountries] = useState([]);
+
+  /**
+   * Pagination
+   */
+  const pageLimit = 5;
+
+  const [offset, setOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [data, setData] = useState([]);
+  const [currentData, setCurrentData] = useState([]);
+
+  useEffect(() => {
+    setCurrentData(data.slice(offset, offset + pageLimit));
+  }, [offset, data]);
 
   /**
    * 2) Use your updated countryFactory and
@@ -18,7 +33,7 @@ const App = props => {
 
   const updateCountries = () => {
     getCountries().then(data => {
-      setCountries(data);
+      setData(data);
     });
   };
 
@@ -39,6 +54,7 @@ const App = props => {
     const timer = setInterval(() => {
       updateLabels();
       updateCountries();
+      console.log("Fetching Countries.");
     }, 3000);
 
     // Clean-up
@@ -57,7 +73,17 @@ const App = props => {
           Your initial task is to fetch data from the server (see exercise for
           how to start it), and create a table below, with these data
         </p>
-        <CountryTable labels={labels} countries={countries} />
+        <CountryTable labels={labels} countries={currentData} />
+        <div>
+          <Paginator
+            totalRecords={data.length}
+            pageLimit={pageLimit}
+            pageNeighbours={1}
+            setOffset={setOffset}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
       </div>
     </div>
   );
