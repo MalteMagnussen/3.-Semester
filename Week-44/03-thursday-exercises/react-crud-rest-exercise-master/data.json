@@ -27,6 +27,20 @@
       "name": "Marguerite Hunter",
       "gender": "female",
       "email": "margueritehunter@zedalis.com"
+    },
+    {
+      "id": "Y8S5Nae",
+      "age": "25",
+      "name": "Malte Hviid-Magnussen",
+      "email": "maltehviidmagnussen@gmail.com",
+      "gender": "male"
+    },
+    {
+      "id": "iUeopeu",
+      "age": "33",
+      "name": "TestSubmit",
+      "email": "test@test.com",
+      "gender": "Test"
     }
   ]
 }

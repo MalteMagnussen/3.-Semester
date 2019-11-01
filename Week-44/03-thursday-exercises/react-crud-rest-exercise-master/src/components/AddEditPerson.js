@@ -25,7 +25,7 @@ export default function AddEditPerson(props) {
       return;
     console.log("About to submit person");
     addEditPerson(person);
-    console.log("Submitted person");
+    // Empty out the fields and set new person.
     setPerson({ ...emptyPerson });
     event.preventDefault();
   };
