@@ -47,12 +47,12 @@ function App(props) {
     <div className="App">
       <p>The button has been clicked {count} times.</p>
       <button onClick={() => setCount(count + increment)}>
-        Click me to increment by one
+        Click me to increment by {increment}
       </button>
       <br></br>
       {/*b) Add a new button to the Component which when pressed, should decrement the count value*/}
       <button onClick={() => setCount(count - increment)}>
-        Click me to decrement by one
+        Click me to decrement by {increment}
       </button>
     </div>
   );
