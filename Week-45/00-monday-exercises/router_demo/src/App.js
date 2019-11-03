@@ -6,12 +6,15 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import Navigation from "./components/Navigation";
+import { withRouter } from "react-router";
+
+const NavBarWithRouter = withRouter(Navigation);
 
 function App() {
   return (
     <BrowserRouter>
       <div>
-        <Navigation />
+        <NavBarWithRouter />
         <Switch>
           <Route path="/" component={Home} exact />{" "}
           {/* Exact is so that Home doesn't show up on all other pages */}
