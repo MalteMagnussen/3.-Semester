@@ -28,7 +28,9 @@ export default function AllUsers(props) {
         <tbody>
           {data.map((person, index) => (
             <tr key={index}>
-              <td>{/* Image */}</td>
+              <td>
+                <img src={`${person.picture.large}`} alt="Persons Image" />
+              </td>
               <td>
                 {person.first} {person.last}
               </td>
