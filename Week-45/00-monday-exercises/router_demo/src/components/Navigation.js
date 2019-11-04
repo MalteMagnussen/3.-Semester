@@ -8,15 +8,19 @@ const Navigation = props => {
     <div>
       <ul className="header">
         <li>
-          <NavLink to="/" exact>
+          <NavLink activeClassName="active" to="/" exact>
             Home
           </NavLink>
         </li>
         <li>
-          <NavLink to="/about">About</NavLink>
+          <NavLink activeClassName="active" to="/about">
+            About
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/contact">Contact</NavLink>
+          <NavLink activeClassName="active" to="/contact">
+            Contact
+          </NavLink>
         </li>
       </ul>
     </div>
