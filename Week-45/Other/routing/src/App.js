@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  Link as NavLink
-} from "react-router-dom";
+import { HashRouter as Router, Switch, Route, NavLink } from "react-router-dom";
 
 export default function App() {
   return (
