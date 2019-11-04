@@ -6,15 +6,19 @@ const Navigation = props => {
   const { location } = props;
   return (
     <div>
-      <Navbar bg="light" expand="lg">
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto" activeKey={location.pathname}>
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/contact">Contact</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <ul className="header">
+        <li>
+          <NavLink to="/" exact>
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/about">About</NavLink>
+        </li>
+        <li>
+          <NavLink to="/contact">Contact</NavLink>
+        </li>
+      </ul>
     </div>
   );
 };
