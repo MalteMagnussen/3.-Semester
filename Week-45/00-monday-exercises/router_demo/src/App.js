@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 import Home from "./components/Home";
 import About from "./components/About";
@@ -12,7 +12,7 @@ const NavBarWithRouter = withRouter(Navigation);
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <div>
         <NavBarWithRouter />
         <Switch>
@@ -24,7 +24,7 @@ function App() {
           {/* This is the 404 page - Notice no Path */}
         </Switch>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 
