@@ -10,36 +10,45 @@ import {
 
 export default function Details(props) {
   const match = useRouteMatch();
-
+  console.log(match);
+  console.log(props.data);
+  const { index } = useParams();
   return (
     <div className="container">
       <p>Details Page</p>
-
-      <Switch>
-        <Route path={`${match.path}/:id`}>
-          <PersonDetails data={props.data} />
-        </Route>
-        <Route path={match.path}>
-          <h4>Please select a proper user.</h4>
-          <Link to="/all">Back</Link>
-        </Route>
-      </Switch>
+      <PersonDetails data={props.data} index={index} />
+      <Link to="/all">Back</Link>
     </div>
   );
 }
 
 const PersonDetails = props => {
   const data = props.data.users;
-  const { id } = useParams();
-  const person = data[id];
-
+  const { index } = props;
+  const person = data[index];
+  const personItems = Object.keys(person);
+  const toPrint = personItems.map((item, index) => (
+    <Helper person={person} item={item} index={index} />
+  ));
+  console.log(toPrint);
   return (
-    <ul>
-      {Object.keys(person).forEach((key, index) => (
-        <li key={index}>
-          {key} : {person[key]}
-        </li>
-      ))}
-    </ul>
+    <div>
+      Person number: {index}
+      <ul>{toPrint}</ul>
+    </div>
   );
+};
+
+const Helper = props => {
+  const { person, item, index } = props;
+
+  if (item !== "picture") {
+    return (
+      <li key={index}>
+        {item} : {person[item]}
+      </li>
+    );
+  } else {
+    return null;
+  }
 };
