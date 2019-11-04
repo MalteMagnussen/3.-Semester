@@ -3,7 +3,7 @@ import {
   HashRouter as Router,
   Switch,
   Route,
-  Link,
+  Link as NavLink,
   useRouteMatch,
   useParams
 } from "react-router-dom";
@@ -12,15 +12,15 @@ export default function App() {
   return (
     <Router>
       <div>
-        <ul>
+        <ul className="header">
           <li>
-            <Link to="/">Home</Link>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <NavLink to="/about">About</NavLink>
           </li>
           <li>
-            <Link to="/topics">Topics</Link>
+            <NavLink to="/topics">Topics</NavLink>
           </li>
         </ul>
 
@@ -57,10 +57,10 @@ function Topics() {
 
       <ul>
         <li>
-          <Link to={`${match.url}/components`}>Components</Link>
+          <NavLink to={`${match.url}/components`}>Components</NavLink>
         </li>
         <li>
-          <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
+          <NavLink to={`${match.url}/props-v-state`}>Props v. State</NavLink>
         </li>
       </ul>
 

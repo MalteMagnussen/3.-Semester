@@ -1,5 +1,10 @@
 import React from "react";
-import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Link as NavLink
+} from "react-router-dom";
 
 export default function App() {
   return (
@@ -26,19 +31,17 @@ function Users() {
 
 function Header() {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-        <li>
-          <Link to="/users">Users</Link>
-        </li>
-      </ul>
-    </nav>
+    <ul className="header">
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/about">About</NavLink>
+      </li>
+      <li>
+        <NavLink to="/users">Users</NavLink>
+      </li>
+    </ul>
   );
 }
 

@@ -14,7 +14,7 @@ function App() {
   return (
     <Router>
       <div>
-        <NavBarWithRouter />
+        <Navigation />
         <Switch>
           <Route path="/" component={Home} exact />{" "}
           {/* Exact is so that Home doesn't show up on all other pages */}
