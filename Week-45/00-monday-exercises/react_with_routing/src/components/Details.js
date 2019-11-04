@@ -35,7 +35,7 @@ const PersonDetails = props => {
 
     return (
       <div>
-        Person number: {Number(index + 1)}
+        Person number: {index}
         <br />
         <img
           src={`${person.picture.large}`}
