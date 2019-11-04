@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Welcome from "./components/Welcome";
+import AllUsers from "./components/AllUsers";
+import Details from "./components/Details";
 
 function App() {
   return (
