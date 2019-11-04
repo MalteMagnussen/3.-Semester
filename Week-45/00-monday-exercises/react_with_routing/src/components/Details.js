@@ -36,6 +36,12 @@ const PersonDetails = props => {
     return (
       <div>
         Person number: {Number(index + 1)}
+        <br />
+        <img
+          src={`${person.picture.large}`}
+          alt="Person Photo"
+          align="center"
+        />
         <ul>{toPrint}</ul>
       </div>
     );
