@@ -6,6 +6,7 @@
 [Go to the Wiki and select the appropriate week in the sidebar.](https://github.com/MalteMagnussen/3.-Semester/wiki)
 
 Or select a week from the list below:
+* [Week-45](https://github.com/MalteMagnussen/3.-Semester/wiki/Week-45)
 * [Week-44](https://github.com/MalteMagnussen/3.-Semester/wiki/Week-44)
 * [Week-39](https://github.com/MalteMagnussen/3.-Semester/wiki/Week-39)
 * [Week-38](https://github.com/MalteMagnussen/3.-Semester/wiki/Week-38)
