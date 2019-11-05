@@ -125,14 +125,38 @@ const Details = ({ findBook }) => {
 const Company = () => <div>Company</div>;
 
 const AddBook = ({ bookFactory }) => {
+  const initialBook = { id: "", info: "", title: "" };
+
+  const [book, setBook] = useState(initialBook);
+
+  const handleChange = event => {
+    const target = event.target;
+    const id = target.id;
+    const value = target.value;
+    setBook({ ...book, [id]: value });
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    bookFactory.addBook(book);
+  };
+
   return (
     <React.Fragment>
       <h2>Add Book</h2>
-      <form>
-        <input type="text" placeholder="Add Title" id="title" />
+      <form onChange={handleChange}>
+        <input
+          type="text"
+          placeholder="Add Title"
+          id="title"
+          value={book.title}
+        />
         <br />
-        <input type="text" placeholder="Add Info" id="info" />
+        <input type="text" placeholder="Add Info" id="info" value={book.info} />
+        <br />
+        <button onClick={handleSubmit}>Submit</button>
       </form>
+      <p>{JSON.stringify(book)}</p>
     </React.Fragment>
   );
 };
