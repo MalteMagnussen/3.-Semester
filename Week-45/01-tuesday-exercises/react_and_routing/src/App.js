@@ -1,11 +1,13 @@
-import React from "react";
-import logo from "./logo.svg";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  NavLink
+  NavLink,
+  useParams,
+  useRouteMatch,
+  Link
 } from "react-router-dom";
 
 function App(props) {
@@ -24,7 +26,7 @@ function App(props) {
           <Company />
         </Route>
         <Route path="/add-book">
-          <AddBook />
+          <AddBook bookFactory={bookFactory} />
         </Route>
         <Route path="*">
           <NoMatch />
@@ -60,12 +62,80 @@ const Header = () => (
 );
 
 const Home = () => <div>Home</div>;
-const Product = props => {
-  const bookFactory = props.bookFactory;
-  return <div>Product</div>;
+
+const Product = ({ bookFactory }) => {
+  const { getBooks, findBook, deleteBook, addBook } = bookFactory;
+  const match = useRouteMatch();
+
+  return (
+    <React.Fragment>
+      <h2>Products</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Info</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {getBooks().map(({ id, title, info }) => (
+            <tr key={id}>
+              <td>{title}</td>
+              <td>{info}</td>
+              <td>
+                <Link to={`${match.url}/${id}`}>Details</Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <Route path={`${match.url}/:id`}>
+        <Details findBook={findBook} />
+      </Route>
+    </React.Fragment>
+  );
 };
+
+const Details = ({ findBook }) => {
+  let { id } = useParams();
+  const book = findBook(id);
+  if (book) {
+    return (
+      <React.Fragment>
+        <br />
+        <div>Details about book with id: {id} </div>
+        <p>
+          Title: {book.title}
+          <br></br>
+          Details: {book.info}
+        </p>
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <br></br>
+        <div>No book exists with that ID. </div>
+      </React.Fragment>
+    );
+  }
+};
+
 const Company = () => <div>Company</div>;
-const AddBook = () => <div>Add Book</div>;
+
+const AddBook = ({ bookFactory }) => {
+  return (
+    <React.Fragment>
+      <h2>Add Book</h2>
+      <form>
+        <input type="text" placeholder="Add Title" id="title" />
+        <br />
+        <input type="text" placeholder="Add Info" id="info" />
+      </form>
+    </React.Fragment>
+  );
+};
 
 const NoMatch = () => (
   <div>Du forsøger at tilgå en ressource der ikke findes</div>
