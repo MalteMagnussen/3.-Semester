@@ -22,9 +22,13 @@ function bookFactory() {
     books = books.filter(book => book.id !== bookId);
   };
   const addBook = book => {
-    book.id = nextId;
-    books.push(book);
-    nextId++;
+    if (book.id) {
+      // add backend
+    } else {
+      book.id = nextId;
+      books.push(book);
+      nextId++;
+    }
   };
 
   return {

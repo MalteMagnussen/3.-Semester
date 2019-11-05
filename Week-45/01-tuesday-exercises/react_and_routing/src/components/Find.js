@@ -42,9 +42,7 @@ const Find = ({ bookFactory }) => {
         ></input>
         <button onClick={handleSubmit}>Find Book</button>
       </form>
-
       <br />
-
       <ShowBook
         book={book}
         deleteBook={bookFactory.deleteBook}
