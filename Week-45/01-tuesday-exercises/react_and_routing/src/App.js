@@ -8,7 +8,8 @@ import {
   NavLink
 } from "react-router-dom";
 
-function App() {
+function App(props) {
+  const bookFactory = props.bookFactory;
   return (
     <Router>
       <Header />
@@ -17,14 +18,17 @@ function App() {
           <Home />
         </Route>
         <Route path="/products">
-          <Product />
+          <Product bookFactory={bookFactory} />
         </Route>
         <Route path="/company">
           <Company />
         </Route>
-        {/* <Route path="/add-book">
+        <Route path="/add-book">
           <AddBook />
-        </Route> */}
+        </Route>
+        <Route path="*">
+          <NoMatch />
+        </Route>
       </Switch>
     </Router>
   );
@@ -56,7 +60,15 @@ const Header = () => (
 );
 
 const Home = () => <div>Home</div>;
-const Product = () => <div>Product</div>;
+const Product = props => {
+  const bookFactory = props.bookFactory;
+  return <div>Product</div>;
+};
 const Company = () => <div>Company</div>;
+const AddBook = () => <div>Add Book</div>;
+
+const NoMatch = () => (
+  <div>Du forsøger at tilgå en ressource der ikke findes</div>
+);
 
 export default App;
