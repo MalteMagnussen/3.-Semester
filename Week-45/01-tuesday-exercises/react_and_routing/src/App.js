@@ -107,12 +107,17 @@ const Find = ({ bookFactory }) => {
 
       <br />
 
-      <ShowBook book={book}></ShowBook>
+      <ShowBook
+        book={book}
+        deleteBook={bookFactory.deleteBook}
+        setid={setid}
+        setBook={setBook}
+      ></ShowBook>
     </React.Fragment>
   );
 };
 
-const ShowBook = ({ book }) => {
+const ShowBook = ({ book, deleteBook, setBook, setid }) => {
   if (book && book.id) {
     return (
       <div>
@@ -121,6 +126,16 @@ const ShowBook = ({ book }) => {
         Title: {book.title}
         <br />
         Info: {book.info}
+        <br />
+        <button
+          onClick={() => {
+            deleteBook(book.id);
+            setBook({ id: "", info: "", title: "" });
+            setid("");
+          }}
+        >
+          Delete Book
+        </button>
       </div>
     );
   } else {
@@ -183,7 +198,7 @@ const Details = ({ findBook }) => {
     return (
       <React.Fragment>
         <br></br>
-        <div>No book exists with that ID. </div>
+        <div>Select an existing ID.</div>
       </React.Fragment>
     );
   }
