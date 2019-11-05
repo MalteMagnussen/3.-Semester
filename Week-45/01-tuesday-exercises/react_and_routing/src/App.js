@@ -127,7 +127,7 @@ const Company = () => <div>Company</div>;
 const AddBook = ({ bookFactory }) => {
   const initialBook = { id: "", info: "", title: "" };
 
-  const [book, setBook] = useState(initialBook);
+  const [book, setBook] = useState({ ...initialBook });
 
   const handleChange = event => {
     const target = event.target;
@@ -139,6 +139,7 @@ const AddBook = ({ bookFactory }) => {
   const handleSubmit = event => {
     event.preventDefault();
     bookFactory.addBook(book);
+    setBook({ ...initialBook });
   };
 
   return (
