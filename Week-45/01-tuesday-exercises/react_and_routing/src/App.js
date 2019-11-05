@@ -7,7 +7,8 @@ import {
   NavLink,
   useParams,
   useRouteMatch,
-  Link
+  Link,
+  Prompt
 } from "react-router-dom";
 
 function App(props) {
@@ -15,23 +16,28 @@ function App(props) {
   return (
     <Router>
       <Header />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/products">
-          <Product bookFactory={bookFactory} />
-        </Route>
-        <Route path="/company">
-          <Company />
-        </Route>
-        <Route path="/add-book">
-          <AddBook bookFactory={bookFactory} />
-        </Route>
-        <Route path="*">
-          <NoMatch />
-        </Route>
-      </Switch>
+      <div className="container">
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/products">
+            <Product bookFactory={bookFactory} />
+          </Route>
+          <Route path="/company">
+            <Company />
+          </Route>
+          <Route path="/add-book">
+            <AddBook bookFactory={bookFactory} />
+          </Route>
+          <Route path="/find">
+            <Find bookFactory={bookFactory} />
+          </Route>
+          <Route path="*">
+            <NoMatch />
+          </Route>
+        </Switch>
+      </div>
     </Router>
   );
 }
@@ -58,8 +64,69 @@ const Header = () => (
         Company
       </NavLink>
     </li>
+    <li>
+      <NavLink activeClassName="active" to="/find">
+        Find Book
+      </NavLink>
+    </li>
   </ul>
 );
+
+const Find = ({ bookFactory }) => {
+  const findBook = bookFactory.findBook;
+  const initialValue = "";
+
+  const initialBook = { id: "", info: "", title: "" };
+
+  const [book, setBook] = useState({ ...initialBook });
+
+  const [id, setid] = useState(initialValue);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    setBook(findBook(id));
+    setid("");
+  };
+
+  const handleChange = event => {
+    setid(event.target.value);
+  };
+
+  return (
+    <React.Fragment>
+      <h3>Find a Book</h3>
+      <form>
+        <input
+          type="number"
+          placeholder="ID"
+          value={id}
+          onChange={handleChange}
+        ></input>
+        <button onClick={handleSubmit}>Find Book</button>
+      </form>
+
+      <br />
+
+      <ShowBook book={book}></ShowBook>
+    </React.Fragment>
+  );
+};
+
+const ShowBook = ({ book }) => {
+  if (book && book.id) {
+    return (
+      <div>
+        ID: {book.id}
+        <br />
+        Title: {book.title}
+        <br />
+        Info: {book.info}
+      </div>
+    );
+  } else {
+    return "No book exists with that ID. ";
+  }
+};
 
 const Home = () => <div>Home</div>;
 
@@ -129,23 +196,41 @@ const AddBook = ({ bookFactory }) => {
 
   const [book, setBook] = useState({ ...initialBook });
 
+  const [isBlocking, setIsBlocking] = useState(false);
+
   const handleChange = event => {
     const target = event.target;
     const id = target.id;
     const value = target.value;
     setBook({ ...book, [id]: value });
+
+    const blocking = value.length > 0;
+    setIsBlocking(blocking);
   };
 
   const handleSubmit = event => {
-    event.preventDefault();
-    bookFactory.addBook(book);
-    setBook({ ...initialBook });
+    if (book.title && book.info) {
+      event.preventDefault();
+      bookFactory.addBook(book);
+      setBook({ ...initialBook });
+      setIsBlocking(false);
+    } else {
+      window.alert("Missing Input");
+    }
   };
 
   return (
     <React.Fragment>
       <h2>Add Book</h2>
       <form onChange={handleChange}>
+        <Prompt
+          when={isBlocking}
+          message={location =>
+            `Are you sure you want to go to the ${location.pathname.substr(
+              1
+            )} page? You are in the process of submitting a new book.`
+          }
+        />
         <input
           type="text"
           placeholder="Add Title"
