@@ -1,6 +1,10 @@
 # Created by https://www.gitignore.io/api/react,reactnative
 # Edit at https://www.gitignore.io/?templates=react,reactnative
 
+
+**/SetupTestUsers.java
+
+
 ### react ###
 **/.DS_*
 **/*.log
