@@ -17,44 +17,43 @@ class ApiFacade {
       }
     };
 
-    /* d */
-    const setToken = token => {
-      localStorage.setItem("jwtToken", token);
-    };
-    const getToken = () => {
-      return localStorage.getItem("jwtToken");
-    };
-    const loggedIn = () => {
-      const loggedIn = this.getToken() != null;
-      return loggedIn;
-    };
-    const logout = () => {
-      localStorage.removeItem("jwtToken");
-    };
-    /* d end */
-    /**
-     * e)
-     */
-    const login = (user, pass) => {
-      const options = this.makeOptions("POST", true, {
-        username: user,
-        password: pass
-      });
-      return fetch(URL + "/api/login", options)
-        .then(handleHttpErrors)
-        .then(res => {
-          this.setToken(res.token);
-        });
-    };
-
     if (addToken && this.loggedIn()) {
       opts.headers["x-access-token"] = this.getToken();
     }
     if (body) {
       opts.body = JSON.stringify(body);
     }
-    return { opts, setToken, getToken, loggedIn, logout, login };
+    return { opts };
   }
+  /* d */
+  setToken = token => {
+    localStorage.setItem("jwtToken", token);
+  };
+  getToken = () => {
+    return localStorage.getItem("jwtToken");
+  };
+  loggedIn = () => {
+    const loggedIn = this.getToken() != null;
+    return loggedIn;
+  };
+  logout = () => {
+    localStorage.removeItem("jwtToken");
+  };
+  /* d end */
+  /**
+   * e)
+   */
+  login = (user, pass) => {
+    const options = this.makeOptions("POST", true, {
+      username: user,
+      password: pass
+    });
+    return fetch(URL + "/api/login", options)
+      .then(handleHttpErrors)
+      .then(res => {
+        this.setToken(res.token);
+      });
+  };
 }
 const facade = new ApiFacade();
 export default facade;
