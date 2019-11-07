@@ -4,6 +4,7 @@ import utils.EMF_Creator;
 import entities.Person;
 import exceptions.MissingInputException;
 import exceptions.BookNotFoundException;
+import exceptions.PersonNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -100,7 +101,7 @@ public class IPersonFacadeTest {
     }
 
     @Test
-    public void getPersonTest() throws BookNotFoundException {
+    public void getPersonTest() throws PersonNotFoundException {
         System.out.println("Get Person Test - Facade");
         // Arrange
         Person expResult = person;
@@ -115,9 +116,9 @@ public class IPersonFacadeTest {
     public void getWrongPersonTest() {
         System.out.println("Get Person by Wrong ID Test - Facade");
         // Arrange
-        Throwable expResult = new BookNotFoundException("No Person persisted with that ID.");
+        Throwable expResult = new PersonNotFoundException("No Person persisted with that ID.");
         // Act
-        Throwable result = assertThrows(BookNotFoundException.class, () -> {
+        Throwable result = assertThrows(PersonNotFoundException.class, () -> {
             facade.getPerson(232);
         });
         // Assert
@@ -171,9 +172,9 @@ public class IPersonFacadeTest {
     public void deletePersonTestWrong() {
         System.out.println("Delete Person Wrong Test - Facade");
         // Arrange
-        Throwable expResult = new BookNotFoundException("Could not delete, provided id does not exist");
+        Throwable expResult = new PersonNotFoundException("Could not delete, provided id does not exist");
         // Act
-        Throwable result = assertThrows(BookNotFoundException.class, () -> {
+        Throwable result = assertThrows(PersonNotFoundException.class, () -> {
             facade.deletePerson(5);
         });
         // Assert
