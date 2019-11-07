@@ -16,6 +16,7 @@ class LogIn extends Component {
     return (
       <div>
         <h2>Login</h2>
+        <p>{this.props.message}</p>
         <form onSubmit={this.login} onChange={this.onChange}>
           <input placeholder="User Name" id="username" />
           <input placeholder="Password" id="password" type="password" />
@@ -30,12 +31,14 @@ class LoggedIn extends Component {
     super(props);
     this.state = { dataFromServer: "Fetching!!" };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    facade.fetchData().then(res => this.setState({ dataFromServer: res }));
+  }
   render() {
     return (
       <div>
         <h2>Data Received from server</h2>
-        <h3>{this.state.dataFromServer}</h3>
+        <h3>{JSON.stringify(this.state.dataFromServer)}</h3>
       </div>
     );
   }
@@ -43,17 +46,29 @@ class LoggedIn extends Component {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { loggedIn: false };
+    this.state = { loggedIn: false, message: "" };
   }
-  logout = () => {}; //TODO
+  logout = () => {
+    facade.logout();
+    this.setState({ loggedIn: false });
+  };
   login = (user, pass) => {
-    facade.login(user, pass).then(res => this.setState({ loggedIn: true }));
+    facade
+      .login(user, pass)
+      .then(res => this.setState({ loggedIn: true }))
+      .catch(res => {
+        if (res.status) {
+          this.setState({ message: "Wrong login credentials" });
+        } else {
+          console.log("No response at all. Server might be down.");
+        }
+      });
   };
   render() {
     return (
       <div style={{ margin: "50pt" }}>
         {!this.state.loggedIn ? (
-          <LogIn login={this.login} />
+          <LogIn login={this.login} message={this.state.message} />
         ) : (
           <div>
             <LoggedIn />
