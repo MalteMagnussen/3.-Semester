@@ -5,6 +5,7 @@
  */
 package entities;
 
+import dto.BookDTO;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +26,11 @@ public class Book implements Serializable {
     private String info, title;
 
     public Book() {
+    }
+    
+    public Book(BookDTO bookDTO) {
+        this.info = bookDTO.getInfo();
+        this.title = bookDTO.getTitle();
     }
 
     public Book(String info, String title) {

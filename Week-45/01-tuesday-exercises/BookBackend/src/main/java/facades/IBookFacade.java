@@ -6,6 +6,8 @@
 package facades;
 
 import dto.BookDTO;
+import exceptions.BookNotFoundException;
+import exceptions.MissingInputException;
 import java.util.List;
 
 /**
@@ -20,8 +22,8 @@ public interface IBookFacade {
     // Delete Book
     
     public List<BookDTO> getBooks();
-    public BookDTO getBook(int id);
-    public void createBook(BookDTO bookDTO);
+    public BookDTO getBook(int id) throws BookNotFoundException;
+    public void createBook(BookDTO bookDTO) throws MissingInputException;
     public BookDTO editBook(BookDTO bookDTO);
     public String deleteBook(int id);
     

@@ -5,11 +5,14 @@
  */
 package dto;
 
+import entities.Book;
+
 /**
  *
  * @author Malte
  */
 public class BookDTO {
+
     private int id;
     private String title, info;
 
@@ -20,6 +23,13 @@ public class BookDTO {
         this.id = id;
         this.title = title;
         this.info = info;
+    }
+
+    public BookDTO(Book book) {
+        this.id = book.getId();
+        this.title = book.getTitle();
+        this.info = book.getInfo();
+
     }
 
     public int getId() {
@@ -45,6 +55,5 @@ public class BookDTO {
     public void setTitle(String title) {
         this.title = title;
     }
-    
-    
+
 }
