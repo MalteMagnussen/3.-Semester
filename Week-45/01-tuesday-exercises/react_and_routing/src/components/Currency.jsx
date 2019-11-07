@@ -21,7 +21,7 @@ const Currency = ({ coinFactory }) => {
 
   const handleNewCoin = event => {
     event.preventDefault();
-    setCoins(coins.push({ ...coin }));
+    coins.push(coin);
     setCoin("");
   };
 
