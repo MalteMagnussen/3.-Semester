@@ -28,7 +28,8 @@ function handleHttpErrors(res) {
 
 function coinFactory() {
   const getCoins = coins => {
-    return fetch(URL, makeOptions("POST", { coins })).then(handleHttpErrors);
+    const options = makeOptions("POST", coins);
+    return fetch(URL, options).then(handleHttpErrors);
   };
 
   return {
