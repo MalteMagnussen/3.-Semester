@@ -13,16 +13,10 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.ext.Provider;
 
-/**
- *
- * @author Malte
- */
 /*
 How to set the right headers
 This Response-filter will set the required headers on all responses
-
-
-*/
+ */
 @Provider
 @PreMatching
 public class CorsResponseFilter implements ContainerResponseFilter {

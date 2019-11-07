@@ -13,10 +13,6 @@ import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 
-/**
- *
- * @author Malte
- */
 /*
 How to set the CORS headers in your Java backend
 This Request-filter will handle requests of the type OPTIONS
@@ -29,8 +25,6 @@ You can set the required headers for each REST-endpoint, but for a large REST-AP
 
 JAX-RS provides a concept Filters which can be used when you want to modify any request or response parameters like headers.
 In our case we can use it to set the required CORS headers on all request
-
-
  */
 @Provider  //This will ensure that the filter is used "automatically"
 @PreMatching
