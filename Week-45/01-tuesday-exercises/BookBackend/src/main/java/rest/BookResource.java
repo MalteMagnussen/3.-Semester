@@ -5,6 +5,7 @@ import dto.PersonDTO;
 import dto.PersonDTOnoId;
 import entities.Book;
 import entities.Person;
+import exceptions.BookNotFoundException;
 import exceptions.MissingInputException;
 import exceptions.PersonNotFoundException;
 import facades.BookFacade;
@@ -26,69 +27,45 @@ import javax.ws.rs.core.Response;
 
 @Path("book")
 public class BookResource {
-
+    
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
     private static final IBookFacade FACADE = BookFacade.getBookFacade(EMF);
-
+    
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<BookDTO> getAllPersonsDTO() {
+    public List<BookDTO> getAllBooks() throws BookNotFoundException {
         return FACADE.getBooks();
     }
     
-    
-
     @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getPersonDTObyID(@PathParam("id") int id) throws PersonNotFoundException {
-        try {
-            PersonDTO person = new PersonDTO(FACADE.getPerson(id));
-            return GSON.toJson(person);
-        } catch (PersonNotFoundException ex) {
-            throw new PersonNotFoundException(ex.getMessage());
-        }
+    public BookDTO getBookbyID(@PathParam("id") int id) throws BookNotFoundException {
+        return FACADE.getBook(id);
     }
-
+    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response savePerson(String p) throws MissingInputException {
-        try {
-            PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
-            Person person = FACADE.addPerson(personDTO.getfName(), personDTO.getlName(), personDTO.getPhone());
-            PersonDTOnoId responseDTO = new PersonDTOnoId(person);
-            return Response.ok(responseDTO).build();
-        } catch (MissingInputException ex) {
-            throw new MissingInputException(ex.getMessage());
-        }
+    public Response saveBook(BookDTO bookDTO) throws MissingInputException {
+        BookDTO responseBook = FACADE.createBook(bookDTO);
+        return Response.ok(responseBook).build();
     }
-
+    
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response editPerson(String p) throws PersonNotFoundException {
-        try {
-            PersonDTO personDTO = GSON.fromJson(p, PersonDTO.class);
-            Person person = FACADE.getPerson(personDTO.getId());
-            person.editPerson(personDTO);
-            PersonDTO responseDTO = new PersonDTO(FACADE.editPerson(person));
-            return Response.ok(responseDTO).build();
-        } catch (MissingInputException ex) {
-            return Response.notModified(ex.getMessage()).build();
-        }
+    public Response editBook(BookDTO bookDTO) throws MissingInputException {
+        BookDTO responseDTO = FACADE.editBook(bookDTO);
+        return Response.ok(responseDTO).build();
     }
-
+    
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public String deletePerson(@PathParam("id") int id) throws PersonNotFoundException {
-        try {
-            FACADE.deletePerson(id);
-            return "{\"status\": \"removed\"}";
-        } catch (PersonNotFoundException ex) {
-            throw new PersonNotFoundException(ex.getMessage());
-        }
+    public String deleteBook(@PathParam("id") int id) throws BookNotFoundException {
+        FACADE.deleteBook(id);
+        return "{\"status\": \"removed\"}";
     }
-
+    
 }

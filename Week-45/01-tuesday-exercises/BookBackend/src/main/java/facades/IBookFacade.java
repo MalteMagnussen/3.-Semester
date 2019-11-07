@@ -21,10 +21,10 @@ public interface IBookFacade {
     // Edit Book
     // Delete Book
     
-    public List<BookDTO> getBooks();
+    public List<BookDTO> getBooks() throws BookNotFoundException;
     public BookDTO getBook(int id) throws BookNotFoundException;
-    public void createBook(BookDTO bookDTO) throws MissingInputException;
-    public void editBook(BookDTO bookDTO) throws MissingInputException;
+    public BookDTO createBook(BookDTO bookDTO) throws MissingInputException;
+    public BookDTO editBook(BookDTO bookDTO) throws MissingInputException;
     public void deleteBook(int id);
     
 }

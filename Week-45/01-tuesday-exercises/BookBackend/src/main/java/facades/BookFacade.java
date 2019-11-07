@@ -45,12 +45,15 @@ public class BookFacade implements IBookFacade {
     }
 
     @Override
-    public List<BookDTO> getBooks() {
+    public List<BookDTO> getBooks() throws BookNotFoundException {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
             List<Book> books = em.createQuery("SELECT b FROM Book b").getResultList();
             em.getTransaction().commit();
+            if (books == null || books.isEmpty()) {
+                throw new BookNotFoundException("No Books in database.");
+            }
             List<BookDTO> books_dto = new ArrayList<>();
             books.forEach(book -> books_dto.add(new BookDTO(book)));
             return books_dto;
@@ -75,38 +78,46 @@ public class BookFacade implements IBookFacade {
     }
 
     @Override
-    public void createBook(BookDTO bookDTO) throws MissingInputException {
+    public BookDTO createBook(BookDTO bookDTO) throws MissingInputException {
         if (bookDTO == null || bookDTO.getInfo() == null || bookDTO.getInfo().isEmpty() || bookDTO.getTitle() == null || bookDTO.getTitle().isEmpty()) {
             throw new MissingInputException("Missing input when creating a book.");
         }
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(new Book(bookDTO));
+            Book book = new Book(bookDTO);
+            em.persist(book);
             em.getTransaction().commit();
+            bookDTO.setId(book.getId());
+
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
             em.close();
         }
+        return bookDTO;
 
     }
 
     @Override
-    public void editBook(BookDTO bookDTO) throws MissingInputException {
+    public BookDTO editBook(BookDTO bookDTO) throws MissingInputException {
         if (bookDTO == null || bookDTO.getInfo() == null || bookDTO.getInfo().isEmpty() || bookDTO.getTitle() == null || bookDTO.getTitle().isEmpty()) {
             throw new MissingInputException("Missing input when creating a book.");
         }
         EntityManager em = getEntityManager();
+        BookDTO returnBook = null;
         try {
             em.getTransaction().begin();
-            em.merge(new Book(bookDTO));
+            Book book = new Book(bookDTO);
+            em.merge(book);
             em.getTransaction().commit();
+            returnBook = new BookDTO(book);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
             em.close();
         }
+        return returnBook;
     }
 
     @Override
