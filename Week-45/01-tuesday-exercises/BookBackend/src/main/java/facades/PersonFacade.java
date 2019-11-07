@@ -2,7 +2,7 @@ package facades;
 
 import entities.Person;
 import exceptions.MissingInputException;
-import exceptions.BookNotFoundException;
+import exceptions.PersonNotFoundException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -59,7 +59,7 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public Person deletePerson(int id) throws BookNotFoundException {
+    public Person deletePerson(int id) throws PersonNotFoundException {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
@@ -69,14 +69,14 @@ public class PersonFacade implements IPersonFacade {
             return person;
         } catch (Exception e) {
             em.getTransaction().rollback();
-            throw new BookNotFoundException("Could not delete, provided id does not exist");
+            throw new PersonNotFoundException("Could not delete, provided id does not exist");
         } finally {
             em.close();
         }
     }
 
     @Override
-    public Person getPerson(int id) throws BookNotFoundException {
+    public Person getPerson(int id) throws PersonNotFoundException {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
@@ -85,7 +85,7 @@ public class PersonFacade implements IPersonFacade {
             if (person != null) {
                 return person;
             } else {
-                throw new BookNotFoundException("No person with provided id found");
+                throw new PersonNotFoundException("No person with provided id found");
             }
         } finally {
             em.close();
