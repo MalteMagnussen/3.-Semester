@@ -14,9 +14,11 @@ import Company from "./components/Company";
 import Product from "./components/Product";
 import Find from "./components/Find";
 import AddBook from "./components/AddBook";
+import Currency from "./components/Currency";
 
 function App(props) {
   const bookFactory = props.bookFactory;
+  const coinFactory = props.coinFactory;
   return (
     <Router>
       <Header />
@@ -36,6 +38,9 @@ function App(props) {
           </Route>
           <Route path="/find">
             <Find bookFactory={bookFactory} />
+          </Route>
+          <Route path="/coins">
+            <Currency coinFactory={coinFactory} />
           </Route>
           <Route path="*">
             <NoMatch />
@@ -71,6 +76,11 @@ const Header = () => (
     <li>
       <NavLink activeClassName="active" to="/find">
         Find Book
+      </NavLink>
+    </li>
+    <li>
+      <NavLink activeClassName="active" to="/coins">
+        Currency
       </NavLink>
     </li>
   </ul>

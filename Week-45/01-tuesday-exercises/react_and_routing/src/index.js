@@ -4,12 +4,13 @@ import "./index.css";
 import App from "./App";
 
 import bookFactory from "./bookFactory";
+import coinFactory from "./coinFactory";
 import { BrowserRouter as Router } from "react-router-dom";
 
 const AppWithRouter = () => {
   return (
     <Router>
-      <App bookFactory={bookFactory} />
+      <App bookFactory={bookFactory} coinFactory={coinFactory} />
     </Router>
   );
 };
