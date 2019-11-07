@@ -13,14 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import org.eclipse.persistence.internal.oxm.record.json.JSONReader;
 
 /**
  *
  * @author Malte
  */
 public class BookFacade implements IBookFacade {
-    
+
     private static BookFacade instance;
     private static EntityManagerFactory emf;
 
@@ -76,8 +75,8 @@ public class BookFacade implements IBookFacade {
     }
 
     @Override
-    public void createBook(BookDTO bookDTO) throws MissingInputException{
-        if (bookDTO == null || bookDTO.getInfo() == null || bookDTO.getInfo().isEmpty() || bookDTO.getTitle() == null || bookDTO.getTitle().isEmpty()){
+    public void createBook(BookDTO bookDTO) throws MissingInputException {
+        if (bookDTO == null || bookDTO.getInfo() == null || bookDTO.getInfo().isEmpty() || bookDTO.getTitle() == null || bookDTO.getTitle().isEmpty()) {
             throw new MissingInputException("Missing input when creating a book.");
         }
         EntityManager em = getEntityManager();
@@ -90,17 +89,36 @@ public class BookFacade implements IBookFacade {
         } finally {
             em.close();
         }
-        
+
     }
 
     @Override
-    public BookDTO editBook(BookDTO bookDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editBook(BookDTO bookDTO) throws MissingInputException {
+        if (bookDTO == null || bookDTO.getInfo() == null || bookDTO.getInfo().isEmpty() || bookDTO.getTitle() == null || bookDTO.getTitle().isEmpty()) {
+            throw new MissingInputException("Missing input when creating a book.");
+        }
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(new Book(bookDTO));
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            em.close();
+        }
     }
 
     @Override
-    public String deleteBook(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteBook(int id) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.remove(em.find(Book.class, id));
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
-    
+
 }
