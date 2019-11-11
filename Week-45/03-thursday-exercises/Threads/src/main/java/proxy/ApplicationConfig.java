@@ -10,11 +10,6 @@ public class ApplicationConfig extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<>();
         addRestResourceClasses(resources);
-
-        //These two Resource Classes are not auto discovered so we add them manually
-        resources.add(OpenApiResource.class);
-        resources.add(AcceptHeaderOpenApiResource.class);
-
         return resources;
     }
 
@@ -25,7 +20,8 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(cors.CorsFilter.class);
+        resources.add(cors.CorsRequestFilter.class);
+        resources.add(cors.CorsResponseFilter.class);
         resources.add(org.glassfish.jersey.server.wadl.internal.WadlResource.class);
         resources.add(proxy.BinanceResource.class);
     }
