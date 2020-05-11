@@ -35,19 +35,26 @@ import javax.ws.rs.core.MediaType;
 @Path("binance")
 public class BinanceResource {
 
-    /**
+    /*
      * The restful endpoint we will use is
      * https://api.binance.com/api/v3/avgPrice?symbol=BTCTUSD which gives us the
      * average price of a symbol (a symbol is a coinpair in this case the price
-     * of Bitcoin in US Dollars (TUSD)) Tasks:. 1. Create a new data facade to
-     * get data from binance api. 2. In the facade create a method to return the
-     * price given a symbol 3. Use an Executor Service to start as many new
-     * threads as there are symbols to check. 4. Submit new tasks to the
+     * of Bitcoin in US Dollars (TUSD)) Tasks:. 
+    1. Create a new data facade to
+     * get data from binance api. 
+    2. In the facade create a method to return the
+     * price given a symbol 
+    3. Use an Executor Service to start as many new
+     * threads as there are symbols to check. 
+    4. Submit new tasks to the
      * executor service where you use Callables to get prices based on the
-     * symbol 5. Aggregate the prices into a java Map<String, Double> where key
-     * is the symbol name and value is the price 6. Create a restful endpoint in
+     * symbol 
+    5. Aggregate the prices into a java Map<String, Double> where key
+     * is the symbol name and value is the price 
+    6. Create a restful endpoint in
      * your server so that by requesting crypto prices a client can get json
-     * formed response with prices of all the symbols 7. Here is a list of some
+     * formed response with prices of all the symbols 
+    7. Here is a list of some
      * available symbols:
      * (“ADATUSD”,”ATOMTUSD”,”BATTUSD”,BNBTUSD”,”BTCTUSD”,”EOSTUSD”,”ETCTUSD”,”ETHTUSD”,”LTCTUSD”,”NEOTUSD”,”TRXTUSD”,”XRPTUSD”)
      * 8. Create a client app in react with a CryptoTable component where you
